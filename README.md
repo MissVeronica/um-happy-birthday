@@ -16,6 +16,11 @@ Extension to Ultimate Member for Birthday greeting emails
 ## UM meta_key
 1. <code>um_birthday_greeted_last</code> in Y/m/d format when last email "Happy Birthday" was sent to the User.
 
+## WP cron job
+1. Name: <code>um_cron_birthday_greet_notification</code>
+2. Schedule: Hourly
+3. Management plugin: Advanced Cron Manager https://wordpress.org/plugins/advanced-cron-manager/
+
 ## Updates
 None
 
