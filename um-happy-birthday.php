@@ -2,7 +2,7 @@
 /**
  * Plugin Name:         Ultimate Member - Happy Birthday
  * Description:         Extension to Ultimate Member for Birthday greeting emails.
- * Version:             1.0.0
+ * Version:             1.1.0
  * Requires PHP:        7.4
  * Author:              Miss Veronica
  * License:             GPL v3 or later
@@ -53,7 +53,9 @@ class UM_Happy_Birthday {
         $located = wp_normalize_path( STYLESHEETPATH . '/ultimate-member/email/um_greet_todays_birthdays.php' );
 
         if ( ! file_exists( $located )) {
-            file_put_contents( $located, $notifications['um_greet_todays_birthdays']['body']  );
+            if ( is_dir( STYLESHEETPATH . '/ultimate-member/email' )) {
+                file_put_contents( $located, $notifications['um_greet_todays_birthdays']['body']  );
+            }
         }
 
         return $notifications;
@@ -116,4 +118,5 @@ class UM_Happy_Birthday {
 }
 
 new UM_Happy_Birthday();
+
 
