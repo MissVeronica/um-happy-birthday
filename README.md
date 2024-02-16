@@ -4,6 +4,7 @@ Extension to Ultimate Member for Birthday greeting emails
 ## UM Settings - Emails
 1. "Happy Birthday" notification email
 2. Template is saved to active theme's folder: <code>ultimate-member/email/um_greet_todays_birthdays.php</code>
+3. If you don't have custom email templates already you must create active theme's folder: <code>ultimate-member/email</code>
 
 ## Email Placeholders
 1. {display_name}
@@ -22,7 +23,7 @@ Extension to Ultimate Member for Birthday greeting emails
 3. Management plugin: Advanced Cron Manager https://wordpress.org/plugins/advanced-cron-manager/
 
 ## Updates
-None
+1. Version 1.1.0 Code improvements
 
 ## Installation
 1. Install by downloading the plugin ZIP file and install as a new Plugin, which you upload in WordPress -> Plugins -> Add New -> Upload Plugin.
