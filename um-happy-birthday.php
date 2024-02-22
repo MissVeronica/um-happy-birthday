@@ -2,7 +2,7 @@
 /**
  * Plugin Name:         Ultimate Member - Happy Birthday
  * Description:         Extension to Ultimate Member for Birthday greeting emails.
- * Version:             1.1.0
+ * Version:             1.2.0
  * Requires PHP:        7.4
  * Author:              Miss Veronica
  * License:             GPL v3 or later
@@ -10,7 +10,7 @@
  * Author URI:          https://github.com/MissVeronica
  * Text Domain:         ultimate-member
  * Domain Path:         /languages
- * UM version:          2.8.2
+ * UM version:          2.8.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -20,7 +20,8 @@ class UM_Happy_Birthday {
 
     function __construct() {
 
-        add_filter( 'um_email_notifications', array( $this, 'um_email_notifications' ), 10, 1 );        
+        add_filter( 'um_email_notifications', array( $this, 'um_email_notifications' ), 10, 1 );
+        add_action(	'um_extend_admin_menu',   array( $this, 'copy_email_notifications_happy_birthday' ), 10 );
 
         if ( isset( UM()->options()->options[ 'um_greet_todays_birthdays_on' ] ) && UM()->options()->options[ 'um_greet_todays_birthdays_on' ] == 1 ) {
 
@@ -30,6 +31,8 @@ class UM_Happy_Birthday {
                 wp_schedule_event( time(), 'hourly', 'um_cron_birthday_greet_notification' );
             }
         }
+
+        define( 'Happy_Birthday_Path', plugin_dir_path( __FILE__ ) );
     }
 
     public function um_email_notifications( $notifications ) {
@@ -50,15 +53,30 @@ class UM_Happy_Birthday {
             UM()->options()->options[ 'um_greet_todays_birthdays_sub' ] = $notifications['um_greet_todays_birthdays']['subject'];
         }
 
-        $located = wp_normalize_path( STYLESHEETPATH . '/ultimate-member/email/um_greet_todays_birthdays.php' );
+        return $notifications;
+    }
 
-        if ( ! file_exists( $located )) {
-            if ( is_dir( STYLESHEETPATH . '/ultimate-member/email' )) {
-                file_put_contents( $located, $notifications['um_greet_todays_birthdays']['body']  );
-            }
+    public function copy_email_notifications_happy_birthday() {
+
+        $slug = 'um_greet_todays_birthdays';
+
+        $located = UM()->mail()->locate_template( $slug );
+        if ( ! is_file( $located ) || filesize( $located ) == 0 ) {
+            $located = wp_normalize_path( STYLESHEETPATH . '/ultimate-member/email/' . $slug . '.php' );
         }
 
-        return $notifications;
+        clearstatcache();
+        if ( ! file_exists( $located ) || filesize( $located ) == 0 ) {
+
+            wp_mkdir_p( dirname( $located ) );
+
+            $email_source = file_get_contents( Happy_Birthday_Path . $slug . '.php' );
+            file_put_contents( $located, $email_source );
+
+            if ( ! file_exists( $located ) ) {
+                file_put_contents( um_path . 'templates/email/' . $slug . '.php', $email_source );
+            }
+        }
     }
 
     public function um_cron_task_birthday_greet_notification() {
