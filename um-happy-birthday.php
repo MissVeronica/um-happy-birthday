@@ -41,7 +41,7 @@ class UM_Happy_Birthday {
                                 'key'            => 'um_greet_todays_birthdays',
                                 'title'          => __( 'Happy Birthday!', 'ultimate-member' ),
                                 'subject'        => __( 'Happy Birthday from {site_name}', 'ultimate-member' ),
-                                'body'           => 'Hi {first_name},<br /><br />We wish you a happy birthday!<br /><br />The {site_name} Team',
+                                'body'           => 'Hi {first_name},<br /><br />We wish you a happy birthday today!<br /><br />The {site_name} Team',
                                 'description'    => __('Whether to send the user an email when someone is today\'s birthday.','ultimate-member'),
                                 'recipient'   	 => 'member',
                                 'default_active' => true,
@@ -136,5 +136,6 @@ class UM_Happy_Birthday {
 }
 
 new UM_Happy_Birthday();
+
 
 
