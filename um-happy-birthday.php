@@ -2,7 +2,7 @@
 /**
  * Plugin Name:         Ultimate Member - Happy Birthday
  * Description:         Extension to Ultimate Member for Birthday greeting emails.
- * Version:             1.3.0
+ * Version:             1.3.1
  * Requires PHP:        7.4
  * Author:              Miss Veronica
  * License:             GPL v3 or later
@@ -25,7 +25,13 @@ class UM_Happy_Birthday {
         add_filter( 'um_email_notifications', array( $this, 'um_email_notifications' ), 10, 1 );
         add_action(	'um_extend_admin_menu',   array( $this, 'copy_email_notifications_happy_birthday' ), 10 );
 
-        if ( isset( UM()->options()->options[ 'um_greet_todays_birthdays_on' ] ) && UM()->options()->options[ 'um_greet_todays_birthdays_on' ] == 1 ) {
+        $UM_class = new Options();
+        $reflectionProperty = new \ReflectionProperty( Options::class, 'options' );
+        $reflectionProperty->setAccessible( true );
+
+        $UM_options = $reflectionProperty->getValue( $UM_class );
+
+        if ( isset( $UM_options[ 'um_greet_todays_birthdays_on' ] ) && $UM_options[ 'um_greet_todays_birthdays_on' ] == 1 ) {
 
             add_action( 'um_cron_birthday_greet_notification', array( $this, 'um_cron_task_birthday_greet_notification' ));
 
@@ -142,3 +148,5 @@ class UM_Happy_Birthday {
 }
 
 new UM_Happy_Birthday();
+
+
