@@ -2,7 +2,7 @@
 /**
  * Plugin Name:         Ultimate Member - Happy Birthday
  * Description:         Extension to Ultimate Member for Birthday greeting emails.
- * Version:             1.2.0
+ * Version:             1.3.0
  * Requires PHP:        7.4
  * Author:              Miss Veronica
  * License:             GPL v3 or later
@@ -10,11 +10,13 @@
  * Author URI:          https://github.com/MissVeronica
  * Text Domain:         ultimate-member
  * Domain Path:         /languages
- * UM version:          2.8.3
+ * UM version:          2.8.5
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 if ( ! class_exists( 'UM' ) ) return;
+
+use um\core\Options;
 
 class UM_Happy_Birthday {
 
@@ -47,10 +49,14 @@ class UM_Happy_Birthday {
                                 'default_active' => true,
                             );
 
-        if ( ! array_key_exists( 'um_greet_todays_birthdays_on', UM()->options()->options ) ) {
+        $UM_class = new Options();
+        $reflectionProperty = new \ReflectionProperty( Options::class, 'options' );
+        $reflectionProperty->setAccessible( true );
 
-            UM()->options()->options[ 'um_greet_todays_birthdays_on' ]  = 1;
-            UM()->options()->options[ 'um_greet_todays_birthdays_sub' ] = $notifications['um_greet_todays_birthdays']['subject'];
+        if ( ! array_key_exists( 'um_greet_todays_birthdays_on', $reflectionProperty->getValue( $UM_class ) ) ) {
+
+            $reflectionProperty->setValue( $UM_class[ 'um_greet_todays_birthdays_on' ], 1 );
+            $reflectionProperty->setValue( $UM_class[ 'um_greet_todays_birthdays_sub' ], $notifications['um_greet_todays_birthdays']['subject'] );
         }
 
         return $notifications;
@@ -136,6 +142,3 @@ class UM_Happy_Birthday {
 }
 
 new UM_Happy_Birthday();
-
-
-
