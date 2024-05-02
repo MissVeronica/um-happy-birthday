@@ -1,6 +1,8 @@
 # UM Happy Birthday
 Extension to Ultimate Member for Birthday greeting emails
 
+Next version 2.0.0 with a lot of new features like send the greetings log by email to admin, Roles asnd User status selections. Resending greetings during the celebration day. Will also try to test and include SMS text greetings.
+
 ## UM Settings - Emails
 1. "Happy Birthday" notification email
 2. Template is saved to active theme's folder: <code>ultimate-member/email/um_greet_todays_birthdays.php</code>
