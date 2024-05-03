@@ -3,9 +3,10 @@ Extension to Ultimate Member for Birthday greeting emails
 
 ## Next update Version 2.0.0
 1. Send the greetings daily log by email to admin
-2. Roles and User status selections.
-3. Resending greetings during the celebration day.
-4. Will also try to test and include SMS text greetings.
+2. UM Dashboard status modal
+3. Roles and User status selections.
+4. Resending greetings during the celebration day.
+5. Will also try to test and include SMS text greetings.
 
 ## UM Settings - Emails
 1. "Happy Birthday" notification email
