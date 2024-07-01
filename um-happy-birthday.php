@@ -2,7 +2,7 @@
 /**
  * Plugin Name:         Ultimate Member - Happy Birthday
  * Description:         Extension to Ultimate Member for Birthday greeting emails and optional mobile SMS texts.
- * Version:             2.0.0
+ * Version:             2.1.0
  * Requires PHP:        7.4
  * Author:              Miss Veronica
  * License:             GPL v3 or later
@@ -55,6 +55,8 @@ class UM_Happy_Birthday {
     public $email_send_status       = '';
     public $sms_send_status         = '';
     public $new_plugin_version      = '';
+    public $celebrants_today        = '';
+    public $celebrants_summary      = '';
 
     public $account_status   = array(
                                     'approved'                    => 'Approved',
@@ -130,8 +132,10 @@ class UM_Happy_Birthday {
 
     public function load_metabox_happy_birthday() {
 
+        $this->celebrants_summary = $this->prepare_status_listing();
+
         add_meta_box(   'um-metaboxes-sidebox-happy-birthday',
-                        __( 'Happy Birthday', 'happy-birthday' ),
+                        sprintf( __( 'Happy Birthday - %s', 'happy-birthday' ), $this->celebrants_today ),
                         array( $this, 'toplevel_page_happy_birthday' ),
                         'toplevel_page_ultimatemember', 'side', 'core'
                     );
@@ -143,7 +147,7 @@ class UM_Happy_Birthday {
         ?>
         <div>
         <?php
-            echo $this->prepare_status_listing();
+            echo $this->celebrants_summary;
         ?>
         </div>
         <?php
@@ -399,6 +403,7 @@ class UM_Happy_Birthday {
 
                     if ( $email_activated ) {
                         $celebrants[$user_id]['email'] = true;
+                        $celebrants[$user_id]['sms']   = false;
                     }
 
                     if ( $sms_activated ) {
@@ -1057,6 +1062,7 @@ class UM_Happy_Birthday {
 
         if ( $delta == 0 ) {
             $hdr = str_replace( substr( $this->today, 0, 10 ), __( 'today', 'happy-birthday' ), $hdr );
+            $this->celebrants_today = str_replace( $link, '', $hdr );
             $hdr = '<span style="color: green;">' . $hdr . '</span>';
         }
         $this->description[] = $hdr;
@@ -1670,4 +1676,5 @@ class UM_Happy_Birthday {
 }
 
 new UM_Happy_Birthday();
+
 
