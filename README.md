@@ -64,7 +64,8 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 
 ## Updates
 1. Github version update status is checked once each day.
-2. Current Version 2.0.0 
+2. Current Version 2.0.0
+3. Version 2.1.0 Code improvements 
 
 ## References
 1. WP Cron:  https://developer.wordpress.org/plugins/cron/
