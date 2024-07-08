@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ultimate Member - Happy Birthday\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-04 14:07+0000\n"
+"POT-Creation-Date: 2024-07-08 08:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -13,198 +13,206 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.6.9; wp-6.5.3\n"
+"X-Loco-Version: 2.6.10; wp-6.5.5\n"
 "X-Domain: happy-birthday"
 
-#: um-happy-birthday.php:1055
+#: um-happy-birthday.php:1080
 #, php-format
 msgid "%d celebrants %s %s"
 msgstr ""
 
-#: um-happy-birthday.php:992
+#: um-happy-birthday.php:1017
 #, php-format
 msgid "%s greetings failed"
 msgstr ""
 
-#: um-happy-birthday.php:1109
+#: um-happy-birthday.php:1156
 msgid ""
 "A \"Resend\" must be applied from the WP All Users page and UM Action "
 "dropdown at least 2 hours before midnight."
 msgstr ""
 
-#: um-happy-birthday.php:542 um-happy-birthday.php:762
-#: um-happy-birthday.php:1346
+#: um-happy-birthday.php:1847
+msgid "Accept Birthday greetings"
+msgstr ""
+
+#: um-happy-birthday.php:567 um-happy-birthday.php:787
+#: um-happy-birthday.php:1401
 msgid "Accoun status"
 msgstr ""
 
-#: um-happy-birthday.php:1332
+#: um-happy-birthday.php:1387
 msgid "Activate Admin info email"
 msgstr ""
 
-#: um-happy-birthday.php:1233
+#: um-happy-birthday.php:1288
 msgid "Activate sending emails"
 msgstr ""
 
-#: um-happy-birthday.php:1310
+#: um-happy-birthday.php:1365
 msgid "Activate sending flash WP SMS"
 msgstr ""
 
-#: um-happy-birthday.php:1303
+#: um-happy-birthday.php:1358
 msgid "Activate sending WP SMS"
 msgstr ""
 
-#: um-happy-birthday.php:1127
+#: um-happy-birthday.php:1174
 #, php-format
 msgid "Activate the Happy Birthday %s"
 msgstr ""
 
-#: um-happy-birthday.php:1220
+#: um-happy-birthday.php:1275
 msgid "Activate the UM Dashboard modal"
 msgstr ""
 
-#: um-happy-birthday.php:538 um-happy-birthday.php:758
+#: um-happy-birthday.php:563 um-happy-birthday.php:783
 msgid "Age"
 msgstr ""
 
-#: um-happy-birthday.php:1390
+#: um-happy-birthday.php:1445
 msgid "Allow users to enable/disable greetings"
 msgstr ""
 
-#: um-happy-birthday.php:1195
+#: um-happy-birthday.php:1250
 msgid "Backend Celebrant lists"
 msgstr ""
 
-#: um-happy-birthday.php:539 um-happy-birthday.php:759
-#: um-happy-birthday.php:1343
+#: um-happy-birthday.php:564 um-happy-birthday.php:784
+#: um-happy-birthday.php:1398
 msgid "Birth date"
 msgstr ""
 
-#: um-happy-birthday.php:508 um-happy-birthday.php:510
+#: um-happy-birthday.php:533 um-happy-birthday.php:535
 #, php-format
 msgid "Birthday greetings today %s"
 msgstr ""
 
-#: um-happy-birthday.php:1342
+#: um-happy-birthday.php:1397
 msgid "Celebrant age"
 msgstr ""
 
-#: um-happy-birthday.php:1267
+#: um-happy-birthday.php:1322
 msgid ""
 "Click if you are using WP Mail and not a SMTP transport service for your "
 "emails."
 msgstr ""
 
-#: um-happy-birthday.php:1128
+#: um-happy-birthday.php:1175
 msgid "Click to activate the Plugin's WP Cronjob"
 msgstr ""
 
-#: um-happy-birthday.php:1221
+#: um-happy-birthday.php:1276
 msgid "Click to activate the UM Dashboard modal for Happy Birthday."
 msgstr ""
 
-#: um-happy-birthday.php:1391
+#: um-happy-birthday.php:1446
 msgid "Click to allow Users to enable/disable greetings at their Account page."
 msgstr ""
 
-#: um-happy-birthday.php:1333
+#: um-happy-birthday.php:1388
 msgid ""
 "Click to enable the Admin info email sent after each batch of greetings "
 "emails."
 msgstr ""
 
-#: um-happy-birthday.php:1234
+#: um-happy-birthday.php:1289
 msgid "Click to enable the WP Cronjob sending Happy Birthday emails."
 msgstr ""
 
-#: um-happy-birthday.php:1311
+#: um-happy-birthday.php:1366
 msgid ""
 "Click to enable the WP Cronjob sending Happy Birthday flash SMS text greeting"
 msgstr ""
 
-#: um-happy-birthday.php:1304
+#: um-happy-birthday.php:1359
 msgid ""
 "Click to enable the WP Cronjob sending Happy Birthday mobile SMS text "
 "greeting instead of an email if User registered with Mobile number"
 msgstr ""
 
-#: um-happy-birthday.php:1202
+#: um-happy-birthday.php:1257
 msgid ""
 "Click to get a list of each Celebrant User name for the Celebrant listing at "
 "this page and UM Dashboard modal if activated."
 msgstr ""
 
-#: um-happy-birthday.php:1531
+#: um-happy-birthday.php:1641
 msgid "cURL extension not loaded by PHP"
 msgstr ""
 
-#: um-happy-birthday.php:1326
+#: um-happy-birthday.php:1242
+msgid "Current old Users default consent is \"No\""
+msgstr ""
+
+#: um-happy-birthday.php:1381
 msgid "Daily Admin summary email"
 msgstr ""
 
-#: um-happy-birthday.php:1210
+#: um-happy-birthday.php:1265
 msgid "Display Name"
 msgstr ""
 
-#: um-happy-birthday.php:541 um-happy-birthday.php:761
-#: um-happy-birthday.php:1345
+#: um-happy-birthday.php:566 um-happy-birthday.php:786
+#: um-happy-birthday.php:1400
 msgid "Display name"
 msgstr ""
 
-#: um-happy-birthday.php:1413
+#: um-happy-birthday.php:1485
 msgid "Do you want to receive birthday greetings?"
 msgstr ""
 
-#: um-happy-birthday.php:641
+#: um-happy-birthday.php:666
 msgid "Email failure = email resend"
 msgstr ""
 
-#: um-happy-birthday.php:489
+#: um-happy-birthday.php:514
 msgid "Email failures: %d"
 msgstr ""
 
-#: um-happy-birthday.php:1227
+#: um-happy-birthday.php:1282
 msgid "Email greetings"
 msgstr ""
 
-#: um-happy-birthday.php:637
+#: um-happy-birthday.php:662
 msgid "Email resent by Admin"
 msgstr ""
 
-#: um-happy-birthday.php:170
+#: um-happy-birthday.php:190
 msgid "email template is active"
 msgstr ""
 
-#: um-happy-birthday.php:215
+#: um-happy-birthday.php:235
 msgid "email template is not active and greetings are disabled"
 msgstr ""
 
-#: um-happy-birthday.php:768
+#: um-happy-birthday.php:793
 msgid "Email WP status"
 msgstr ""
 
-#: um-happy-birthday.php:649
+#: um-happy-birthday.php:674
 #, php-format
 msgid "Email WP status %s to %s"
 msgstr ""
 
-#: um-happy-birthday.php:653
+#: um-happy-birthday.php:678
 #, php-format
 msgid "Email WP status %s to &s"
 msgstr ""
 
-#: um-happy-birthday.php:488
+#: um-happy-birthday.php:513
 msgid "Emails OK: %d"
 msgstr ""
 
-#: um-happy-birthday.php:1414
+#: um-happy-birthday.php:1486
 msgid "Enable/Disable birthday greetings via email or SMS text message"
 msgstr ""
 
-#: um-happy-birthday.php:1378
+#: um-happy-birthday.php:1433
 msgid "Enter the URL to the Members Directory page for display of celebrants."
 msgstr ""
 
-#: um-happy-birthday.php:1319
+#: um-happy-birthday.php:1374
 msgid ""
 "Enter your Happy Birthday SMS text greeting and you can use UM email "
 "placeholders and {today}, {age}, {user_id}, {mobile_number}"
@@ -216,53 +224,61 @@ msgid ""
 "mobile SMS texts."
 msgstr ""
 
-#: um-happy-birthday.php:1522
+#: um-happy-birthday.php:1632
 #, php-format
 msgid "Github plugin version status is checked each 24 hours last at %s."
 msgstr ""
 
-#: um-happy-birthday.php:1527
+#: um-happy-birthday.php:1637
 #, php-format
 msgid "GitHub remote connection cURL error: %s"
 msgstr ""
 
-#: um-happy-birthday.php:1003
+#: um-happy-birthday.php:1028
 msgid "Greetings not possible"
 msgstr ""
 
-#: um-happy-birthday.php:903
+#: um-happy-birthday.php:928
 #, php-format
 msgid "Greetings to email address %s"
 msgstr ""
 
-#: um-happy-birthday.php:897
+#: um-happy-birthday.php:922
 #, php-format
 msgid "Greetings to mobile number %s"
 msgstr ""
 
-#: um-happy-birthday.php:134 um-happy-birthday.php:170
-#: um-happy-birthday.php:215 um-happy-birthday.php:1112
-#: um-happy-birthday.php:1437
+#: um-happy-birthday.php:190 um-happy-birthday.php:235
+#: um-happy-birthday.php:1159 um-happy-birthday.php:1547
 msgid "Happy Birthday"
 msgstr ""
 
-#: um-happy-birthday.php:1438
+#: um-happy-birthday.php:154
+#, php-format
+msgid "Happy Birthday - %s"
+msgstr ""
+
+#: um-happy-birthday.php:1548
 msgid "Happy Birthday from {site_name}"
 msgstr ""
 
-#: um-happy-birthday.php:1639 um-happy-birthday.php:1642
+#: um-happy-birthday.php:1840 um-happy-birthday.php:1843
+msgid "Happy Birthday greetings consent"
+msgstr ""
+
+#: um-happy-birthday.php:1810 um-happy-birthday.php:1813
 msgid "Happy Birthday last greeted"
 msgstr ""
 
-#: um-happy-birthday.php:1659 um-happy-birthday.php:1662
+#: um-happy-birthday.php:1830 um-happy-birthday.php:1833
 msgid "Happy Birthday last greeted error"
 msgstr ""
 
-#: um-happy-birthday.php:1649 um-happy-birthday.php:1652
+#: um-happy-birthday.php:1820 um-happy-birthday.php:1823
 msgid "Happy Birthday last greeted status"
 msgstr ""
 
-#: um-happy-birthday.php:569
+#: um-happy-birthday.php:594
 msgid ""
 "Happy Birthday {display_name}! Hope you have a fantastic day! Regards "
 "{site_name}"
@@ -276,23 +292,23 @@ msgstr ""
 msgid "https://github.com/MissVeronica/um-happy-birthday"
 msgstr ""
 
-#: um-happy-birthday.php:851
+#: um-happy-birthday.php:876
 msgid "Impossible to send Happy Birthday greetings"
 msgstr ""
 
-#: um-happy-birthday.php:544 um-happy-birthday.php:764
+#: um-happy-birthday.php:569 um-happy-birthday.php:789
 msgid "Last login"
 msgstr ""
 
-#: um-happy-birthday.php:1348
+#: um-happy-birthday.php:1403
 msgid "Last login date"
 msgstr ""
 
-#: um-happy-birthday.php:1361
+#: um-happy-birthday.php:1416
 msgid "Members Directory for display of Celebrants"
 msgstr ""
 
-#: um-happy-birthday.php:1049
+#: um-happy-birthday.php:1074
 msgid "Members Directory page"
 msgstr ""
 
@@ -300,274 +316,293 @@ msgstr ""
 msgid "Miss Veronica"
 msgstr ""
 
-#: um-happy-birthday.php:1108
+#: um-happy-birthday.php:1155
 msgid ""
 "New sending attempt also during next hour if additional Account Status or "
 "Roles are selected"
 msgstr ""
 
-#: um-happy-birthday.php:1107
+#: um-happy-birthday.php:1154
 msgid "New sending attempt each hour if plugin or email/WP-SMS been inactive."
 msgstr ""
 
-#: um-happy-birthday.php:1420
+#: um-happy-birthday.php:134
 msgid "No"
 msgstr ""
 
-#: um-happy-birthday.php:241
+#: um-happy-birthday.php:261
 msgid "No active Plugin WP Cronjob for Happy Birthday messages"
 msgstr ""
 
-#: um-happy-birthday.php:1053
+#: um-happy-birthday.php:1078
 #, php-format
 msgid "No celebrants %s"
 msgstr ""
 
-#: um-happy-birthday.php:653
+#: um-happy-birthday.php:678
 msgid "Not sent"
 msgstr ""
 
-#: um-happy-birthday.php:511
+#: um-happy-birthday.php:536
 #, php-format
 msgid "Number of greetings sent in this batch: %s"
 msgstr ""
 
-#: um-happy-birthday.php:1054
+#: um-happy-birthday.php:1079
 #, php-format
 msgid "One celebrant %s %s"
 msgstr ""
 
-#: um-happy-birthday.php:997
+#: um-happy-birthday.php:1022
 #, php-format
 msgid "Pending %s greetings"
 msgstr ""
 
-#: um-happy-birthday.php:169
+#: um-happy-birthday.php:189
 msgid "Plugin is active"
 msgstr ""
 
-#: um-happy-birthday.php:210
+#: um-happy-birthday.php:230
 msgid "Plugin is paused and not sending any Happy Birthday greetings"
 msgstr ""
 
-#: um-happy-birthday.php:1516
+#: um-happy-birthday.php:1626
 #, php-format
 msgid "Plugin is updated to latest version %s."
 msgstr ""
 
-#: um-happy-birthday.php:1433
+#: um-happy-birthday.php:1543
 msgid "Plugin settings"
 msgstr ""
 
-#: um-happy-birthday.php:1511
+#: um-happy-birthday.php:1621
 msgid "Plugin version update verification failed"
 msgstr ""
 
-#: um-happy-birthday.php:186
+#: um-happy-birthday.php:206
 msgid "Plugin will NOT send any Happy Birthday email greetings"
 msgstr ""
 
-#: um-happy-birthday.php:202
+#: um-happy-birthday.php:222
 #, php-format
 msgid "Plugin will NOT try to send any Happy Birthday \"%s\" text greetings"
 msgstr ""
 
-#: um-happy-birthday.php:177
+#: um-happy-birthday.php:197
 msgid ""
 "Plugin will only send Happy Birthday email greetings to users with mobile "
 "numbers if the SMS text sending fails"
 msgstr ""
 
-#: um-happy-birthday.php:180
+#: um-happy-birthday.php:200
 msgid "Plugin will send max %d Happy Birthday email greetings per hour"
 msgstr ""
 
-#: um-happy-birthday.php:199
+#: um-happy-birthday.php:219
 #, php-format
 msgid "Plugin will try to send Happy Birthday \"%s\" text greetings"
 msgstr ""
 
-#: um-happy-birthday.php:1188
+#: um-happy-birthday.php:1235
 msgid "Priority User Roles to include"
 msgstr ""
 
-#: um-happy-birthday.php:547 um-happy-birthday.php:767
+#: um-happy-birthday.php:572 um-happy-birthday.php:792
 msgid "Profile page"
 msgstr ""
 
-#: um-happy-birthday.php:1351
+#: um-happy-birthday.php:1406
 msgid "Profile page link"
 msgstr ""
 
-#: um-happy-birthday.php:1410
+#: um-happy-birthday.php:1482
 msgid "Receive birthday greetings?"
 msgstr ""
 
-#: um-happy-birthday.php:543 um-happy-birthday.php:763
-#: um-happy-birthday.php:1347
+#: um-happy-birthday.php:568 um-happy-birthday.php:788
+#: um-happy-birthday.php:1402
 msgid "Registration date"
 msgstr ""
 
-#: um-happy-birthday.php:954
+#: um-happy-birthday.php:979
 msgid "Resend by Admin"
 msgstr ""
 
-#: um-happy-birthday.php:262 um-happy-birthday.php:266
+#: um-happy-birthday.php:282 um-happy-birthday.php:286
 msgid "Resend Happy Birthday greetings"
 msgstr ""
 
-#: um-happy-birthday.php:838
+#: um-happy-birthday.php:863
 msgid "Second attempt this hour to send remaining Happy Birthday greetings"
 msgstr ""
 
-#: um-happy-birthday.php:1275
+#: um-happy-birthday.php:1330
 msgid "Select delay in seconds for WP Mail"
 msgstr ""
 
-#: um-happy-birthday.php:1241
+#: um-happy-birthday.php:1296
 msgid "Select email sending speed"
 msgstr ""
 
-#: um-happy-birthday.php:1340
+#: um-happy-birthday.php:1395
 msgid "Select info in Admin email"
 msgstr ""
 
-#: um-happy-birthday.php:1368
+#: um-happy-birthday.php:1423
 msgid "Select Members Directory form"
 msgstr ""
 
-#: um-happy-birthday.php:1208
+#: um-happy-birthday.php:1263
 msgid "Select Name in the Celebrant list"
 msgstr ""
 
-#: um-happy-birthday.php:1179
+#: um-happy-birthday.php:1226
 msgid "Select the Account statuses to receive the Happy Birthday greeting"
 msgstr ""
 
-#: um-happy-birthday.php:1288
+#: um-happy-birthday.php:1343
 msgid ""
 "Select the delay in seconds between each greetings email being sent via WP "
 "Mail."
 msgstr ""
 
-#: um-happy-birthday.php:1106
+#: um-happy-birthday.php:1153
 msgid ""
 "Select the hour during the day when the Happy Birthday plugin first will try "
 "to send greetings to the User."
 msgstr ""
 
-#: um-happy-birthday.php:1354
+#: um-happy-birthday.php:1409
 msgid ""
 "Select the information fields about the celebrant to include in the Admin "
 "info email."
 msgstr ""
 
-#: um-happy-birthday.php:1370
+#: um-happy-birthday.php:1425
 msgid "Select the Members Directory form for display of celebrants."
 msgstr ""
 
-#: um-happy-birthday.php:1189
+#: um-happy-birthday.php:1236
 msgid "Select the Priority User Roles to receive the Happy Birthday greeting"
 msgstr ""
 
-#: um-happy-birthday.php:1213
+#: um-happy-birthday.php:1268
 msgid ""
 "Select the User name for the Celebrant listing at this page and UM Dashboard "
 "modal if activated."
 msgstr ""
 
-#: um-happy-birthday.php:1201
+#: um-happy-birthday.php:1243
+msgid ""
+"Select to include current old users without having selected \"Yes\" in "
+"Account page as accepting birthday greetings."
+msgstr ""
+
+#: um-happy-birthday.php:1256
 msgid "Select to show the User Celebrant list"
 msgstr ""
 
-#: um-happy-birthday.php:1259
+#: um-happy-birthday.php:1314
 msgid ""
 "Select which speed to send the greetings emails in number of emails sent per "
 "hour."
 msgstr ""
 
-#: um-happy-birthday.php:1162
+#: um-happy-birthday.php:1209
 msgid "Send Happy Birthday greetings during this hour or later"
 msgstr ""
 
-#: um-happy-birthday.php:1352
+#: um-happy-birthday.php:1407
 msgid "Sent greeting status"
 msgstr ""
 
-#: um-happy-birthday.php:649
+#: um-happy-birthday.php:674
 msgid "Sent OK"
 msgstr ""
 
-#: um-happy-birthday.php:166
+#: um-happy-birthday.php:186
 msgid "settings"
 msgstr ""
 
-#: um-happy-birthday.php:1049
+#: um-happy-birthday.php:1074
 msgid "Show"
 msgstr ""
 
-#: um-happy-birthday.php:642
+#: um-happy-birthday.php:667
 msgid "SMS failure = email resend"
 msgstr ""
 
-#: um-happy-birthday.php:614
+#: um-happy-birthday.php:639
 #, php-format
 msgid "SMS Gateway error: %s"
 msgstr ""
 
-#: um-happy-birthday.php:623
+#: um-happy-birthday.php:648
 #, php-format
 msgid "SMS Gateway return message: %s"
 msgstr ""
 
-#: um-happy-birthday.php:254
+#: um-happy-birthday.php:274
 #, php-format
 msgid "SMS Gateway status: %s"
 msgstr ""
 
-#: um-happy-birthday.php:899
+#: um-happy-birthday.php:924
 msgid ""
 "SMS not possible and email greetings are disabled: No greetings will be sent"
 msgstr ""
 
-#: um-happy-birthday.php:603
+#: um-happy-birthday.php:628
 msgid "SMS resend by Admin"
 msgstr ""
 
-#: um-happy-birthday.php:494
+#: um-happy-birthday.php:519
 msgid "SMS text failures: %d"
 msgstr ""
 
-#: um-happy-birthday.php:493
+#: um-happy-birthday.php:518
 msgid "SMS text OK: %d"
 msgstr ""
 
-#: um-happy-birthday.php:206
+#: um-happy-birthday.php:1104
+#, php-format
+msgid ""
+"Status: %d Users accepts and %d Users rejects birthday greetings. Default %s:"
+" %d"
+msgstr ""
+
+#: um-happy-birthday.php:226
 #, php-format
 msgid "The \"%s\" plugin is not installed or the plugin is deactivated"
 msgstr ""
 
-#: um-happy-birthday.php:236
+#: um-happy-birthday.php:256
 msgid "The Plugin WP Cronjob is waiting in the WP job queue"
 msgstr ""
 
-#: um-happy-birthday.php:228
+#: um-happy-birthday.php:248
 msgid "The Plugin WP Cronjob will execute next in about %d minutes"
 msgstr ""
 
-#: um-happy-birthday.php:233
+#: um-happy-birthday.php:253
 msgid "The Plugin WP Cronjob will execute next in about %d seconds"
 msgstr ""
 
-#: um-happy-birthday.php:973
+#: um-happy-birthday.php:1244
+msgid ""
+"These old Users are displayed as \"Default\" and accept or reject in the "
+"Status count."
+msgstr ""
+
+#: um-happy-birthday.php:998
 msgid "Time for birthday greeting attempt"
 msgstr ""
 
-#: um-happy-birthday.php:961
+#: um-happy-birthday.php:986
 msgid "Time when birthday greeting was sent"
 msgstr ""
 
-#: um-happy-birthday.php:1059
+#: um-happy-birthday.php:1085
 msgid "today"
 msgstr ""
 
@@ -575,74 +610,74 @@ msgstr ""
 msgid "Ultimate Member - Happy Birthday"
 msgstr ""
 
-#: um-happy-birthday.php:1514
+#: um-happy-birthday.php:1624
 #, php-format
 msgid "Update to %s plugin version %s%s is available for download."
 msgstr ""
 
-#: um-happy-birthday.php:1377
+#: um-happy-birthday.php:1432
 msgid "URL to Members Directory page"
 msgstr ""
 
-#: um-happy-birthday.php:1384
+#: um-happy-birthday.php:1439
 msgid "User Accoun page setting"
 msgstr ""
 
-#: um-happy-birthday.php:1178
+#: um-happy-birthday.php:1225
 msgid "User Account statuses to include"
 msgstr ""
 
-#: um-happy-birthday.php:546 um-happy-birthday.php:766
-#: um-happy-birthday.php:1350
+#: um-happy-birthday.php:571 um-happy-birthday.php:791
+#: um-happy-birthday.php:1405
 msgid "User ID"
 msgstr ""
 
-#: um-happy-birthday.php:1209
+#: um-happy-birthday.php:1264
 msgid "User Login"
 msgstr ""
 
-#: um-happy-birthday.php:545 um-happy-birthday.php:765
-#: um-happy-birthday.php:1349
+#: um-happy-birthday.php:570 um-happy-birthday.php:790
+#: um-happy-birthday.php:1404
 msgid "User priority role"
 msgstr ""
 
-#: um-happy-birthday.php:1169
+#: um-happy-birthday.php:1216
 msgid "User selections"
 msgstr ""
 
-#: um-happy-birthday.php:540 um-happy-birthday.php:760
-#: um-happy-birthday.php:1344
+#: um-happy-birthday.php:565 um-happy-birthday.php:785
+#: um-happy-birthday.php:1399
 msgid "Username"
 msgstr ""
 
-#: um-happy-birthday.php:1103
+#: um-happy-birthday.php:1150
 msgid "What is WP-Cron?"
 msgstr ""
 
-#: um-happy-birthday.php:1440
+#: um-happy-birthday.php:1550
 msgid "Whether to send the user an email when someone is today's birthday."
 msgstr ""
 
-#: um-happy-birthday.php:1071
+#: um-happy-birthday.php:1110
 msgid "With current plugin settings of User Roles and Account statuses:"
 msgstr ""
 
-#: um-happy-birthday.php:1121
+#: um-happy-birthday.php:1168
 msgid "WP Cronjob"
 msgstr ""
 
-#: um-happy-birthday.php:1266
+#: um-happy-birthday.php:1321
 msgid "WP Mail or SMTP"
 msgstr ""
 
-#: um-happy-birthday.php:1318
+#: um-happy-birthday.php:1373
 msgid "WP SMS text greeting"
 msgstr ""
 
-#: um-happy-birthday.php:1297
+#: um-happy-birthday.php:1352
 msgid "WP SMS text greetings - Optional"
 msgstr ""
 
-#: um-happy-birthday.php:1421
+#: um-happy-birthday.php:135
 msgid "Yes"
 msgstr ""
