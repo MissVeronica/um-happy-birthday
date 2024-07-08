@@ -2,7 +2,7 @@
 /**
  * Plugin Name:         Ultimate Member - Happy Birthday
  * Description:         Extension to Ultimate Member for Birthday greeting emails and optional mobile SMS texts.
- * Version:             2.1.0
+ * Version:             2.2.0
  * Requires PHP:        7.4
  * Author:              Miss Veronica
  * License:             GPL v3 or later
@@ -25,6 +25,7 @@ class UM_Happy_Birthday {
     public $last_greeted            = 'um_birthday_greeted_last';
     public $last_greeted_status     = 'um_birthday_greeted_last_status';
     public $last_greeted_error      = 'um_birthday_greeted_last_error';
+    public $greetings_consent       = 'um_birthday_greetings_consent';
 
     public $send_to_email           = false;
     public $cronjob                 = false;
@@ -46,6 +47,7 @@ class UM_Happy_Birthday {
     public $plugin_status           = array();
     public $prio_roles              = array();
     public $all_selected_user_roles = array();
+    public $privacy_options         = array();
 
     public $sms_info                = '';
     public $sms_text_message        = '';
@@ -57,6 +59,8 @@ class UM_Happy_Birthday {
     public $new_plugin_version      = '';
     public $celebrants_today        = '';
     public $celebrants_summary      = '';
+
+    public $transient_life          = 5 * DAY_IN_SECONDS;
 
     public $account_status   = array(
                                     'approved'                    => 'Approved',
@@ -89,6 +93,9 @@ class UM_Happy_Birthday {
                                                     'style'   => true,
                                                     ),
                                 );
+
+
+
     function __construct() {
 
         add_filter( 'um_email_notifications',                        array( $this, 'um_email_notifications' ), 10, 1 );
@@ -99,12 +106,16 @@ class UM_Happy_Birthday {
         add_action( 'um_admin_custom_hook_happy_birthday_greetings', array( $this, 'um_admin_custom_hook_happy_birthday_greetings_resend' ), 10, 1 );
         add_filter( 'um_account_tab_privacy_fields',                 array( $this, 'um_account_tab_privacy_fields_happy_birthday' ), 10, 2 );
 
-        add_action( 'um_prepare_user_query_args',                    array( $this, 'um_happy_birthday_directories' ), 10, 2);
+        add_action( 'um_prepare_user_query_args',                    array( $this, 'um_happy_birthday_directories' ), 10, 2 );
         add_filter( 'um_predefined_fields_hook',                     array( $this, 'um_predefined_fields_hook_happy_birthday' ), 10, 1 );
         add_filter( 'um_predefined_fields_hook',                     array( $this, 'custom_predefined_fields_happy_birthday' ), 10, 1 );
 
         add_filter( 'um_pre_args_setup',                             array( $this, 'um_pre_args_setup_happy_birthday' ), 10, 1 );
         add_action( 'plugins_loaded',                                array( $this, 'um_happy_birthday_plugin_loaded' ), 0 );
+        add_action( 'um_registration_set_extra_data',                array( $this, 'um_registration_set_happy_birthday_account_consent' ), 10, 3 );
+
+        add_action( 'um_account_pre_update_profile',                 array( $this, 'um_account_pre_update_profile_happy_birthday_account_consent' ), 10, 2 );
+
 
         if ( UM()->options()->get( $this->slug . '_modal_list' ) == 1 ) {
 		    add_action( 'load-toplevel_page_ultimatemember',         array( $this, 'load_metabox_happy_birthday' ) );
@@ -118,6 +129,11 @@ class UM_Happy_Birthday {
                 wp_schedule_event( time(), 'hourly', $this->wp_cron_event );
             }
         }
+
+        $this->privacy_options = array(
+                                        'no'  => __( 'No',  'happy-birthday' ),
+                                        'yes' => __( 'Yes', 'happy-birthday' ),
+                                    );
 
         define( 'Happy_Birthday_Path', plugin_dir_path( __FILE__ ) );
         define( 'um_happy_birthday_textdomain', 'happy-birthday' );
@@ -341,6 +357,10 @@ class UM_Happy_Birthday {
 
         if ( ! $this->cronjob ) {
             unset( $meta_query[3] );
+        }
+
+        if ( UM()->options()->get( $this->slug . '_without_consent' ) != 1 ) {
+            unset( $meta_query[2][1] );
         }
 
         return $meta_query;
@@ -1055,16 +1075,18 @@ class UM_Happy_Birthday {
         }
 
         switch( count( $celebrants ) ) {
-            case 0:     $hdr = sprintf( __( 'No celebrants %s', 'happy-birthday' ), $this->today ); break;
+            case 0:     $hdr = sprintf( __( 'No celebrants %s',    'happy-birthday' ), $this->today ); break;
             case 1:     $hdr = sprintf( __( 'One celebrant %s %s', 'happy-birthday' ), $this->today, $link ); break;
             default:    $hdr = sprintf( __( '%d celebrants %s %s', 'happy-birthday' ), count( $celebrants ), $this->today, $link );
         }
 
         if ( $delta == 0 ) {
+
             $hdr = str_replace( substr( $this->today, 0, 10 ), __( 'today', 'happy-birthday' ), $hdr );
             $this->celebrants_today = str_replace( $link, '', $hdr );
             $hdr = '<span style="color: green;">' . $hdr . '</span>';
         }
+
         $this->description[] = $hdr;
 
         $this->celebration_user_status_list( $celebrants, $delta );
@@ -1074,9 +1096,21 @@ class UM_Happy_Birthday {
 
         $this->cron_job_settings();
 
+        $default = 'reject';
+        if ( UM()->options()->get( $this->slug . '_without_consent' ) == 1 ) {
+            $default = 'accept';
+        }
+
+        $this->plugin_status[] = '<hr>' . sprintf( __( 'Status: %d Users accepts and %d Users rejects birthday greetings. Default %s: %d', 'happy-birthday' ),
+                                                        $this->transient_manager_counters( 'birthday_greetings_yes' ),
+                                                        $this->transient_manager_counters( 'birthday_greetings_no' ),
+                                                        $default,
+                                                        $this->transient_manager_counters( 'birthday_greetings_default' ));
+
         $this->plugin_status[] = '<hr>' . __( 'With current plugin settings of User Roles and Account statuses:', 'happy-birthday' );
 
         $this->description = array();
+
         $i = -1;
         while( $i <= 6 ) {
             $this->current_status_celebrants( $i );
@@ -1093,6 +1127,13 @@ class UM_Happy_Birthday {
     }
 
     public function um_admin_settings_email_section_happy_birthday( $settings ) {
+
+        if ( isset( $_POST['um-settings-action'] ) &&  $_POST['um-settings-action'] == 'save' ) {
+
+            delete_transient( 'birthday_greetings_yes' );
+            delete_transient( 'birthday_greetings_no' );
+            delete_transient( 'birthday_greetings_default' );
+        }
 
         $um_directory_forms = get_posts( array( 'numberposts' => -1,
                                                 'post_type'   => 'um_directory',
@@ -1193,6 +1234,14 @@ class UM_Happy_Birthday {
                     'options'         => UM()->roles()->get_roles(),
                     'label'           => $prefix . __( 'Priority User Roles to include', 'happy-birthday' ),
                     'description'     => __( 'Select the Priority User Roles to receive the Happy Birthday greeting', 'happy-birthday' ),
+                );
+
+        $section_fields[] = array(
+                    'id'              => $this->slug . '_without_consent',
+                    'type'            => 'checkbox',
+                    'label'           => $prefix . __( 'Current old Users default consent is "No"', 'happy-birthday' ),
+                    'checkbox_label'  => __( 'Select to include current old users without having selected "Yes" in Account page as accepting birthday greetings.', 'happy-birthday' ),
+                    'description'     => __( 'These old Users are displayed as "Default" and accept or reject in the Status count.', 'happy-birthday' ),
                 );
 
         $section_fields[] = array(
@@ -1404,13 +1453,30 @@ class UM_Happy_Birthday {
 
     public function um_account_tab_privacy_fields_happy_birthday( $args, $shortcode_args ) {
 
-        $args .= ',' . $this->slug . '_privacy';
+        global $current_user;
+
+        $this->get_all_selected_user_roles();
+
+        if ( ! empty( $this->all_selected_user_roles )) {
+
+            $prio_role = UM()->roles()->get_priority_user_role( $current_user->ID );
+            if ( in_array( $prio_role, $this->all_selected_user_roles )) {
+
+                $args .= ',' . $this->slug . '_privacy';
+            }
+        }
+
         return $args;
     }
 
     public function um_predefined_fields_hook_happy_birthday( $predefined_fields ) {
 
         if ( UM()->options()->get( $this->slug . '_account' ) == 1 ) {
+
+            $default = 'no';
+            if ( UM()->options()->get( $this->slug . '_without_consent' ) == 1 ) {
+                $default = 'yes';
+            }
 
             $predefined_fields[$this->slug . '_privacy'] = array(
                                                     'title'         => __( 'Receive birthday greetings?', 'happy-birthday' ),
@@ -1421,16 +1487,54 @@ class UM_Happy_Birthday {
                                                     'required'      => 0,
                                                     'public'        => 1,
                                                     'editable'      => true,
-                                                    'default'       => 'yes',
-                                                    'options'       => array(
-                                                                                'no'  => __( 'No', 'happy-birthday' ),
-                                                                                'yes' => __( 'Yes', 'happy-birthday' ),
-                                                                            ),
+                                                    'default'       => $default,
+                                                    'options'       => $this->privacy_options,
                                                     'account_only'  => true,
                                                 );
         }
 
         return $predefined_fields;
+    }
+
+    public function um_registration_set_happy_birthday_account_consent( $user_id, $args, $form_data ) {
+
+        if ( isset( $form_data['mode'] ) && $form_data['mode'] == 'register' ) {
+
+            if ( isset( $args[$this->greetings_consent] )) {
+
+                update_user_meta( $user_id, $this->slug . '_privacy', array( 'yes' ) );
+                update_user_meta( $user_id, $this->greetings_consent, date_i18n( 'Y/m/d', current_time( 'timestamp' )) );
+                $this->transient_manager_counters( 'birthday_greetings_yes', 1 );
+
+            } else {
+
+                update_user_meta( $user_id, $this->slug . '_privacy', array( 'no' ) );
+                $this->transient_manager_counters( 'birthday_greetings_no', 1 );
+            }
+        }
+    }
+
+    public function um_account_pre_update_profile_happy_birthday_account_consent( $changes, $user_id ) {
+
+        if ( isset( $changes[$this->slug . '_privacy'] ) ) {
+
+            if ( is_array( $changes[$this->slug . '_privacy'] ) && in_array( $changes[$this->slug . '_privacy'][0], array( 'no', 'yes' ))) {
+
+                $current_consent = um_user( $this->slug . '_privacy' );
+
+                if ( empty( $current_consent )) {
+                    $this->transient_manager_counters( 'birthday_greetings_default', -1 );
+
+                } else {
+
+                    if ( is_array( $current_consent ) && in_array( $current_consent[0], array( 'no', 'yes' ))) {
+                        $this->transient_manager_counters( 'birthday_greetings_' . $current_consent[0], -1 );
+                    }
+                }
+
+                $this->transient_manager_counters( 'birthday_greetings_' . $changes[$this->slug . '_privacy'][0], 1 );
+            }
+        }
     }
 
     public function um_email_notifications( $notifications ) {
@@ -1639,6 +1743,67 @@ class UM_Happy_Birthday {
         return $args;
     }
 
+    public function transient_manager_counters( $transient, $delta = false ) {
+
+        $value = get_transient( $transient );
+
+        if ( empty( $value )) {
+
+            $args = array(  'fields'     => array( 'ID' ),
+                            'meta_query' => array( 'relation' => 'AND' )
+                        );
+
+            $account_status = $this->get_account_status();
+
+            $args['meta_query'][] = array(
+                                        'key'     => 'account_status',
+                                        'value'   => $account_status,
+                                        'compare' => 'IN',
+                                    );
+
+            switch( $transient ) {
+
+                case 'birthday_greetings_no':       $args['meta_query'][] = array(
+                                                                                    'key'     => $this->slug . '_privacy',
+                                                                                    'value'   => '"no"',
+                                                                                    'compare' => 'LIKE'
+                                                                                );
+                                                    break;
+
+                case 'birthday_greetings_yes':      $args['meta_query'][] = array(
+                                                                                    'key'     => $this->slug . '_privacy',
+                                                                                    'value'   => '"yes"',
+                                                                                    'compare' => 'LIKE'
+                                                                                );
+                                                    break;
+
+                case 'birthday_greetings_default':  $args['meta_query'][] = array(  
+                                                                                    'key'     => $this->slug . '_privacy',
+                                                                                    'compare' => 'NOT EXISTS'
+                                                                                );
+                                                    break;
+
+                default:    return;
+                            break;
+            }
+
+            $users = get_users( $args );
+            $count = count( $users );
+
+            set_transient( $transient, $count, $this->transient_life );
+
+            return $count;
+        }
+
+        if ( ! empty( $delta )) {
+
+            $value = $value + $delta;
+            set_transient( $transient, $value );
+        }
+
+        return $value;
+    }
+
     public function custom_predefined_fields_happy_birthday( $predefined_fields ) {
 
         $predefined_fields[$this->last_greeted] = array(
@@ -1670,11 +1835,22 @@ class UM_Happy_Birthday {
                                                 'public'   => 1,
                                                 'editable' => false,
                                             );
+
+        $predefined_fields[$this->greetings_consent] = array(
+                                                'title'    => __( 'Happy Birthday greetings consent', 'happy-birthday' ),
+                                                'metakey'  => $this->greetings_consent,
+                                                'type'     => 'checkbox',
+                                                'label'    => __( 'Happy Birthday greetings consent', 'happy-birthday' ),
+                                                'required' => 0,
+                                                'public'   => 1,
+                                                'editable' => false,
+                                                'options'  => array( 'yes' => __( 'Accept Birthday greetings', 'happy-birthday' )),
+                                            );
+
         return $predefined_fields;
     }
+
 
 }
 
 new UM_Happy_Birthday();
-
-
