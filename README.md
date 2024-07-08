@@ -43,7 +43,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 ## User Account page
 1. Do you want to receive birthday greetings? - Enable/Disable birthday greetings via email or SMS text message
 
-## UM Predefined fields
+## UM Predefined Form Builder fields
 1. Happy Birthday last greeted
 2. Happy Birthday last greeted status
 3. Happy Birthday last greeted error
@@ -69,7 +69,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 2. Current Version 2.0.0
 3. Version 2.1.0 Code improvements
 ### Version 2.2.0  
-1. UM predefined form field checkbox: Happy Birthday greetings consent, meta_key: um_birthday_greetings_consent, value: current date if accepted otherwise empty
+1. UM predefined Form Builder field checkbox: Happy Birthday greetings consent, meta_key: um_birthday_greetings_consent, value: current date if accepted otherwise empty
 2. User Registration consent updates the Account page Birthday greetings Privacy setting which User can edit later
 3. Consent Status counts for the site added to the Modal and plugin Settings.
 4. Old Users without a Registration consent can either be set to "Yes" or "No" for the Privacy default value in Account page.
