@@ -72,7 +72,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 1. UM predefined form field checkbox: Happy Birthday greetings consent, meta_key: um_birthday_greetings_consent, value: current date if accepted otherwise empty
 2. User Registration consent updates the Account page Birthday greetings Privacy setting which User can edit later
 3. Consent Status counts for the site added to the Modal and plugin Settings.
-4. Old Users without a Registration consent can either be set to "Yes" or "No" for the Privacy default value in Account pasge.
+4. Old Users without a Registration consent can either be set to "Yes" or "No" for the Privacy default value in Account page.
 5. Account page privacy settings only displayed for Users selected by their User role.
 
 ## References
