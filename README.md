@@ -40,7 +40,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 1. UM Action: Resend Happy Birthday greetings
 2. For additional User columns use this plugin https://github.com/MissVeronica/um-additional-user-columns
 
-## User Account page
+## User Account Page
 1. Do you want to receive birthday greetings? - Enable/Disable birthday greetings via email or SMS text message
 
 ## User Registration Page
