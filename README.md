@@ -43,7 +43,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 ## User Account page
 1. Do you want to receive birthday greetings? - Enable/Disable birthday greetings via email or SMS text message
 
-## Registration Page
+## User Registration Page
 1. "Happy Birthday greetings consent" field from UM Predefined fields
 
 ## UM Predefined Form Builder fields
