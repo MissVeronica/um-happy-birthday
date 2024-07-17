@@ -4,7 +4,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 ## UM Settings -> Email -> Happy Birthday
 1. Enable/Disable - Enable this email notification
 2. Subject
-3. Email Content
+3. Email Content incl UM email placeholders
 
 ## UM Settings -> Extensions -> Happy Birthday
 ### WP Cronjob
