@@ -2,7 +2,7 @@
 /**
  * Plugin Name:         Ultimate Member - Happy Birthday
  * Description:         Extension to Ultimate Member for Birthday greeting emails and optional mobile SMS texts.
- * Version:             2.2.0
+ * Version:             2.3.0
  * Requires PHP:        7.4
  * Author:              Miss Veronica
  * License:             GPL v3 or later
@@ -61,6 +61,8 @@ class UM_Happy_Birthday {
     public $celebrants_summary      = '';
 
     public $transient_life          = 5 * DAY_IN_SECONDS;
+    public $px                      = '40';
+    public $cake_color              = 'white';
 
     public $account_status   = array(
                                     'approved'                    => 'Approved',
@@ -115,6 +117,7 @@ class UM_Happy_Birthday {
         add_action( 'um_registration_set_extra_data',                array( $this, 'um_registration_set_happy_birthday_account_consent' ), 10, 3 );
 
         add_action( 'um_account_pre_update_profile',                 array( $this, 'um_account_pre_update_profile_happy_birthday_account_consent' ), 10, 2 );
+        add_action( 'um_after_profile_name_inline',                  array( $this, 'um_after_profile_name_show_cake_candles' ), 10, 1 );
 
 
         if ( UM()->options()->get( $this->slug . '_modal_list' ) == 1 ) {
@@ -167,6 +170,58 @@ class UM_Happy_Birthday {
         ?>
         </div>
         <?php
+    }
+
+    public function um_after_profile_name_show_cake_candles( $args ) {
+
+        if ( UM()->options()->get( $this->slug . '_cake_candles' ) == 1 ) {
+
+            if ( strpos( um_user( 'birth_date' ), date_i18n( '/m/d', current_time( 'timestamp' )) ) !== false ) {
+
+                if ( $this->get_user_account_consent_setting() !== false ) {
+
+                    $title = __( 'Happy Birthday today', 'happy-birthday' );
+
+                    $color = UM()->options()->get( $this->slug . '_cake_color' );
+                    if ( ! empty( $color )) {
+                        $this->cake_color = sanitize_text_field( $color );
+                    }
+
+                    $px = UM()->options()->get( $this->slug . '_cake_size' );
+                    if ( ! empty( $px )) {
+                        $this->px = str_replace( 'px', '', strtolower( sanitize_text_field( $px )));
+                    }
+?>
+                    <span class="um-field-label-icon" 
+                          style="font-size: <?php echo esc_attr( $this->px ); ?>px; color: <?php echo esc_attr( $color ); ?>;" 
+                          title="<?php echo esc_attr( $title ); ?>">
+                        <i class="fas fa-cake-candles"></i>
+                    </span>
+<?php
+                }
+            }
+        }
+    }
+
+    public function get_user_account_consent_setting() {
+
+        $current_consent = um_user( $this->slug . '_privacy' );
+        $consent = false;
+
+        if ( empty( $current_consent )) {
+
+            if ( UM()->options()->get( $this->slug . '_without_consent' ) == 1 ) {
+                $consent = true;
+            }
+
+        } else {
+
+            if ( is_array( $current_consent ) && $current_consent[0] == 'yes' ) {
+                $consent = true;
+            } 
+        }
+
+        return $consent;
     }
 
     public function cron_job_settings() {
@@ -1446,6 +1501,39 @@ class UM_Happy_Birthday {
                         'checkbox_label' => __( 'Click to allow Users to enable/disable greetings at their Account page.', 'happy-birthday' ),
                     );
 
+        $section_fields[] = array(
+                        'id'             => $this->slug . '_header',
+                        'type'           => 'header',
+                        'label'          => __( 'Birthday Cake with Candles', 'happy-birthday' ),
+                    );
+
+        $section_fields[] = array(
+                        'id'             => $this->slug . '_cake_candles',
+                        'type'           => 'checkbox',
+                        'label'          => $prefix . __( 'Cake with Candles', 'happy-birthday' ),
+                        'checkbox_label' => __( 'Click to enable a Birthday Cake with Candles at the Profile page after name for todays celebrants.', 'happy-birthday' ),
+                    );
+
+        $section_fields[] = array(
+                        'id'             => $this->slug . '_cake_color',
+                        'type'           => 'text',
+                        'size'           => 'small',
+                        'label'          => $prefix . __( 'Cake with Candles color', 'happy-birthday' ),
+                        'description'    => __( 'Enter the color for the Cake with Candles either by the color name or HEX code.', 'happy-birthday' ) . '<br />' .
+                                            sprintf( __( 'Default color is "%s".', 'happy-birthday' ), $this->cake_color ) .
+                                            ' <a href="https://www.w3schools.com/colors/colors_groups.asp" target="_blank">W3Schools HTML Color Groups</a>',
+                        'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
+                    );
+
+        $section_fields[] = array(
+                        'id'             => $this->slug . '_cake_size',
+                        'type'           => 'text',
+                        'size'           => 'small',
+                        'label'          => $prefix . __( 'Cake with Candles size', 'happy-birthday' ),
+                        'description'    => sprintf( __( 'Enter the size value in pixels for the Cake with Candles, default value is %s.', 'happy-birthday' ), $this->px ),
+                        'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
+                    );
+
         $settings['extensions']['sections']['happy-birthday']['fields'] = $section_fields;
 
         return $settings;
@@ -1483,7 +1571,7 @@ class UM_Happy_Birthday {
                                                     'metakey'       => $this->slug . '_privacy',
                                                     'type'          => 'radio',
                                                     'label'         => __( 'Do you want to receive birthday greetings?', 'happy-birthday' ),
-                                                    'help'          => __( 'Enable/Disable birthday greetings via email or SMS text message', 'happy-birthday' ),
+                                                    'help'          => __( 'Enable/Disable birthday greetings via email or SMS text message inclusive cake with candles at the Profile page', 'happy-birthday' ),
                                                     'required'      => 0,
                                                     'public'        => 1,
                                                     'editable'      => true,
@@ -1747,7 +1835,7 @@ class UM_Happy_Birthday {
 
         $value = get_transient( $transient );
 
-        if ( empty( $value )) {
+        if ( $value === false ) {
 
             $args = array(  'fields'     => array( 'ID' ),
                             'meta_query' => array( 'relation' => 'AND' )
@@ -1795,7 +1883,7 @@ class UM_Happy_Birthday {
             return $count;
         }
 
-        if ( ! empty( $delta )) {
+        if ( $delta !== false ) {
 
             $value = $value + $delta;
             set_transient( $transient, $value );
@@ -1854,3 +1942,4 @@ class UM_Happy_Birthday {
 }
 
 new UM_Happy_Birthday();
+
