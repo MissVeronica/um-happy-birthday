@@ -36,7 +36,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 ### User Accoun page setting
 20.  * Allow users to enable/disable greetings - Click to allow Users to enable/disable greetings at their Account page.
 ### Birthday Cake with Candles
-21.  * Cake with Candles - Click to enable a Birthday Cake with Candles at the Profile page after name for todays celebrants.
+21.  * Cake with Candles - Click to enable a Birthday Cake with Candles at the Profile page after the name for todays celebrants.
 22.  * Cake with Candles color - Enter the color for the Cake with Candles either by the color name or HEX code. Default color is "white".
 23.  * Cake with Candles size - Enter the size value in pixels for the Cake with Candles, default value is 40.
 
