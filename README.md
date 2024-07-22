@@ -36,12 +36,16 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 ### User Accoun page setting
 20.  * Allow users to enable/disable greetings - Click to allow Users to enable/disable greetings at their Account page.
 
+### Birthday Cake with Candles
+1. Cake with Candles - Click to enable a Birthday Cake with Candles at the Profile page after name for todays celebrants.
+2. Cake with Candles color - Enter the color for the Cake with Candles either by the color name or HEX code. Default color is "white".
+3. Cake with Candles size - Enter the size value in pixels for the Cake with Candles, default value is 40.
 ## WP All Users
 1. UM Action: Resend Happy Birthday greetings
 2. For additional User columns use this plugin https://github.com/MissVeronica/um-additional-user-columns
 
 ## User Account Page
-1. Do you want to receive birthday greetings? - Enable/Disable birthday greetings via email or SMS text message
+1. Do you want to receive birthday greetings? - Enable/Disable birthday greetings via email or SMS text message inclusive cake with candles at the Profile page
 
 ## User Registration Page
 1. "Happy Birthday greetings consent" field from UM Predefined fields
@@ -66,6 +70,8 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 ## Translations
 1. Use the "Loco Translate" plugin.
 2. https://wordpress.org/plugins/loco-translate/
+3. For a few changes of text use the "Say What?" plugin with text domain happy-birthday
+4. https://wordpress.org/plugins/say-what/
 
 ## Updates
 1. Github version update status is checked once each day.
@@ -77,6 +83,9 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 3. Consent Status counts for the site added to the Modal and plugin Settings.
 4. Old Users without a Registration consent can either be set to "Yes" or "No" for the Privacy default value in Account page.
 5. Account page privacy settings only displayed for Users selected by their User role.
+### Version 2.3.0
+1. Birthday Cake with Candles at the celebrants Profile pages after Profile user name
+2. Display of Birthday Cake with Candles disabled for Accounts denying Birthday greetings emails.
 
 ## References
 1. WP Cron:  https://developer.wordpress.org/plugins/cron/
