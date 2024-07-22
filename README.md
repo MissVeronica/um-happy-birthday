@@ -44,7 +44,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 1. UM Action: Resend Happy Birthday greetings
 2. For additional User columns use this plugin https://github.com/MissVeronica/um-additional-user-columns
 
-## User Account Page
+## User Account Page - Privacy
 1. Do you want to receive birthday greetings? - Enable/Disable birthday greetings via email or SMS text message inclusive cake with candles at the Profile page
 
 ## User Registration Page
@@ -67,7 +67,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 2. Add your Members Directory shortcode to the WP page with the slug <code>um-happy-birthday</code>
 3. The plugin is creating links from the Celebrant summary modal in UM Dashboard and Plugin settings.
 
-## Translations
+## Translations & Text changes
 1. Use the "Loco Translate" plugin.
 2. https://wordpress.org/plugins/loco-translate/
 3. For a few changes of text use the "Say What?" plugin with text domain happy-birthday
