@@ -67,6 +67,14 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 2. Add your Members Directory shortcode to the WP page with the slug <code>um-happy-birthday</code>
 3. The plugin is creating links from the Celebrant summary modal in UM Dashboard and Plugin settings.
 
+## WP Appearance -> Menus
+1. Add the Members Directory links to the menu choices like <code>.../um-happy-birthday/</code> for today birthdays
+
+## Shortcode
+1. <code>[birthdays_today]</code> or <code>[birthdays_today]enter link text here[/birthdays_today]</code>
+2. Creates a link to the Birtdays Directory page for current day with the text "Happy Birthdays today"
+3. Restriction: Link is only displayed at current users own Profile page i e not displaayed when visiting other Profiles.
+
 ## Translations & Text changes
 1. Use the "Loco Translate" plugin.
 2. https://wordpress.org/plugins/loco-translate/
@@ -86,6 +94,8 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 ### Version 2.3.0
 1. Birthday Cake with Candles at the celebrants Profile pages after Profile user name
 2. Display of Birthday Cake with Candles disabled for Accounts denying Birthday greetings emails.
+### Version 2.4.0
+1. New Shortcode for User display of today's birthdays.
 
 ## References
 1. WP Cron:  https://developer.wordpress.org/plugins/cron/
