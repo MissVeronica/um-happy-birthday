@@ -96,7 +96,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 2. Display of Birthday Cake with Candles disabled for Accounts denying Birthday greetings emails.
 ### Version 2.4.0
 1. New Shortcode for User display of today's birthdays.
-### Version 2.4.1
+### Version 2.4.1     
 1. Code improvement version update text
 
 ## References
