@@ -68,12 +68,12 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 3. The plugin is creating links from the Celebrant summary modal in UM Dashboard and Plugin settings.
 
 ## WP Appearance -> Menus
-1. Add the Members Directory links to the menu choices like <code>.../um-happy-birthday/</code> for today birthdays
+1. Add the Members Directory links to the menu choices like <code>.../um-happy-birthday/</code> for today's birthdays
 
 ## Shortcode
 1. <code>[birthdays_today]</code> or <code>[birthdays_today]enter link text here[/birthdays_today]</code>
 2. Creates a link to the Birtdays Directory page for current day with the text "Happy Birthdays today"
-3. Restriction: Link is only displayed at current users own Profile page i e not displaayed when visiting other Profiles.
+3. Restriction: Link is only displayed at current User's own Profile page i.e. not displayed when visiting other Profiles.
 
 ## Translations & Text changes
 1. Use the "Loco Translate" plugin.
