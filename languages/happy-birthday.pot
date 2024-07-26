@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ultimate Member - Happy Birthday\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-26 03:39+0000\n"
+"POT-Creation-Date: 2024-07-26 05:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -32,7 +32,7 @@ msgid ""
 "dropdown at least 2 hours before midnight."
 msgstr ""
 
-#: um-happy-birthday.php:1936
+#: um-happy-birthday.php:1937
 msgid "Accept Birthday greetings"
 msgstr ""
 
@@ -159,7 +159,7 @@ msgid ""
 "this page and UM Dashboard modal if activated."
 msgstr ""
 
-#: um-happy-birthday.php:1730
+#: um-happy-birthday.php:1731
 msgid "cURL extension not loaded by PHP"
 msgstr ""
 
@@ -266,12 +266,12 @@ msgid ""
 "mobile SMS texts."
 msgstr ""
 
-#: um-happy-birthday.php:1721
+#: um-happy-birthday.php:1722
 #, php-format
 msgid "Github plugin version status is checked each 24 hours last at %s."
 msgstr ""
 
-#: um-happy-birthday.php:1726
+#: um-happy-birthday.php:1727
 #, php-format
 msgid "GitHub remote connection cURL error: %s"
 msgstr ""
@@ -304,19 +304,19 @@ msgstr ""
 msgid "Happy Birthday from {site_name}"
 msgstr ""
 
-#: um-happy-birthday.php:1929 um-happy-birthday.php:1932
+#: um-happy-birthday.php:1930 um-happy-birthday.php:1933
 msgid "Happy Birthday greetings consent"
 msgstr ""
 
-#: um-happy-birthday.php:1899 um-happy-birthday.php:1902
+#: um-happy-birthday.php:1900 um-happy-birthday.php:1903
 msgid "Happy Birthday last greeted"
 msgstr ""
 
-#: um-happy-birthday.php:1919 um-happy-birthday.php:1922
+#: um-happy-birthday.php:1920 um-happy-birthday.php:1923
 msgid "Happy Birthday last greeted error"
 msgstr ""
 
-#: um-happy-birthday.php:1909 um-happy-birthday.php:1912
+#: um-happy-birthday.php:1910 um-happy-birthday.php:1913
 msgid "Happy Birthday last greeted status"
 msgstr ""
 
@@ -330,7 +330,7 @@ msgid ""
 "{site_name}"
 msgstr ""
 
-#: um-happy-birthday.php:1955
+#: um-happy-birthday.php:1956
 msgid "Happy Birthdays today"
 msgstr ""
 
@@ -416,7 +416,7 @@ msgstr ""
 msgid "Plugin is paused and not sending any Happy Birthday greetings"
 msgstr ""
 
-#: um-happy-birthday.php:1715
+#: um-happy-birthday.php:1716
 #, php-format
 msgid "Plugin is updated to latest version %s."
 msgstr ""
@@ -425,7 +425,7 @@ msgstr ""
 msgid "Plugin settings"
 msgstr ""
 
-#: um-happy-birthday.php:1710
+#: um-happy-birthday.php:1711
 msgid "Plugin version update verification failed"
 msgstr ""
 
@@ -660,7 +660,7 @@ msgstr ""
 msgid "Ultimate Member - Happy Birthday"
 msgstr ""
 
-#: um-happy-birthday.php:1713
+#: um-happy-birthday.php:1714
 #, php-format
 msgid "Update to %s plugin version %s%s is available for download."
 msgstr ""
@@ -731,5 +731,6 @@ msgstr ""
 #: um-happy-birthday.php:139
 msgid "Yes"
 msgstr ""
+
 
 
