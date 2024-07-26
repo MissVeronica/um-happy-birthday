@@ -2,7 +2,7 @@
 /**
  * Plugin Name:         Ultimate Member - Happy Birthday
  * Description:         Extension to Ultimate Member for Birthday greeting emails and optional mobile SMS texts.
- * Version:             2.4.0
+ * Version:             2.4.1
  * Requires PHP:        7.4
  * Author:              Miss Veronica
  * License:             GPL v3 or later
@@ -1678,6 +1678,7 @@ class UM_Happy_Birthday {
 
     public function get_possible_plugin_update( $plugin ) {
 
+        $update = '';
         $transient = get_transient( $plugin );
         if ( is_array( $transient ) && isset( $transient['status'] )) {
             $update = $transient['status'];
@@ -1754,7 +1755,7 @@ class UM_Happy_Birthday {
             $version = strrpos( $readme, 'Version' );
 
             if ( $version !== false ) {
-                $version = substr( $readme, $version, 16 );
+                $version = substr( $readme, $version, 13 );
                 $version = explode( ' ', $version );
 
                 if ( isset( $plugin_data['Version'] ) && ! empty( $plugin_data['Version'] )) {
@@ -1965,5 +1966,6 @@ class UM_Happy_Birthday {
 }
 
 new UM_Happy_Birthday();
+
 
 
