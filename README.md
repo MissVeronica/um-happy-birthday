@@ -72,7 +72,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 
 ## Shortcode
 1. <code>[birthdays_today]</code> or <code>[birthdays_today]enter link text here[/birthdays_today]</code>
-2. Creates a link to the Birtdays Directory page for current day with the text "Happy Birthdays today"
+2. Creates a link to the Birtdays Directory page for current day with the default text "Happy Birthdays today"
 3. Restriction: Link is only displayed at current User's own Profile page i.e. not displayed when visiting other Profiles.
 
 ## Translations & Text changes
