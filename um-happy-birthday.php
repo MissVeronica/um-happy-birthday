@@ -2,7 +2,7 @@
 /**
  * Plugin Name:         Ultimate Member - Happy Birthday
  * Description:         Extension to Ultimate Member for Birthday greeting emails and optional mobile SMS texts.
- * Version:             2.3.0
+ * Version:             2.4.0
  * Requires PHP:        7.4
  * Author:              Miss Veronica
  * License:             GPL v3 or later
@@ -118,6 +118,7 @@ class UM_Happy_Birthday {
 
         add_action( 'um_account_pre_update_profile',                 array( $this, 'um_account_pre_update_profile_happy_birthday_account_consent' ), 10, 2 );
         add_action( 'um_after_profile_name_inline',                  array( $this, 'um_after_profile_name_show_cake_candles' ), 10, 1 );
+        add_shortcode( 'birthdays_today',                            array( $this, 'happy_birthdays_today'));
 
 
         if ( UM()->options()->get( $this->slug . '_modal_list' ) == 1 ) {
@@ -1938,8 +1939,31 @@ class UM_Happy_Birthday {
         return $predefined_fields;
     }
 
+    public function happy_birthdays_today( $atts, $content ) {
+
+        global $current_user;
+
+        $output = '';
+        if ( $current_user->ID == um_profile_id() ) {
+
+            $url = UM()->options()->get( $this->slug . '_um_form_url' );
+
+            if ( ! empty( $url )) {
+                $content = sanitize_text_field( $content );
+
+                if ( empty( $content )) {
+                    $content = __( 'Happy Birthdays today', 'happy-birthday' );
+                }
+
+                $output = '<a href="' . esc_url( $url ) . '" title="' . esc_attr( $content ) . '">' . esc_attr( $content ) . '</a>';
+            }
+        }
+
+        return $output;  
+    }
 
 }
 
 new UM_Happy_Birthday();
+
 
