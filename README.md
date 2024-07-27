@@ -62,7 +62,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 ## Options WP SMS
 1. Requires the "WP SMS – Messaging, SMS & MMS Notifications, 2FA & OTP for WordPress" plugin
 2. https://wordpress.org/plugins/wp-sms/
-3. In addition to this "WP SMS" plugin you need a local SMS gateway provider ( approx 300 supported by the ""WP SMS" plugin ), which will charge you per SMS sent.
+3. In addition to this "WP SMS" plugin you need a local SMS gateway provider ( approx 300 supported by the "WP SMS" plugin ), which will charge you per SMS sent.
 4. Failure to send SMS text greeting will send email greeting instead.
 
 ## Members Directory
