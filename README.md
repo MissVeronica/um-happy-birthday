@@ -6,7 +6,8 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 2. Subject
 3. Email Content
 4. Valid UM email placeholders. https://docs.ultimatemember.com/article/1340-placeholders-for-email-templates
-5. For User Role dependant email content, use the "Email Parse Shortcode" plugin. https://github.com/MissVeronica/um-email-parse-shortcode
+5. Additional placeholders: {today}, {age}, {user_id}, {mobile_number}
+6. For User Role dependant email content, use the "Email Parse Shortcode" plugin. https://github.com/MissVeronica/um-email-parse-shortcode
 
 ## UM Settings -> Extensions -> Happy Birthday
 ### WP Cronjob
