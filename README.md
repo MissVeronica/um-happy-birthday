@@ -126,6 +126,6 @@ Install by adding the code snippet to your active theme's functions.php file or 
 3. "Code Snippets" Plugin: https://wordpress.org/plugins/code-snippets/
 
 ## Installation & Updates
-1. Install or Update by downloading the plugin ZIP file and install as a new Plugin
-2. Upload in WordPress -> Plugins -> Add New -> Upload Plugin.
+1. Install or Update by downloading the plugin ZIP file at the green Code button
+2. Install as a new WP Plugin Upload in WordPress -> Plugins -> Add New -> Upload Plugin.
 3. Activate the Plugin: Ultimate Member - Happy Birthday
