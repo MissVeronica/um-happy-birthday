@@ -1,4 +1,4 @@
-# UM Happy Birthday 2
+# UM Happy Birthday version 2.5.0
 Extension to Ultimate Member for Birthday greeting emails and optional mobile SMS texts.
 
 ## UM Settings -> Email -> Happy Birthday
