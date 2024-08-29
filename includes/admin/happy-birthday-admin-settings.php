@@ -13,85 +13,90 @@ class UM_Happy_Birthday_Admin_Settings {
 
         add_filter( 'um_settings_structure', array( $this, 'um_admin_settings_extension_happy_birthday' ), 10, 1 );
         add_action( 'um_extend_admin_menu',  array( $this, 'copy_email_notifications_happy_birthday' ), 10 );
-
     }
 
     public function get_possible_plugin_update( $plugin ) {
 
-        $update = '';
+        $update = __( 'Plugin version update failure', 'happy-birthday' );
         $transient = get_transient( $plugin );
 
         if ( is_array( $transient ) && isset( $transient['status'] )) {
             $update = $transient['status'];
         }
 
-        $plugin_data = get_plugin_data( Plugin_File );
+        if ( defined( 'Plugin_File_HB' )) {
 
-        if ( empty( $transient ) || $this->new_version_test_required( $transient, $plugin_data )) {
+            $plugin_data = get_plugin_data( Plugin_File_HB );
+            if ( ! empty( $plugin_data )) {
 
-            if ( extension_loaded( 'curl' )) {
+                if ( empty( $transient ) || $this->new_version_test_required( $transient, $plugin_data )) {
 
-                $github_user = 'MissVeronica';
-                $url = "https://api.github.com/repos/{$github_user}/{$plugin}/contents/README.md";
+                    if ( extension_loaded( 'curl' )) {
 
-                $curl = curl_init();
-                curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-                curl_setopt( $curl, CURLOPT_BINARYTRANSFER, 1 );
-                curl_setopt( $curl, CURLOPT_FOLLOWLOCATION, 1 );
-                curl_setopt( $curl, CURLOPT_URL, $url );
-                curl_setopt( $curl, CURLOPT_USERAGENT, $github_user );
+                        $github_user = 'MissVeronica';
+                        $url = "https://api.github.com/repos/{$github_user}/{$plugin}/contents/README.md";
 
-                $content = json_decode( curl_exec( $curl ), true );
-                $error = curl_error( $curl );
-                curl_close( $curl );
+                        $curl = curl_init();
+                        curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
+                        curl_setopt( $curl, CURLOPT_BINARYTRANSFER, 1 );
+                        curl_setopt( $curl, CURLOPT_FOLLOWLOCATION, 1 );
+                        curl_setopt( $curl, CURLOPT_URL, $url );
+                        curl_setopt( $curl, CURLOPT_USERAGENT, $github_user );
 
-                if ( ! $error ) {
+                        $content = json_decode( curl_exec( $curl ), true );
+                        $error = curl_error( $curl );
+                        curl_close( $curl );
 
-                    switch( $this->validate_new_plugin_version( $plugin_data, $content ) ) {
+                        if ( ! $error ) {
 
-                        case 0:     $update = __( 'Plugin version update verification failed', 'happy-birthday' );
-                                    break;
-                        case 1:     $update = '<a href="' . esc_url( $plugin_data['UpdateURI'] ) . '" target="_blank">';
-                                    $update = sprintf( __( 'Update to %s plugin version %s%s is now available for download.', 'happy-birthday' ), $update, esc_attr( $this->new_plugin_version ), '</a>' );
-                                    break;
-                        case 2:     $update = sprintf( __( 'Plugin is updated to the latest version %s.', 'happy-birthday' ), esc_attr( $plugin_data['Version'] ));
-                                    break;
-                        case 3:     $update = __( 'Unknown encoding format returned from GitHub', 'happy-birthday' );
-                                    break;
-                        case 4:     $update = __( 'Version number not found', 'happy-birthday' );
-                                    break;
-                        case 5:     $update = sprintf( __( 'Update to plugin version %s is now available for download from GitHub.', 'happy-birthday' ), esc_attr( $this->new_plugin_version ));
-                                    break;
-                        default:    break;
+                            switch( $this->validate_new_plugin_version( $plugin_data, $content ) ) {
+
+                                case 0:     $update = __( 'Plugin version update verification failed', 'happy-birthday' );
+                                            break;
+                                case 1:     $update = '<a href="' . esc_url( $plugin_data['UpdateURI'] ) . '" target="_blank">';
+                                            $update = sprintf( __( 'Update to %s plugin version %s%s is now available for download.', 'happy-birthday' ), $update, esc_attr( $this->new_plugin_version ), '</a>' );
+                                            break;
+                                case 2:     $update = sprintf( __( 'Plugin is updated to the latest version %s.', 'happy-birthday' ), esc_attr( $plugin_data['Version'] ));
+                                            break;
+                                case 3:     $update = __( 'Unknown encoding format returned from GitHub', 'happy-birthday' );
+                                            break;
+                                case 4:     $update = __( 'Version number not found', 'happy-birthday' );
+                                            break;
+                                case 5:     $update = sprintf( __( 'Update to plugin version %s is now available for download from GitHub.', 'happy-birthday' ), esc_attr( $this->new_plugin_version ));
+                                            break;
+                                default:    $update = __( 'Plugin version update validation failure', 'happy-birthday' );
+                                            break;
+                            }
+
+                            if ( isset( $plugin_data['PluginURI'] ) && ! empty( $plugin_data['PluginURI'] )) {
+
+                                $update .= sprintf( ' <a href="%s" target="_blank" title="%s">%s</a>',
+                                                            esc_url( $plugin_data['PluginURI'] ),
+                                                            __( 'GitHub plugin documentation and download', 'happy-birthday' ),
+                                                            __( 'Plugin documentation', 'happy-birthday' ));
+                            }
+
+                            $today = date_i18n( 'Y/m/d H:i:s', current_time( 'timestamp' ));
+                            $update .= '<br />' . sprintf( __( 'Github plugin version status is checked each 24 hours last at %s.', 'happy-birthday' ), esc_attr( $today ));
+
+                            set_transient( $plugin,
+                                            array( 'status'       => $update,
+                                                'last_version' => $plugin_data['Version'] ),
+                                            24 * HOUR_IN_SECONDS
+                                        );
+
+                        } else {
+                            $update = sprintf( __( 'GitHub remote connection cURL error: %s', 'happy-birthday' ), $error );
+                        }
+
+                    } else {
+                        $update = __( 'cURL extension not loaded by PHP', 'happy-birthday' );
                     }
-
-                    if ( isset( $plugin_data['PluginURI'] ) && ! empty( $plugin_data['PluginURI'] )) {
-
-                        $update .= sprintf( ' <a href="%s" target="_blank" title="%s">%s</a>',
-                                                    esc_url( $plugin_data['PluginURI'] ),
-                                                    __( 'GitHub plugin documentation and download', 'happy-birthday' ),
-                                                    __( 'Plugin documentation', 'happy-birthday' ));
-                    }
-
-                    $today = date_i18n( 'Y/m/d H:i:s', current_time( 'timestamp' ));
-                    $update .= '<br />' . sprintf( __( 'Github plugin version status is checked each 24 hours last at %s.', 'happy-birthday' ), esc_attr( $today ));
-
-                    set_transient( $plugin,
-                                    array( 'status'       => $update,
-                                           'last_version' => $plugin_data['Version'] ),
-                                    24 * HOUR_IN_SECONDS
-                                );
-
-                } else {
-                    $update = sprintf( __( 'GitHub remote connection cURL error: %s', 'happy-birthday' ), $error );
                 }
-
-            } else {
-                $update = __( 'cURL extension not loaded by PHP', 'happy-birthday' );
             }
         }
 
-        return wp_kses( $update, UM()->classes['um_happy_birthday']->html_allowed );
+        return wp_kses( $update, UM()->get_allowed_html( 'templates' ) );
     }
 
     public function new_version_test_required( $transient, $plugin_data ) {
@@ -146,12 +151,42 @@ class UM_Happy_Birthday_Admin_Settings {
 
     public function um_admin_settings_extension_happy_birthday( $settings ) {
 
+        if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'um_options' ) {
+            if ( isset( $_REQUEST['tab'] ) && $_REQUEST['tab'] == 'extensions' ) {
+
+                $settings['extensions']['sections']['happy-birthday']['title'] = __( 'Happy Birthday', 'happy-birthday' );
+
+                if ( ! isset( $_REQUEST['section'] ) || $_REQUEST['section'] == 'happy-birthday' ) {
+
+                    if ( ! isset( $settings['extensions']['sections']['happy-birthday']['fields'] ) ) {
+                        
+                        $settings['extensions']['sections']['happy-birthday']['description'] = $this->get_possible_plugin_update( 'um-happy-birthday' );
+                        $settings['extensions']['sections']['happy-birthday']['fields']      = $this->create_plugin_settings_fields();
+                    }
+                }
+            }
+        }
+
+        return $settings;
+    }
+
+    public function create_plugin_settings_fields() {
+
         if ( isset( $_POST['um-settings-action'] ) &&  $_POST['um-settings-action'] == 'save' ) {
 
             delete_transient( UM()->classes['um_happy_birthday_transients']->transient_prefix . 'yes' );
             delete_transient( UM()->classes['um_happy_birthday_transients']->transient_prefix . 'no' );
             delete_transient( UM()->classes['um_happy_birthday_transients']->transient_prefix . 'default' );
         }
+
+        $prefix = '&nbsp; * &nbsp;';
+        $wp_cron_job = sprintf( '<a href="https://developer.wordpress.org/plugins/cron/" title="%s" target="_blank">WP Cronjob</a>', __( 'What is WP-Cron?', 'happy-birthday' ));
+
+        $description = array();
+        $description[] = __( 'Select the hour during the day when the Happy Birthday plugin first will try to send greetings to the User.', 'happy-birthday' );
+        $description[] = __( 'New sending attempt each hour if plugin or email/WP-SMS been inactive.', 'happy-birthday' );
+        $description[] = __( 'New sending attempt also during next hour if additional Account Status or Roles are selected', 'happy-birthday' );
+        $description[] = __( 'A "Resend" must be applied from the WP All Users page and UM Action dropdown at least 2 hours before midnight.', 'happy-birthday' );
 
         $um_directory_forms = get_posts( array( 'numberposts' => -1,
                                                 'post_type'   => 'um_directory',
@@ -164,26 +199,15 @@ class UM_Happy_Birthday_Admin_Settings {
             $members_directories[$um_directory_form->ID] = $um_directory_form->post_title;
         }
 
-        asort( UM()->classes['um_happy_birthday']->icon_options );
+        $cake_color = UM()->classes['um_happy_birthday_core']->cake_color;
+        $px = UM()->classes['um_happy_birthday_core']->px;
+
+        asort( UM()->classes['um_happy_birthday_core']->icon_options );
 
         ob_start();
-        UM()->classes['um_happy_birthday']->show_current_happy_birthday_icon();
+        UM()->classes['um_happy_birthday_core']->show_current_happy_birthday_icon();
         $icon_html = ob_get_contents();
         ob_end_clean();
-
-        $prefix = '&nbsp; * &nbsp;';
-        $wp_cron_job = sprintf( '<a href="https://developer.wordpress.org/plugins/cron/" title="%s" target="_blank">WP Cronjob</a>', __( 'What is WP-Cron?', 'happy-birthday' ));
-
-        $description = array();
-        $description[] = __( 'Select the hour during the day when the Happy Birthday plugin first will try to send greetings to the User.', 'happy-birthday' );
-        $description[] = __( 'New sending attempt each hour if plugin or email/WP-SMS been inactive.', 'happy-birthday' );
-        $description[] = __( 'New sending attempt also during next hour if additional Account Status or Roles are selected', 'happy-birthday' );
-        $description[] = __( 'A "Resend" must be applied from the WP All Users page and UM Action dropdown at least 2 hours before midnight.', 'happy-birthday' );
-
-        $settings['extensions']['sections']['happy-birthday'] = array(
-                                                                        'title'	      => __( 'Happy Birthday', 'happy-birthday' ),
-                                                                        'description' => $this->get_possible_plugin_update( 'um-happy-birthday' ),
-                                                                    );
 
         $section_fields = array();
 
@@ -286,10 +310,11 @@ class UM_Happy_Birthday_Admin_Settings {
                     'id'              => $this->slug . '_celebrant_name',
                     'type'            => 'select',
                     'label'           => $prefix . __( 'Select Name in the Celebrant list', 'happy-birthday' ),
-                    'options'         => array(   'user_login'   => __( 'User Login', 'happy-birthday' ),
+                    'options'         => array( 'user_login'   => __( 'User Login', 'happy-birthday' ),
                                                 'display_name' => __( 'Display Name', 'happy-birthday' ),
                                             ),
                     'default'         => 'display_name',
+                    'size'            => 'short',
                     'description'     => __( 'Select the User name for the Celebrant listing at this page and UM Dashboard modal if activated.', 'happy-birthday' ),
                     'conditional'     => array( $this->slug . '_celebrant_list', '=', 1 ),
                 );
@@ -300,6 +325,16 @@ class UM_Happy_Birthday_Admin_Settings {
                     'label'           => $prefix . __( 'Activate the UM Dashboard modal', 'happy-birthday' ),
                     'checkbox_label'  => __( 'Click to activate the UM Dashboard modal for Happy Birthday.', 'happy-birthday' ),
                 );
+
+        $section_fields[] = array(
+                    'id'              => $this->slug . '_text_color',
+                    'type'            => 'text',
+                    'size'            => 'short',
+                    'label'           => $prefix . sprintf( __( 'Select the text color for "%s"', 'happy-birthday' ), UM()->classes['um_happy_birthday']->celebrants_today ),
+                    'description'     => __( 'Enter the color for the number of celebrants today text either by the color name or HEX code.', 'happy-birthday' ) . '<br />' .
+                                         __( 'Default color is "green".', 'happy-birthday' ) .
+                                             ' <a href="https://www.w3schools.com/colors/colors_groups.asp" target="_blank">W3Schools HTML Color Groups</a>',
+        );
 
         $section_fields[] = array(
                     'id'              => $this->slug . '_header',
@@ -489,7 +524,7 @@ class UM_Happy_Birthday_Admin_Settings {
                         'type'           => 'select',
                         'size'           => 'short',
                         'label'          => $prefix . __( 'Select Birthday Celebration icon', 'happy-birthday' ),
-                        'options'        => UM()->classes['um_happy_birthday']->icon_options,
+                        'options'        => UM()->classes['um_happy_birthday_core']->icon_options,
                         'description'    => __( 'Default Birthday Celebration icon is "A Cake with three Candles"', 'happy-birthday' ) . '<br />' .
                                             __( 'Current Birthday Celebration icon:', 'happy-birthday' ) . '<br />' . $icon_html,
                         'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
@@ -498,10 +533,10 @@ class UM_Happy_Birthday_Admin_Settings {
         $section_fields[] = array(
                         'id'             => $this->slug . '_cake_color',
                         'type'           => 'text',
-                        'size'           => 'small',
+                        'size'           => 'short',
                         'label'          => $prefix . __( 'Birthday Celebration icon color', 'happy-birthday' ),
                         'description'    => __( 'Enter the color for the Birthday Celebration icon either by the color name or HEX code.', 'happy-birthday' ) . '<br />' .
-                                            sprintf( __( 'Default color is "%s".', 'happy-birthday' ), UM()->classes['um_happy_birthday']->cake_color ) .
+                                            sprintf( __( 'Default color is "%s".', 'happy-birthday' ), $cake_color ) .
                                             ' <a href="https://www.w3schools.com/colors/colors_groups.asp" target="_blank">W3Schools HTML Color Groups</a>',
                         'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
                     );
@@ -509,15 +544,13 @@ class UM_Happy_Birthday_Admin_Settings {
         $section_fields[] = array(
                         'id'             => $this->slug . '_cake_size',
                         'type'           => 'text',
-                        'size'           => 'small',
+                        'size'           => 'short',
                         'label'          => $prefix . __( 'Birthday Celebration icon size', 'happy-birthday' ),
-                        'description'    => sprintf( __( 'Enter the size value in pixels for the Birthday Celebration icon, default value is %s.', 'happy-birthday' ), UM()->classes['um_happy_birthday']->px ),
+                        'description'    => sprintf( __( 'Enter the size value in pixels for the Birthday Celebration icon, default value is %s pixels.', 'happy-birthday' ), $px ),
                         'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
                     );
 
-        $settings['extensions']['sections']['happy-birthday']['fields'] = $section_fields;
-
-        return $settings;
+        return $section_fields;
     }
 
     public function copy_email_notifications_happy_birthday() {
@@ -533,7 +566,7 @@ class UM_Happy_Birthday_Admin_Settings {
 
             wp_mkdir_p( dirname( $located ) );
 
-            $email_source = file_get_contents( Plugin_Path . $this->slug . '.php' );
+            $email_source = file_get_contents( Plugin_Path_HB . $this->slug . '.php' );
             file_put_contents( $located, $email_source );
 
             if ( ! file_exists( $located ) ) {
@@ -545,3 +578,5 @@ class UM_Happy_Birthday_Admin_Settings {
 
 
 new UM_Happy_Birthday_Admin_Settings();
+
+
