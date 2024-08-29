@@ -26,7 +26,7 @@ class UM_Happy_Birthday_Predefined {
 
     public function custom_predefined_fields_happy_birthday( $predefined_fields ) {
 
-        UM()->classes['um_happy_birthday']->icon_options = apply_filters( 'happy_birthday_icons', array(
+        UM()->classes['um_happy_birthday_core']->icon_options = apply_filters( 'happy_birthday_icons', array(
 
             'fas fa-cake-candles'      => __( 'A Cake with three Candles', 'happy-birthday' ),
             'fas fa-champagne-glasses' => __( 'Champagne two Glasses',     'happy-birthday' ),
@@ -152,3 +152,5 @@ class UM_Happy_Birthday_Predefined {
 }
 
 new UM_Happy_Birthday_Predefined();
+
+
