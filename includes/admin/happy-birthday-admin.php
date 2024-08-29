@@ -34,7 +34,6 @@ class UM_Happy_Birthday {
     public $prio_roles              = array();
     public $all_selected_user_roles = array();
     public $privacy_options         = array();
-    public $icon_options            = array();
 
     public $sms_info                = '';
     public $sms_text_message        = '';
@@ -44,10 +43,7 @@ class UM_Happy_Birthday {
     public $email_send_status       = '';
     public $sms_send_status         = '';
     public $celebrants_today        = '';
-    public $celebrants_summary      = '';    
-
-    public $px                      = '40';
-    public $cake_color              = 'white';
+    public $celebrants_summary      = '';
 
     public $account_status   = array(
                                     'approved'                    => 'Approved',
@@ -57,47 +53,17 @@ class UM_Happy_Birthday {
                                     'rejected'                    => 'Rejected',
                                 );
 
-    public $html_allowed = array(
-                                    'a'     => array(
-                                                    'href'   => array(),
-                                                    'target' => true,
-                                                    'title'  => true,
-                                                    'style'  => true,
-                                                    ),
-                                    'style' => array(),
-                                    'br'    => array(),
-                                    'hr'    => array(),
-                                    'span'  => array(
-                                                    'style' => true,
-                                                    'title' => true,
-                                                    ),
-                                    'table' => array(),
-                                    'td'    => array(
-                                                    'style'   => true,
-                                                    'colspan' => true,
-                                                    ),
-                                    'tr'    => array(
-                                                    'style'   => true,
-                                                    ),
-                                );
-
-
     function __construct() {
 
-        add_filter( 'um_email_notifications',                        array( $this, 'um_email_notifications' ), 10, 1 );
+        add_filter( 'um_email_notifications',                        array( $this, 'um_email_notifications_happy_birthday' ), 98, 1 );
         add_filter( 'um_admin_bulk_user_actions_hook',               array( $this, 'um_admin_bulk_user_actions_resend_happy_birthday' ), 10, 1 );
         add_action( 'um_admin_custom_hook_happy_birthday_greetings', array( $this, 'um_admin_custom_hook_happy_birthday_greetings_resend' ), 10, 1 );
 
-        add_filter( 'um_account_tab_privacy_fields',                 array( $this, 'um_account_tab_privacy_fields_happy_birthday' ), 10, 2 );
         add_action( 'um_prepare_user_query_args',                    array( $this, 'um_happy_birthday_directories' ), 10, 2 );
         add_filter( 'um_pre_args_setup',                             array( $this, 'um_pre_args_setup_happy_birthday' ), 10, 1 );
 
-        add_action( 'plugins_loaded',                                array( $this, 'um_happy_birthday_plugin_loaded' ), 0 );
         add_action( 'um_registration_set_extra_data',                array( $this, 'um_registration_set_happy_birthday_account_consent' ), 10, 3 );
         add_action( 'um_account_pre_update_profile',                 array( $this, 'um_account_pre_update_profile_happy_birthday_account_consent' ), 10, 2 );
-
-        add_action( 'um_after_profile_name_inline',                  array( $this, 'um_after_profile_name_show_celebration_icon' ), 9, 1 );
-
 
         if ( UM()->options()->get( $this->slug . '_modal_list' ) == 1 ) {
 		    add_action( 'load-toplevel_page_ultimatemember',         array( $this, 'load_metabox_happy_birthday' ) );
@@ -134,70 +100,6 @@ class UM_Happy_Birthday {
         ?>
         </div>
         <?php
-    }
-
-    public function um_after_profile_name_show_celebration_icon( $args ) {
-
-        if ( UM()->options()->get( $this->slug . '_cake_candles' ) == 1 ) {
-
-            if ( strpos( um_user( 'birth_date' ), date_i18n( '/m/d', current_time( 'timestamp' )) ) !== false ) {
-
-                if ( $this->get_user_account_consent_setting() !== false ) {
-
-                    $this->show_current_happy_birthday_icon();
-                }
-            }
-        }
-    }
-
-    public function show_current_happy_birthday_icon() {
-
-        $title = __( 'Happy Birthday today', 'happy-birthday' );
-
-        $color = trim( UM()->options()->get( $this->slug . '_cake_color' ));
-        if ( ! empty( $color )) {
-            $this->cake_color = sanitize_text_field( $color );
-        }
-
-        $px = trim( UM()->options()->get( $this->slug . '_cake_size' ));
-        if ( ! empty( $px )) {
-            $this->px = absint( str_replace( 'px', '', strtolower( sanitize_text_field( $px ))));
-        }
-
-        $class_icon = 'fas fa-cake-candles';
-        $icon = UM()->options()->get( $this->slug . '_celebration_icon' );
-
-        if ( ! empty( $icon ) && isset( $this->icon_options[$icon] )) {
-            $class_icon = $icon;
-        }
-?>
-        <span class="um-field-label-icon" 
-              style="font-size: <?php echo esc_attr( $this->px ); ?>px; color: <?php echo esc_attr( $color ); ?>;"
-              title="<?php echo esc_attr( $title ); ?>">
-            <i class="<?php echo esc_attr( $class_icon ); ?>"></i>
-        </span>
-<?php
-    }
-
-    public function get_user_account_consent_setting() {
-
-        $current_consent = um_user( $this->slug . '_privacy' );
-        $consent = false;
-
-        if ( empty( $current_consent )) {
-
-            if ( UM()->options()->get( $this->slug . '_without_consent' ) == 1 ) {
-                $consent = true;
-            }
-
-        } else {
-
-            if ( is_array( $current_consent ) && $current_consent[0] == 'yes' ) {
-                $consent = true;
-            } 
-        }
-
-        return $consent;
     }
 
     public function cron_job_settings() {
@@ -254,7 +156,13 @@ class UM_Happy_Birthday {
                     }
 
                 } else {
-                    $this->plugin_status[] = sprintf( __( 'The "%s" plugin is not installed or the plugin is deactivated', 'happy-birthday' ), $wp_sms );
+
+                    if ( file_exists( WP_CONTENT_DIR . '/plugins/wp-sms' )) {
+                        $this->plugin_status[] = sprintf( __( 'The "%s" plugin is deactivated', 'happy-birthday' ), $wp_sms );
+
+                    } else {
+                        $this->plugin_status[] = sprintf( __( 'The "%s" plugin is not installed', 'happy-birthday' ), $wp_sms );
+                    }
                 }
 
             } else {
@@ -309,12 +217,15 @@ class UM_Happy_Birthday {
 
     public function um_admin_bulk_user_actions_resend_happy_birthday( $actions ) {
 
-        if ( UM()->options()->get( $this->slug . '_email' ) == 1 ) {
-            $actions['happy_birthday_greetings']  = array( 'label' => __( 'Resend Happy Birthday greetings', 'happy-birthday' ));
-        }
+        if ( ! isset( $_REQUEST['content_moderation'])) {
 
-        if ( defined( 'WP_SMS_DIR' ) && UM()->options()->get( $this->slug . '_sms' ) == 1 ) {
-            $actions['happy_birthday_greetings']  = array( 'label' => __( 'Resend Happy Birthday greetings', 'happy-birthday' ));
+            if ( UM()->options()->get( $this->slug . '_email' ) == 1 ) {
+                $actions['happy_birthday_greetings'] = array( 'label' => __( 'Resend Happy Birthday greetings', 'happy-birthday' ));
+            }
+
+            if ( defined( 'WP_SMS_DIR' ) && UM()->options()->get( $this->slug . '_sms' ) == 1 ) {
+                $actions['happy_birthday_greetings'] = array( 'label' => __( 'Resend Happy Birthday greetings', 'happy-birthday' ));
+            }
         }
 
         return $actions;
@@ -470,8 +381,8 @@ class UM_Happy_Birthday {
                                 $celebrants[$user_id]['email'] = true;
 
                             } else {
+
                                 unset( $celebrants[$user_id] );
-                                UM()->user()->remove_cache( $user_id );
                             }
                         }
                     }
@@ -479,7 +390,6 @@ class UM_Happy_Birthday {
                 } else {
 
                     unset( $celebrants[$user_id] );
-                    UM()->user()->remove_cache( $user_id );
                 }
 
             } else {
@@ -512,19 +422,14 @@ class UM_Happy_Birthday {
 
                 foreach( $celebrants as $user_id => $type ) {
 
-                    UM()->user()->remove_cache( $user_id );
-                    um_fetch_user( $user_id );
-
                     $prio_role = UM()->roles()->get_priority_user_role( $user_id );
                     if ( in_array( $prio_role, $this->all_selected_user_roles )) {
 
                         $user_selection[$user_id] = $type;
                         $this->prio_roles[$user_id] = UM()->roles()->get_role_name( $prio_role );
-
-                    } else {
-                        UM()->user()->remove_cache( $user_id );
                     }
                 }
+
                 ksort( $user_selection );
             }
         }
@@ -561,14 +466,16 @@ class UM_Happy_Birthday {
                         $link = sprintf( '<a href="%s?date=%s" target="Happy_Birthday">%s</a>', esc_url( $url ), substr( $this->today, 0, 10 ), substr( $this->today, 0, 10 ));
                     }
 
-                    $subject = wp_kses( sprintf( __( 'Birthday greetings today %s', 'happy-birthday' ), substr( $this->today, 0, 10 ) ), $this->html_allowed );
+                    $subject = wp_kses( sprintf( __( 'Birthday greetings today %s', 'happy-birthday' ), substr( $this->today, 0, 10 ) ), UM()->get_allowed_html( 'templates' ) );
 
                     $body  = sprintf( __( 'Birthday greetings today %s', 'happy-birthday' ), $link ) . '<br />';
                     $body .= sprintf( __( 'Number of greetings sent in this batch: %s', 'happy-birthday' ), $status ) . '<br />';
                     $body .= implode( '<br />', $this->sent_user_list );
                     $body  = str_replace( array( '<br /><br /><br /><br />', '<br /><br /><br />' ), '<br /><br />', $body );
 
-                    $body = wp_kses( $body, $this->html_allowed );
+                    add_filter( 'um_late_escaping_allowed_tags', array( $this, 'um_happy_birthday_allowed_tags' ), 99, 2 );
+                    $body = wp_kses( $body, UM()->get_allowed_html( 'templates' ) );
+                    remove_filter( 'um_late_escaping_allowed_tags', array( $this, 'um_happy_birthday_allowed_tags' ), 99, 2 );
 
                     $headers = array();
                     $headers[] = 'Content-Type: text/html; charset=UTF-8';
@@ -612,7 +519,7 @@ class UM_Happy_Birthday {
 
     public function get_user_age() {
 
-        return intval( substr( $this->today, 0, 4 )) - intval( substr( um_user( 'birth_date'), 0, 4 ));
+        return intval( substr( $this->today, 0, 4 )) - intval( substr( um_user( 'birth_date' ), 0, 4 ));
     }
 
     public function prepare_sms_message( $bool ) {
@@ -735,7 +642,7 @@ class UM_Happy_Birthday {
 
             $this->email_speed--;
             if ( ! empty( $this->email_speed ) ) {
-                $this->wp_mail_sleep();
+                $this->wp_mail_sleep( $user_id );
             }
         }
 
@@ -767,7 +674,7 @@ class UM_Happy_Birthday {
         }
     }
 
-    public function wp_mail_sleep() {
+    public function wp_mail_sleep( $user_id = false ) {
 
         if ( UM()->options()->get( $this->slug . '_wp_mail' ) == 1 ) {
 
@@ -775,6 +682,10 @@ class UM_Happy_Birthday {
 
             if ( empty( $sleep_seconds )) {
                 $sleep_seconds = 1;
+            }
+
+            if ( ! empty( $user_id )) {
+                UM()->user()->remove_cache( $user_id );
             }
 
             sleep( $sleep_seconds );
@@ -965,8 +876,14 @@ class UM_Happy_Birthday {
 
         $greeted = sprintf( '<a href="%s" target="Happy_Birthday" title="%s">%s</a>, %d', esc_url( um_user_profile_url( $user_id )), $title, um_user( $celebrant_name ), $this->get_user_age());
 
-        if ( ! $this->cronjob ) {
-            UM()->user()->remove_cache( $user_id );
+        if ( ! $this->cronjob && UM()->options()->get( $this->slug . '_modal_list' ) == 1 ) {
+
+            if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'ultimatemember' ) {
+                if ( isset( $_REQUEST['update'] ) && $_REQUEST['update'] == 'um_cleared_cache' ) {
+
+                    UM()->user()->remove_cache( $user_id );
+                }
+            }
         }
 
         return $greeted;
@@ -1115,8 +1032,14 @@ class UM_Happy_Birthday {
         if ( $delta == 0 ) {
 
             $hdr = str_replace( substr( $this->today, 0, 10 ), __( 'today', 'happy-birthday' ), $hdr );
-            $this->celebrants_today = str_replace( $link, '', $hdr );
-            $hdr = '<span style="color: green; font-weight: bold;">' . $hdr . '</span>';
+            $this->celebrants_today = trim( str_replace( $link, '', $hdr ));
+
+            $text_color = UM()->options()->get( $this->slug . '_text_color' );
+            if ( empty( $text_color )) {
+                $text_color = 'green';
+            }
+
+            $hdr = '<span style="color: ' . esc_attr( $text_color ) . '; font-weight: bold;">' . $hdr . '</span>';
         }
 
         $this->description[] = $hdr;
@@ -1160,27 +1083,18 @@ class UM_Happy_Birthday {
         $desc .= '<br />';
         $desc .= implode( '', $this->description );
 
-        $desc = wp_kses( $desc, $this->html_allowed );
+        add_filter( 'um_late_escaping_allowed_tags', array( $this, 'um_happy_birthday_allowed_tags' ), 99, 2 );
+        $desc = wp_kses( $desc, UM()->get_allowed_html( 'templates' ) );
+        remove_filter( 'um_late_escaping_allowed_tags', array( $this, 'um_happy_birthday_allowed_tags' ), 99, 2 );
 
         return $desc;
     }
 
-    public function um_account_tab_privacy_fields_happy_birthday( $args, $shortcode_args ) {
+    public function um_happy_birthday_allowed_tags( $allowed_html, $context ) {
 
-        global $current_user;
+        require_once( Plugin_Path_HB . 'includes/admin/allowed-html-list.php' );
 
-        $this->get_all_selected_user_roles();
-
-        if ( ! empty( $this->all_selected_user_roles )) {
-
-            $prio_role = UM()->roles()->get_priority_user_role( $current_user->ID );
-            if ( in_array( $prio_role, $this->all_selected_user_roles )) {
-
-                $args .= ',' . $this->slug . '_privacy';
-            }
-        }
-
-        return $args;
+        return $allowed_html;
     }
 
     public function um_registration_set_happy_birthday_account_consent( $user_id, $args, $form_data ) {
@@ -1232,7 +1146,7 @@ class UM_Happy_Birthday {
         return $url;
     }
 
-    public function um_email_notifications( $notifications ) {
+    public function um_email_notifications_happy_birthday( $notifications ) {
 
         $url = $this->get_plugin_settings_url();
 
@@ -1242,6 +1156,7 @@ class UM_Happy_Birthday {
                                             'subject'        => __( 'Happy Birthday from {site_name}', 'happy-birthday' ),
                                             'body'           => 'Hi {first_name},<br /><br />We wish you a happy birthday today!<br /><br />The {site_name} Team',
                                             'description'    => __( 'Whether to send the user an email when someone is today\'s birthday.','happy-birthday' ) . $url,
+                                            'default_active' => true,
                                             'recipient'   	 => 'user',
                                         );
 
@@ -1314,3 +1229,4 @@ class UM_Happy_Birthday {
     }
 
 }
+
