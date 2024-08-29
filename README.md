@@ -10,6 +10,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 6. For User Role dependant email content, use the "Email Parse Shortcode" plugin. https://github.com/MissVeronica/um-email-parse-shortcode
 
 ## UM Settings -> Extensions -> Happy Birthday
+Plugin version update check each 24 hours and the documentation link.
 ### WP Cronjob
 1.  * Activate the Happy Birthday WP Cronjob - Click to activate the Plugin's WP Cronjob
 2.  * Send Happy Birthday greetings during this hour or later - Select the hour during the day when the Happy Birthday plugin first will try to send greetings to the User. New sending test each hour if plugin or email/WP-SMS been inactive. New sending test also during next hour if additional Account Status or Roles are selected or "Resend" is applied from the WP All Users page and UM Action dropdown.
@@ -26,7 +27,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 10.  *  Activate sending emails - Click to enable the WP Cronjob sending Happy Birthday emails.
 11.  *  Select email sending speed - Select which speed to send the greetings emails in number of emails sent per hour.
 12.  *  WP Mail or SMTP - Click if you are using WP Mail and not a SMTP transport service for your emails.
-13.  * Select delay in seconds for WP Mail - Select the delay in seconds between each greetings email being sent via WP Mail.
+13.  *  Select delay in seconds for WP Mail - Select the delay in seconds between each greetings email being sent via WP Mail.
 ### WP SMS text greetings - Optional
 14.  * Activate sending WP SMS - Click to enable the WP Cronjob sending Happy Birthday mobile SMS text greeting instead of an email if User registered with Mobile number
 15.  * Activate sending flash WP SMS - Click to enable the WP Cronjob sending Happy Birthday flash SMS text greeting
@@ -119,7 +120,10 @@ Install by adding the code snippet to your active theme's functions.php file or 
 ### Version 2.5.0     
 1. Update of the "Birthday Celebration icon" feature with a selection of 40+ additional free WP icons from "Font Awesome".
 2. Filter hook "happy_birthday_icons" for custom addition of "Font Awesome" free WP icons.
-3. Code improvements  
+3. Code improvements
+### Version 2.5.1       
+1. Select the text color for "One celebrant today Thursday"
+2. Code improvements
 
 ## References
 1. WP Cron:  https://developer.wordpress.org/plugins/cron/
