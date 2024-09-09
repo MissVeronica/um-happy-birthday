@@ -159,7 +159,7 @@ class UM_Happy_Birthday_Admin_Settings {
                 if ( ! isset( $_REQUEST['section'] ) || $_REQUEST['section'] == 'happy-birthday' ) {
 
                     if ( ! isset( $settings['extensions']['sections']['happy-birthday']['fields'] ) ) {
-                        
+
                         $settings['extensions']['sections']['happy-birthday']['description'] = $this->get_possible_plugin_update( 'um-happy-birthday' );
                         $settings['extensions']['sections']['happy-birthday']['fields']      = $this->create_plugin_settings_fields();
                     }
@@ -199,15 +199,40 @@ class UM_Happy_Birthday_Admin_Settings {
             $members_directories[$um_directory_form->ID] = $um_directory_form->post_title;
         }
 
-        $cake_color = UM()->classes['um_happy_birthday_core']->cake_color;
+        $cake_color  = UM()->classes['um_happy_birthday_core']->cake_color;
+        $title_color = UM()->classes['um_happy_birthday_core']->title_color;
+        $title_font  = UM()->classes['um_happy_birthday_core']->title_font;
         $px = UM()->classes['um_happy_birthday_core']->px;
 
         asort( UM()->classes['um_happy_birthday_core']->icon_options );
 
         ob_start();
-        UM()->classes['um_happy_birthday_core']->show_current_happy_birthday_icon();
-        $icon_html = ob_get_contents();
+            UM()->classes['um_happy_birthday_core']->show_current_happy_birthday_icon( 'celebrant' );
+            $icon_html_1 = ob_get_contents();
         ob_end_clean();
+
+        ob_start();
+            UM()->classes['um_happy_birthday_core']->show_current_happy_birthday_icon( 'viewer' );
+            $icon_html_2 = ob_get_contents();
+        ob_end_clean();
+
+        $two_weeks = array(
+                            '0'   => '0',
+                            '1'   => '1',
+                            '2'   => '2',
+                            '3'   => '3',
+                            '4'   => '4',
+                            '5'   => '5',
+                            '6'   => '6',
+                            '7'   => '7',
+                            '8'   => '8',
+                            '9'   => '9',
+                            '10'  => '10',
+                            '11'  => '11',
+                            '12'  => '12',
+                            '13'  => '13',
+                            '14'  => '14',
+                        );
 
         $section_fields = array();
 
@@ -337,6 +362,24 @@ class UM_Happy_Birthday_Admin_Settings {
         );
 
         $section_fields[] = array(
+                    'id'              => $this->slug . '_backward',
+                    'type'            => 'select',
+                    'size'            => 'short',
+                    'label'           => $prefix . __( 'Past Celebrants to show', 'happy-birthday' ),
+                    'options'         => $two_weeks,
+                    'description'     => __( 'Select the number of past birthdays to show. Default is one day.', 'happy-birthday' ),
+        );
+
+        $section_fields[] = array(
+                    'id'              => $this->slug . '_forward',
+                    'type'            => 'select',
+                    'size'            => 'short',
+                    'label'           => $prefix . __( 'Upcoming Celebrants to show', 'happy-birthday' ),
+                    'options'         => $two_weeks,
+                    'description'     => __( 'Select the number of upcoming birthdays to show. Default is 6 days.', 'happy-birthday' ),
+        );
+
+        $section_fields[] = array(
                     'id'              => $this->slug . '_header',
                     'type'            => 'header',
                     'label'           => __( 'Email greetings', 'happy-birthday' ),
@@ -355,21 +398,21 @@ class UM_Happy_Birthday_Admin_Settings {
                     'size'            => 'short',
                     'label'           => $prefix . __( 'Select email sending speed', 'happy-birthday' ),
                     'options'         => array(
-                                                1   => '1',
-                                                5   => '5',
-                                                10   => '10',
-                                                15   => '15',
-                                                20   => '20',
-                                                25   => '25',
-                                                50   => '50',
-                                                75   => '75',
-                                                100  => '100',
-                                                125  => '125',
-                                                150  => '150',
-                                                175  => '175',
-                                                200  => '200',
-                                                225  => '225',
-                                                250  => '250',
+                                                '1'    => '1',
+                                                '5'    => '5',
+                                                '10'   => '10',
+                                                '15'   => '15',
+                                                '20'   => '20',
+                                                '25'   => '25',
+                                                '50'   => '50',
+                                                '75'   => '75',
+                                                '100'  => '100',
+                                                '125'  => '125',
+                                                '150'  => '150',
+                                                '175'  => '175',
+                                                '200'  => '200',
+                                                '225'  => '225',
+                                                '250'  => '250',
                                             ),
                     'description'     => __( 'Select which speed to send the greetings emails in number of emails sent per hour.', 'happy-birthday' ),
                     'conditional'     => array( $this->slug . '_email', '=', 1 ),
@@ -389,16 +432,16 @@ class UM_Happy_Birthday_Admin_Settings {
                     'size'            => 'short',
                     'label'           => $prefix . __( 'Select delay in seconds for WP Mail', 'happy-birthday' ),
                     'options'         => array(
-                                                1   => '1',
-                                                5   => '5',
-                                                10   => '10',
-                                                15   => '15',
-                                                20   => '20',
-                                                25   => '25',
-                                                30   => '30',
-                                                60   => '60',
-                                                90   => '90',
-                                                120  => '120',
+                                                '1'    => '1',
+                                                '5'    => '5',
+                                                '10'   => '10',
+                                                '15'   => '15',
+                                                '20'   => '20',
+                                                '25'   => '25',
+                                                '30'   => '30',
+                                                '60'   => '60',
+                                                '90'   => '90',
+                                                '120'  => '120',
                                             ),
                     'description'     => __( 'Select the delay in seconds between each greetings email being sent via WP Mail.', 'happy-birthday' ),
                     'conditional'     => array( $this->slug . '_wp_mail', '=', 1 ),
@@ -470,28 +513,39 @@ class UM_Happy_Birthday_Admin_Settings {
                         'conditional'    => array( $this->slug . '_admin', '=', 1 ),
                     );
 
-        $section_fields[] = array(
-                        'id'             => $this->slug . '_header',
-                        'type'           => 'header',
-                        'label'          => __( 'Members Directory for display of Celebrants', 'happy-birthday' ),
-                    );
+        if ( UM()->options()->get( 'member_directory_own_table' ) != 1 ) {
 
-        $section_fields[] = array(
-                        'id'             => $this->slug . '_um_form',
-                        'type'           => 'select',
-                        'size'           => 'medium',
-                        'label'          => $prefix . __( 'Select Members Directory form', 'happy-birthday' ),
-                        'options'        => $members_directories,
-                        'description'    => __( 'Select the Members Directory form for display of celebrants.', 'happy-birthday' ),
-                    );
+            $section_fields[] = array(
+                            'id'             => $this->slug . '_header',
+                            'type'           => 'header',
+                            'label'          => __( 'Members Directory for display of Celebrants', 'happy-birthday' ),
+                        );
 
-        $section_fields[] = array(
-                        'id'             => $this->slug . '_um_form_url',
-                        'type'           => 'text',
-                        'size'           => 'medium',
-                        'label'          => $prefix . __( 'URL to Members Directory page', 'happy-birthday' ),
-                        'description'    => __( 'Enter the URL to the Members Directory page for display of celebrants.', 'happy-birthday' ),
-                    );
+            $section_fields[] = array(
+                            'id'             => $this->slug . '_um_form',
+                            'type'           => 'select',
+                            'size'           => 'medium',
+                            'label'          => $prefix . __( 'Select Members Directory form', 'happy-birthday' ),
+                            'options'        => $members_directories,
+                            'description'    => __( 'Select the Members Directory form for display of celebrants.', 'happy-birthday' ),
+                        );
+
+            $section_fields[] = array(
+                            'id'             => $this->slug . '_um_form_url',
+                            'type'           => 'text',
+                            'size'           => 'medium',
+                            'label'          => $prefix . __( 'URL to Members Directory page', 'happy-birthday' ),
+                            'description'    => __( 'Enter the URL to the Members Directory page for display of celebrants.', 'happy-birthday' ),
+                        );
+        } else {
+
+            $section_fields[] = array(
+                            'id'             => $this->slug . '_header',
+                            'type'           => 'header',
+                            'label'          => __( 'Members Directory for display of Celebrants', 'happy-birthday' ) . '<br />' .
+                                                __( 'is disabled because "Custom table for usermeta" is enabled', 'happy-birthday' ),
+                        );
+        }
 
         $section_fields[] = array(
                         'id'             => $this->slug . '_header',
@@ -526,7 +580,9 @@ class UM_Happy_Birthday_Admin_Settings {
                         'label'          => $prefix . __( 'Select Birthday Celebration icon', 'happy-birthday' ),
                         'options'        => UM()->classes['um_happy_birthday_core']->icon_options,
                         'description'    => __( 'Default Birthday Celebration icon is "A Cake with three Candles"', 'happy-birthday' ) . '<br />' .
-                                            __( 'Current Birthday Celebration icon:', 'happy-birthday' ) . '<br />' . $icon_html,
+                                            __( 'Current Birthday Celebration icons with a simulation of current Title text settings for your Profile:', 'happy-birthday' ) . '<br />' .
+                                            __( 'As Celebrant:', 'happy-birthday' ) . $icon_html_1 .
+                                            __( 'As Profile Viewer:', 'happy-birthday' ) . $icon_html_2,
                         'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
                     );
 
@@ -536,6 +592,7 @@ class UM_Happy_Birthday_Admin_Settings {
                         'size'           => 'short',
                         'label'          => $prefix . __( 'Birthday Celebration icon color', 'happy-birthday' ),
                         'description'    => __( 'Enter the color for the Birthday Celebration icon either by the color name or HEX code.', 'happy-birthday' ) . '<br />' .
+                                            __( 'Ultimate Member default blue color is #3ba1da and hover color is #44b0ec', 'happy-birthday' ) . '<br />' .
                                             sprintf( __( 'Default color is "%s".', 'happy-birthday' ), $cake_color ) .
                                             ' <a href="https://www.w3schools.com/colors/colors_groups.asp" target="_blank">W3Schools HTML Color Groups</a>',
                         'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
@@ -547,6 +604,63 @@ class UM_Happy_Birthday_Admin_Settings {
                         'size'           => 'short',
                         'label'          => $prefix . __( 'Birthday Celebration icon size', 'happy-birthday' ),
                         'description'    => sprintf( __( 'Enter the size value in pixels for the Birthday Celebration icon, default value is %s pixels.', 'happy-birthday' ), $px ),
+                        'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
+                    );
+
+        $section_fields[] = array(
+                        'id'             => $this->slug . '_title_color',
+                        'type'           => 'text',
+                        'size'           => 'short',
+                        'label'          => $prefix . __( 'Birthday Celebration icon title text and border color', 'happy-birthday' ),
+                        'description'    => __( 'Enter the text and border color for the Birthday Celebration icon title either by the color name or HEX code.', 'happy-birthday' ) . '<br />' .
+                                            sprintf( __( 'Default color is "%s".', 'happy-birthday' ), $title_color ) .
+                                            ' <a href="https://www.w3schools.com/colors/colors_groups.asp" target="_blank">W3Schools HTML Color Groups</a>',
+                        'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
+                    );
+
+        $section_fields[] = array(
+                        'id'             => $this->slug . '_title_font',
+                        'type'           => 'text',
+                        'size'           => 'short',
+                        'label'          => $prefix . __( 'Birthday Celebration icon title size and font', 'happy-birthday' ),
+                        'description'    => __( 'Enter the text size in pixels and font name for the Birthday Celebration icon title text.', 'happy-birthday' ) . '<br />' .
+                                            sprintf( __( 'Default text size and font name "%s"', 'happy-birthday' ), $title_font ),
+                        'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
+                    );
+
+        $section_fields[] = array(
+                        'id'             => $this->slug . '_title_celebrant',
+                        'type'           => 'text',
+                        'label'          => $prefix . __( 'Title text Birthday Celebration icon for the Celebrant', 'happy-birthday' ),
+                        'description'    => __( 'Enter the title text and placeholders when the Celebrant hover the Birthday Celebration icon.', 'happy-birthday' ) . '<br />' .
+                                            __( 'Default title text: "Congratulations to you {display_name} on your {age_ordinal} birthday. Greetings from the {site_name} team."', 'happy-birthday' ),
+                        'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
+                    );
+
+        $section_fields[] = array(
+                        'id'             => $this->slug . '_title_viewer',
+                        'type'           => 'text',
+                        'label'          => $prefix . __( 'Title text Birthday Celebration icon for a Profile Viewer', 'happy-birthday' ),
+                        'description'    => __( 'Enter the title text and placeholders when a Profile visitor hover the Birthday Celebration icon.', 'happy-birthday' ) . '<br />' .
+                                            __( 'Default title text: "{display_name} is celebrating {his_her} {age_ordinal} birthday today."', 'happy-birthday' ),
+                        'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
+                    );
+
+        $section_fields[] = array(
+                        'id'             => $this->slug . '_title_left',
+                        'type'           => 'text',
+                        'size'           => 'short',
+                        'label'          => $prefix . __( 'Title text Birthday Celebration box horizontal position', 'happy-birthday' ),
+                        'description'    => __( 'Enter the title text box horizontal position to the left or right as negative or positiv pixels numbers. Default value is 0.', 'happy-birthday' ),
+                        'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
+                    );
+
+        $section_fields[] = array(
+                        'id'             => $this->slug . '_title_width',
+                        'type'           => 'text',
+                        'size'           => 'short',
+                        'label'          => $prefix . __( 'Title text Birthday Celebration box width', 'happy-birthday' ),
+                        'description'    => __( 'Enter the title text box width in pixels. Default value is 300.', 'happy-birthday' ),
                         'conditional'    => array( $this->slug . '_cake_candles', '=', 1 ),
                     );
 
@@ -578,5 +692,3 @@ class UM_Happy_Birthday_Admin_Settings {
 
 
 new UM_Happy_Birthday_Admin_Settings();
-
-
