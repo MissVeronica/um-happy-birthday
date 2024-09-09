@@ -1,4 +1,4 @@
-# UM Happy Birthday version 2.5.1
+# UM Happy Birthday version 2.6.0
 Extension to Ultimate Member for Birthday greeting emails and optional mobile SMS texts.
 
 ## UM Settings -> Email -> Happy Birthday
@@ -6,7 +6,7 @@ Extension to Ultimate Member for Birthday greeting emails and optional mobile SM
 2. Subject
 3. Email Content
 4. Valid UM email placeholders. https://docs.ultimatemember.com/article/1340-placeholders-for-email-templates
-5. Additional placeholders: {today}, {age}, {user_id}, {mobile_number}
+5. Additional placeholders: {today}, {age}, {user_id}, {mobile_number}, {his_her}, {he_she}, {age_ordinal}
 6. For User Role dependant email content, use the "Email Parse Shortcode" plugin. https://github.com/MissVeronica/um-email-parse-shortcode
 
 ## UM Settings -> Extensions -> Happy Birthday
@@ -23,28 +23,39 @@ Plugin version update check each 24 hours and the documentation link.
 7.  * Select Name in celebrant list - Select the User name for the Celebrant listing at this page and UM Dashboard modal if activated.
 8.  * Activate the UM Dashboard modal - Click to activate the UM Dashboard modal for Happy Birthday.
 9.  * Select the text color for "One celebrant today Thursday" - Enter the color for the number of celebrants today text either by the color name or HEX code. Default color is "green".
+10.  * Past Celebrants to show - Select the number of past birthdays to show. Default is one day.
+11.  * Upcoming Celebrants to show - Select the number of upcoming birthdays to show. Default is 6 days.
 ### Email greetings
-10.  *  Activate sending emails - Click to enable the WP Cronjob sending Happy Birthday emails.
-11.  *  Select email sending speed - Select which speed to send the greetings emails in number of emails sent per hour.
-12.  *  WP Mail or SMTP - Click if you are using WP Mail and not a SMTP transport service for your emails.
-13.  *  Select delay in seconds for WP Mail - Select the delay in seconds between each greetings email being sent via WP Mail.
+12.  *  Activate sending emails - Click to enable the WP Cronjob sending Happy Birthday emails.
+13.  *  Select email sending speed - Select which speed to send the greetings emails in number of emails sent per hour.
+14.  *  WP Mail or SMTP - Click if you are using WP Mail and not a SMTP transport service for your emails.
+15.  *  Select delay in seconds for WP Mail - Select the delay in seconds between each greetings email being sent via WP Mail.
 ### WP SMS text greetings - Optional
-14.  * Activate sending WP SMS - Click to enable the WP Cronjob sending Happy Birthday mobile SMS text greeting instead of an email if User registered with Mobile number
-15.  * Activate sending flash WP SMS - Click to enable the WP Cronjob sending Happy Birthday flash SMS text greeting
-16.  * WP SMS text greeting - Enter your Happy Birthday SMS text greeting and you can use UM email placeholders and {today}, {age}, {user_id}, {mobile_number}
+16.  * Activate sending WP SMS - Click to enable the WP Cronjob sending Happy Birthday mobile SMS text greeting instead of an email if User registered with Mobile number
+17.  * Activate sending flash WP SMS - Click to enable the WP Cronjob sending Happy Birthday flash SMS text greeting
+18.  * WP SMS text greeting - Enter your Happy Birthday SMS text greeting and you can use UM email placeholders and {today}, {age}, {user_id}, {mobile_number}
 ### Daily Admin summary email
-17.  * Activate Admin info email - Click to enable the Admin info email sent after each batch of greetings emails.
-18.  * Select info in Admin email - Select the information fields about the celebrant to include in the Admin info email.
+19.  * Activate Admin info email - Click to enable the Admin info email sent after each batch of greetings emails.
+20.  * Select info in Admin email - Select the information fields about the celebrant to include in the Admin info email.
 ### Members Directory for display of Celebrants
-19.  * Select Members Directory form - Select the Members Directory form for display of celebrants.
-20.  * URL to Members Directory page - Enter the URL to the Members Directory page for display of celebrants.
+21.  * Select Members Directory form - Select the Members Directory form for display of celebrants.
+22.  * URL to Members Directory page - Enter the URL to the Members Directory page for display of celebrants.
 ### User Account page setting
-21.  * Allow users to enable/disable greetings - Click to allow Users to enable/disable greetings at their Account Privacy page.
+23.  * Allow users to enable/disable greetings - Click to allow Users to enable/disable greetings at their Account Privacy page.
 ### Birthday Celebration icons
-22.  * Birthday Celebration icon - Click to enable a Birthday Celebration icon at the User Profile page after the Celebrant's name.
-23.  * Select Birthday Celebration icon - Default Birthday Celebration icon is "A Cake with three Candles". Current Birthday Celebration icon:
-24.  * Birthday Celebration icon color - Enter the color for the Birthday Celebration icon either by the color name or HEX code. Default color is "white". W3Schools HTML Color Groups
-25.  * Birthday Celebration icon size - Enter the size value in pixels for the Birthday Celebration icon, default value is 40.
+24.  * Birthday Celebration icon - Click to enable a Birthday Celebration icon at the User Profile page after the Celebrant's name.
+25.  * Select Birthday Celebration icon - Default Birthday Celebration icon is "A Cake with three Candles". Current Birthday Celebration icons with a simulation of current Title text settings for your Profile: As Celebrant: - As Profile Viewer:
+26.  * Birthday Celebration icon color - Enter the color for the Birthday Celebration icon either by the color name or HEX code. Default color is "white". W3Schools HTML Color Groups
+27.  * Birthday Celebration icon size - Enter the size value in pixels for the Birthday Celebration icon, default value is 40.
+28.  * Birthday Celebration icon title text and border color - Enter the text and border color for the Birthday Celebration icon title either by the color name or HEX code. Default color is "black".
+29.  * Birthday Celebration icon title size and font - Enter the text size in pixels and font name for the Birthday Celebration icon title text. Default text size and font name "20px arial"
+30.  * Title text Birthday Celebration icon for the Celebrant - Enter the title text and placeholders when the Celebrant hover the Birthday Celebration icon. Default title text: "Congratulations to you {display_name} on your {age_ordinal} birthday. Greetings from the {site_name} team."
+31.  * Title text Birthday Celebration icon for a Profile Viewer - Enter the title text and placeholders when a Profile visitor hover the Birthday Celebration icon. Default title text: "{display_name} is celebrating {his_her} {age_ordinal} birthday today."
+32.  * Title text Birthday Celebration box horizontal position - Enter the title text box horizontal position to the left or right as negative or positiv pixels numbers. Default value is 0.
+33.  * Title text Birthday Celebration box width - Enter the title text box width in pixels. Default value is 300.
+
+## UM Dashboard
+1. Button: Restart Plugin WP Cronjob - Press this button if you want to have the Plugin WP Cronjob to be scheduled at 5 minutes past the hour.
 
 ## WP All Users
 1. UM Action: Resend Happy Birthday greetings
@@ -69,10 +80,11 @@ Plugin version update check each 24 hours and the documentation link.
 4. Failure to send SMS text greeting will send email greeting instead.
 
 ## Members Directory
-1. Create a separate Members Directory for displaying Celebrants today and in the delta interval +7/-7 days with the URL <code>.../um-happy-birthday/?delta=-1</code>
+1. Create a separate Members Directory for displaying Celebrants today and in the delta interval +14/-14 days with the URL <code>.../um-happy-birthday/?delta=-1</code>
 2. Add your Members Directory shortcode to the WP page with the slug <code>um-happy-birthday</code>
 3. The plugin is creating links from the Celebrant summary modal in UM Dashboard and Plugin settings.
 4. Supports the <code>[birthdays_today]</code> shortcode.
+5. Current version of Happy Birthday is not supporting usage of UM Setting->Advanced->Features - "Custom usermeta table"
 
 ## WP Appearance -> Menus
 1. Add the Members Directory links to the menu choices like <code>.../um-happy-birthday/</code> for today's birthdays
@@ -89,7 +101,8 @@ Plugin version update check each 24 hours and the documentation link.
 3. For a few changes of text use the "Say What?" plugin with text domain happy-birthday
 4. https://wordpress.org/plugins/say-what/
 
-## Birthday Celebration Icon Filter
+## Filters
+### Birthday Celebration Icon
 Code snippet:
 <code>
 add_filter( 'happy_birthday_icons', 'happy_birthday_icons_star', 10, 1 );
@@ -100,6 +113,12 @@ function happy_birthday_icons_star( $array ) {
 }
 </code>
 Install by adding the code snippet to your active theme's functions.php file or use the "Code Snippets" Plugin
+
+### Placeholders
+<code>
+$his_her = apply_filters( 'happy_birthday_his_her', $his_her, $gender, $user_id );
+$he_she  = apply_filters( 'happy_birthday_he_she',  $he_she,  $gender, $user_id );
+</code>
 
 ## Updates
 1. Version 2.0.0 Github update status is checked once each day.
@@ -124,6 +143,19 @@ Install by adding the code snippet to your active theme's functions.php file or 
 ### Version 2.5.1       
 1. Select the text color for "One celebrant today Thursday"
 2. Code improvements
+### Version 2.6.0    
+1.  Settings of past and upcoming days with Celebrants to show ( max 14 days ) and table formatting of Celebrants.
+2.  Birthday Celebration icon title text and border color
+3.  Birthday Celebration icon title size and font 
+4.  Title text Birthday Celebration icon for the Celebrant
+5.  Title text Birthday Celebration icon for a Profile Viewer
+6.  Title text Birthday Celebration box horizontal position
+7.  Title text Birthday Celebration box width
+8.  Current Birthday Celebration icons with a simulation of current Title text, width and position settings for your Profile
+9.  Additional gender ( male/female ) and age dependent placeholders with filters for other gender names:  {his_her}, {he_she}, {age_ordinal}
+10. Delta interval +14/-14 days with the URL <code>.../um-happy-birthday/?delta=-1</code>
+11. UM Dashboard button: Restart Plugin WP Cronjob
+12. Code improvements
 
 ## References
 1. WP Cron:  https://developer.wordpress.org/plugins/cron/
