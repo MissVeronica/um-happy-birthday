@@ -6,8 +6,14 @@ if ( ! class_exists( 'UM' ) ) return;
 
 class UM_Happy_Birthday_Core {
 
-    public $px           = '40';
-    public $cake_color   = 'white';
+    public $px                 = '40';
+    public $cake_color         = 'white';
+    public $title_color        = 'black';
+    public $title_font         = '20px arial';
+    public $title_left         = '-190';
+    public $title_width        = '300';
+    public $title_left_default = -190;
+
     public $icon_options = array();
 
     function __construct() {
@@ -42,17 +48,19 @@ class UM_Happy_Birthday_Core {
 
         $output = '';
         if ( $current_user->ID == um_profile_id() ) {
+            if ( UM()->options()->get( 'member_directory_own_table' ) != 1 ) {
 
-            $url = UM()->options()->get( UM()->classes['um_happy_birthday']->slug . '_um_form_url' );
+                $url = UM()->options()->get( UM()->classes['um_happy_birthday']->slug . '_um_form_url' );
 
-            if ( ! empty( $url )) {
-                $content = sanitize_text_field( $content );
+                if ( ! empty( $url )) {
+                    $content = sanitize_text_field( $content );
 
-                if ( empty( $content )) {
-                    $content = __( 'Happy Birthdays today', 'happy-birthday' );
+                    if ( empty( $content )) {
+                        $content = __( 'Happy Birthdays today', 'happy-birthday' );
+                    }
+
+                    $output = '<a href="' . esc_url( $url ) . '" title="' . esc_attr( $content ) . '">' . esc_attr( $content ) . '</a>';
                 }
-
-                $output = '<a href="' . esc_url( $url ) . '" title="' . esc_attr( $content ) . '">' . esc_attr( $content ) . '</a>';
             }
         }
 
@@ -73,18 +81,83 @@ class UM_Happy_Birthday_Core {
         }
     }
 
-    public function show_current_happy_birthday_icon() {
+    public function get_title_text( $type ) {
 
-        $title = __( 'Happy Birthday today', 'happy-birthday' );
+        $title = trim( stripslashes( sanitize_text_field( UM()->options()->get( UM()->classes['um_happy_birthday']->slug . $type ))));
+
+        if ( empty( $title )) {
+
+            switch( $type ) {
+                case '_title_celebrant':    $title = __( 'Congratulations to you {display_name} on your {age_ordinal} birthday. Greetings from the {site_name} team.', 'happy-birthday' );
+                                            break;
+                case '_title_viewer':       $title = __( '{display_name} is celebrating {his_her} {age_ordinal} birthday today.', 'happy-birthday' );
+                                            break;
+                default:                    $title = '';
+            }
+        }
+
+        $title = um_convert_tags( $title, UM()->classes['um_happy_birthday']->happy_birthday_args );
+
+        return $title;
+    }
+
+    public function show_current_happy_birthday_icon( $type = false ) {
+
+        global $current_user;
+
+        UM()->classes['um_happy_birthday']->prepare_placeholders( um_profile_id() );
+
+        if ( ! is_admin()) {
+
+            if ( $current_user->ID == um_profile_id()) {
+
+                $title = $this->get_title_text( '_title_celebrant' );
+
+            } else {
+
+                $title = $this->get_title_text( '_title_viewer' );
+            }
+
+        } else {
+
+            $title = '';
+            if ( ! empty( $type )) {
+                switch( $type ) {
+                    case 'celebrant':   $title = $this->get_title_text( '_title_celebrant' ); break;
+                    case 'viewer':      $title = $this->get_title_text( '_title_viewer' ); break;
+                    default:            $title = '';
+                }
+            }
+        }
+
+        $title_font = UM()->options()->get( UM()->classes['um_happy_birthday']->slug . '_title_font' );
+        if ( ! empty( $title_font ) && strlen( $title_font ) > 5 ) {
+            $this->title_font = sanitize_text_field( $title_font );
+        }
 
         $color = trim( UM()->options()->get( UM()->classes['um_happy_birthday']->slug . '_cake_color' ));
         if ( ! empty( $color )) {
             $this->cake_color = sanitize_text_field( $color );
         }
 
-        $px = trim( UM()->options()->get( UM()->classes['um_happy_birthday']->slug . '_cake_size' ));
-        if ( ! empty( $px )) {
-            $this->px = absint( str_replace( 'px', '', strtolower( sanitize_text_field( $px ))));
+        $title_color = trim( UM()->options()->get( UM()->classes['um_happy_birthday']->slug . '_title_color' ));
+        if ( ! empty( $title_color )) {
+            $this->title_color = sanitize_text_field( $title_color );
+        }
+
+        $title_left = trim( str_replace( 'px', '', strtolower( UM()->options()->get( UM()->classes['um_happy_birthday']->slug . '_title_left' ))));
+        if ( ! empty( $title_left ) && is_numeric( $title_left )) {
+            $this->title_left = $this->title_left_default + intval( sanitize_text_field( $title_left ));
+        }
+
+        $title_width = trim( str_replace( 'px', '', strtolower( UM()->options()->get( UM()->classes['um_happy_birthday']->slug . '_title_width' ))));
+        if ( ! empty( $title_width ) && is_numeric( $title_width )) {
+            $this->title_width = absint( sanitize_text_field( $title_width ));
+        }
+
+        $px = trim( str_replace( 'px', '', strtolower( UM()->options()->get( UM()->classes['um_happy_birthday']->slug . '_cake_size' ))));
+        if ( ! empty( $px ) && is_numeric( $px )) {
+            $this->px = absint( sanitize_text_field( $px ));
         }
 
         $class_icon = 'fas fa-cake-candles';
@@ -94,9 +167,34 @@ class UM_Happy_Birthday_Core {
             $class_icon = $icon;
         }
 ?>
-        <span class="um-field-label-icon" 
-              style="font-size: <?php echo esc_attr( $this->px ); ?>px; color: <?php echo esc_attr( $color ); ?>;"
-              title="<?php echo esc_attr( $title ); ?>">
+        <style>
+            .um-field-label-icon-happy-birthday {
+                position: relative;
+            }
+
+            .um-field-label-icon-happy-birthday:hover:after {
+                content: attr(happy-birthday-title);
+                position: absolute;
+                font: <?php echo esc_attr( $this->title_font ); ?>;
+                top: 110%;
+                left: <?php echo esc_attr( $this->title_left ); ?>px;
+                background: <?php echo esc_attr( $this->cake_color ); ?>;
+                color: <?php echo esc_attr( $this->title_color ); ?>;
+                width: <?php echo esc_attr( $this->title_width ); ?>px;
+                box-sizing: border-box;
+                border: 2px solid <?php echo esc_attr( $this->title_color ); ?>;
+                border-radius: 8%;
+                padding-top: 8px;
+                padding-right: 8px;
+                padding-bottom: 8px;
+                padding-left: 8px;
+                opacity: 1.0;
+                z-index: 10;
+            }
+        </style>
+        <span class="um-field-label-icon-happy-birthday" 
+              style="font-size: <?php echo esc_attr( $this->px ); ?>px; color: <?php echo esc_attr( $this->cake_color ); ?>;"
+              happy-birthday-title="<?php echo esc_attr( $title ); ?>">
             <i class="<?php echo esc_attr( $class_icon ); ?>"></i>
         </span>
 <?php
