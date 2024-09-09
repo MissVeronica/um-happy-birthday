@@ -34,6 +34,7 @@ class UM_Happy_Birthday {
     public $prio_roles              = array();
     public $all_selected_user_roles = array();
     public $privacy_options         = array();
+    public $account_status_user     = array();
 
     public $sms_info                = '';
     public $sms_text_message        = '';
@@ -59,11 +60,14 @@ class UM_Happy_Birthday {
         add_filter( 'um_admin_bulk_user_actions_hook',               array( $this, 'um_admin_bulk_user_actions_resend_happy_birthday' ), 10, 1 );
         add_action( 'um_admin_custom_hook_happy_birthday_greetings', array( $this, 'um_admin_custom_hook_happy_birthday_greetings_resend' ), 10, 1 );
 
-        add_action( 'um_prepare_user_query_args',                    array( $this, 'um_happy_birthday_directories' ), 10, 2 );
+        add_filter( 'um_prepare_user_query_args',                    array( $this, 'um_happy_birthday_directories' ), 10, 2 );
         add_filter( 'um_pre_args_setup',                             array( $this, 'um_pre_args_setup_happy_birthday' ), 10, 1 );
 
         add_action( 'um_registration_set_extra_data',                array( $this, 'um_registration_set_happy_birthday_account_consent' ), 10, 3 );
         add_action( 'um_account_pre_update_profile',                 array( $this, 'um_account_pre_update_profile_happy_birthday_account_consent' ), 10, 2 );
+
+        add_action( 'um_admin_do_action__happy_birthday',            array( $this, 'happy_birthday_reset_cron_job' ) );
+        add_filter( 'um_adm_action_custom_update_notice',            array( $this, 'happy_birthday_reset_notice' ), 10, 2 );
 
         if ( UM()->options()->get( $this->slug . '_modal_list' ) == 1 ) {
 		    add_action( 'load-toplevel_page_ultimatemember',         array( $this, 'load_metabox_happy_birthday' ) );
@@ -71,12 +75,77 @@ class UM_Happy_Birthday {
 
         if ( UM()->options()->get( $this->slug . '_on' ) == 1 && UM()->options()->get( $this->slug . '_active' ) == 1 ) {
 
-            add_action( $this->wp_cron_event,                        array( $this, 'um_cron_task_birthday_greet_notification' ));
+            add_action( $this->wp_cron_event, array( $this, 'um_cron_task_birthday_greet_notification' ));
+            $this->schedule_greetings_cron_job();
+        }
 
-            if ( ! wp_next_scheduled ( $this->wp_cron_event ) ) {
-                wp_schedule_event( time(), 'hourly', $this->wp_cron_event );
+        $this->today = date_i18n( 'Y/m/d H:i:s', current_time( 'timestamp' ));
+    }
+
+    public function happy_birthday_deactivation() {
+
+        wp_clear_scheduled_hook( $this->wp_cron_event );
+    }
+
+    public function schedule_greetings_cron_job() {
+
+        if ( ! wp_next_scheduled ( $this->wp_cron_event ) ) {
+
+            $current_minute = intval( date_i18n( 'i', current_time( 'timestamp' )));
+            wp_schedule_event( time() + ( 61-$current_minute )*60 - 30, 'hourly', $this->wp_cron_event );
+        }
+    }
+
+    public function restart_greetings_cron_job() {
+
+        $status = wp_clear_scheduled_hook( $this->wp_cron_event );
+        $this->schedule_greetings_cron_job();
+
+        return $status;
+    }
+
+    public function happy_birthday_reset_cron_job() {
+
+        $status = $this->restart_greetings_cron_job();
+
+        $url = add_query_arg(
+                                array(
+                                    'page'   => 'ultimatemember',
+                                    'update' => 'happy_birthday_reset',
+                                    'result' =>  $status,
+                                ),
+                                admin_url( 'admin.php' )
+                            );
+
+        wp_safe_redirect( $url );
+        exit;
+    }
+
+    public function happy_birthday_reset_notice( $message, $update ) {
+
+        if ( $update == 'happy_birthday_reset' ) {
+
+            $cron_job = wp_next_scheduled( $this->wp_cron_event );
+
+            if ( $cron_job > 0 ) {
+
+                $message[0]['content'] = sprintf( __( 'Happy Birthday restarted %s WP Cronjob to be scheduled next time at %s', 'happy-birthday' ),
+                                                        sanitize_text_field( $_REQUEST['result'] ), esc_attr( $this->get_local_time( $cron_job ) ));
+
+            } else {
+                $message[0]['content'] = __( 'Restart of Happy Birthday WP Cronjob failed', 'happy-birthday' );
             }
         }
+
+        return $message;
+    }
+
+    public function get_local_time( $cron_job ) {
+
+        $utc_timestamp_converted = date( 'Y-m-d H:i:s', $cron_job );
+        $local_timestamp = get_date_from_gmt( $utc_timestamp_converted, 'H:i:s' );
+
+        return $local_timestamp;
     }
 
     public function load_metabox_happy_birthday() {
@@ -184,7 +253,7 @@ class UM_Happy_Birthday {
             $minutes = intval(( $cron_job - time() ) / 60 );
 
             if ( $minutes > 0 ) {
-                $this->plugin_status[] = sprintf( __( 'The Plugin WP Cronjob will execute next in about %d minutes', 'happy-birthday' ), $minutes );
+                $this->plugin_status[] = sprintf( __( 'The Plugin WP Cronjob will execute next in about %d minutes at %s', 'happy-birthday' ), $minutes, esc_attr( $this->get_local_time( $cron_job ) ) );
 
             } else {
                 $seconds = intval( $cron_job - time() );
@@ -192,7 +261,15 @@ class UM_Happy_Birthday {
                     $this->plugin_status[] = sprintf( __( 'The Plugin WP Cronjob will execute next in about %d seconds', 'happy-birthday' ), $seconds );
 
                 } else {
-                    $this->plugin_status[] = __( 'The Plugin WP Cronjob is waiting in the WP job queue', 'happy-birthday' );
+                    $seconds = absint( $seconds );
+                    if ( $seconds < 3600 ) {
+                        $this->plugin_status[] = sprintf( __( 'The Plugin WP Cronjob has been waiting %d minutes in the WP job queue', 'happy-birthday' ), intval( $seconds/60 ));
+
+                    } else {
+
+                        $this->restart_greetings_cron_job();
+                        $this->plugin_status[] = sprintf( __( 'Restarted the Plugin WP Cronjob after waiting in the WP Cronjob queue for %d minutes', 'happy-birthday' ), intval( $seconds/60 ));
+                    }
                 }
             }
 
@@ -473,9 +550,7 @@ class UM_Happy_Birthday {
                     $body .= implode( '<br />', $this->sent_user_list );
                     $body  = str_replace( array( '<br /><br /><br /><br />', '<br /><br /><br />' ), '<br /><br />', $body );
 
-                    add_filter( 'um_late_escaping_allowed_tags', array( $this, 'um_happy_birthday_allowed_tags' ), 99, 2 );
-                    $body = wp_kses( $body, UM()->get_allowed_html( 'templates' ) );
-                    remove_filter( 'um_late_escaping_allowed_tags', array( $this, 'um_happy_birthday_allowed_tags' ), 99, 2 );
+                    $body = $this->custom_wp_kses( $body );
 
                     $headers = array();
                     $headers[] = 'Content-Type: text/html; charset=UTF-8';
@@ -536,24 +611,53 @@ class UM_Happy_Birthday {
         }
     }
 
+    public function age_with_ordinal( $age ) {
+
+        $ends = array( 'th','st','nd','rd','th','th','th','th','th','th' );
+
+        if ((( $age % 100) >= 11 ) && (( $age%100) <= 13 )) {
+            return $age . 'th';
+
+        } else {
+            return $age . $ends[$age % 10];
+        }
+    }
+
     public function prepare_placeholders( $user_id ) {
 
         $this->mobile_number = um_user( 'mobile_number' );
         $this->display_name  = um_user( 'display_name' );
 
+        $gender = um_user( 'gender' );
+
+        switch( strtolower( $gender )) {
+            case 'male':    $his_her = __( 'his', 'happy-birthday' );     $he_she = __( 'he', 'happy-birthday' ); break;
+            case 'female':  $his_her = __( 'her', 'happy-birthday' );     $he_she = __( 'she', 'happy-birthday' ); break;
+            default:        $his_her = __( 'his/her', 'happy-birthday' ); $he_she = __( 'he/she', 'happy-birthday' ); break;
+        }
+
+        $his_her = apply_filters( 'happy_birthday_his_her', $his_her, $gender, $user_id );
+        $he_she  = apply_filters( 'happy_birthday_he_she',  $he_she,  $gender, $user_id );
+
         $this->happy_birthday_args = array(
                                             'tags'          => array(
                                                                 '{today}',
                                                                 '{age}',
+                                                                '{age_ordinal}',
                                                                 '{user_id}',
-                                                                '{mobile_number}'
+                                                                '{mobile_number}',
+                                                                '{his_her}',
+                                                                '{he_she}',
                                                             ),
 
                                             'tags_replace'  => array(
                                                                 substr( $this->today, 0, 10 ),
                                                                 $this->get_user_age(),
+                                                                $this->age_with_ordinal( $this->get_user_age() ),
                                                                 $user_id,
                                                                 $this->mobile_number,
+                                                                $his_her,
+                                                                $he_she,
                                                             ),
                                         );
     }
@@ -874,7 +978,7 @@ class UM_Happy_Birthday {
 
         $title = sprintf( $title, $send );
 
-        $greeted = sprintf( '<a href="%s" target="Happy_Birthday" title="%s">%s</a>, %d', esc_url( um_user_profile_url( $user_id )), $title, um_user( $celebrant_name ), $this->get_user_age());
+        $greeted = sprintf( '<a href="%s" target="Happy_Birthday" title="%s">%s</a>', esc_url( um_user_profile_url( $user_id )), $title, um_user( $celebrant_name ));
 
         if ( ! $this->cronjob && UM()->options()->get( $this->slug . '_modal_list' ) == 1 ) {
 
@@ -908,6 +1012,10 @@ class UM_Happy_Birthday {
                 $celebrant_name = 'user_login';
             }
 
+            $td   = '<td style="padding-bottom:0px;padding-top:0px;">';
+            $td2  = '<td colspan="2" style="padding-bottom:0px;padding-top:0px;">';
+            $span = '<span style="padding-bottom:0px;padding-top:0px;" title="%s">%s</span>';
+
             if ( $delta <= 0 ) {
 
                 $greeted = '<table>';
@@ -915,10 +1023,6 @@ class UM_Happy_Birthday {
 
                 foreach( $celebrants as $user_id ) {
                     um_fetch_user( $user_id );
-
-                    $td   = '<td style="padding-bottom:0px;padding-top:0px;">';
-                    $td2  = '<td colspan="2" style="padding-bottom:0px;padding-top:0px;">';
-                    $span = '<span style="padding-bottom:0px;padding-top:0px;" title="%s">%s</span>';
 
                     $greeted .= '<tr>';
 
@@ -984,25 +1088,27 @@ class UM_Happy_Birthday {
                     $greeted .= $this->user_profile_link( $user_id, $celebrant_name );
                     $greeted .= '</td>';
 
+                    $greeted .= $td;
+                    $greeted .= $this->get_user_age();
+                    $greeted .= '</td>';
+
                     $greeted .= '</tr>';
                 }
 
                 $greeted .= '</table>';
-
                 $this->description[] = $greeted;
 
             } else {
 
-                $greeted = array();
-                $greeted[] = '';
+                $greeted = '<table>';
 
                 foreach( $celebrants as $user_id => $type ) {
                     um_fetch_user( $user_id );
-                    $greeted[] = $this->user_profile_link( $user_id, $celebrant_name );
+                    $greeted .= '<tr>' . $td . $this->user_profile_link( $user_id, $celebrant_name ) . '</td>' . $td . $this->get_user_age() .'</td></tr>';
                 }
 
-                $greeted[] = '';
-                $this->description[] = implode( '<br />', $greeted );
+                $greeted .= '</table>';
+                $this->description[] = $greeted;
             }
 
         } else {
@@ -1016,11 +1122,15 @@ class UM_Happy_Birthday {
         $this->today = date_i18n( 'Y/m/d l', current_time( 'timestamp' ) + ( $delta * DAY_IN_SECONDS ) );
         $celebrants = $this->get_all_celebrants();
 
-        $url = sanitize_text_field( UM()->options()->get( $this->slug . '_um_form_url' ));
-
         $link = '';
-        if ( ! empty( $url )) {
-            $link = sprintf( '<a href="%s?delta=%s" title="%s" target="Happy_Birthday">%s</a>', esc_url( $url ), $delta, __( 'Members Directory page', 'happy-birthday' ), __( 'Show', 'happy-birthday' ));
+        if ( UM()->options()->get( 'member_directory_own_table' ) != 1 ) {
+
+            $url = trim( sanitize_text_field( UM()->options()->get( $this->slug . '_um_form_url' )));
+            if ( ! empty( $url )) {
+
+                $link = sprintf( '<a href="%s?delta=%s" title="%s" target="Happy_Birthday">%s</a>', esc_url( $url ), $delta,
+                            __( 'Members Directory page', 'happy-birthday' ), __( 'Show', 'happy-birthday' ));
+            }
         }
 
         switch( count( $celebrants ) ) {
@@ -1073,8 +1183,18 @@ class UM_Happy_Birthday {
 
         $this->description = array();
 
-        $i = -1;
-        while( $i <= 6 ) {
+        $backward = UM()->options()->get( $this->slug . '_backward' );
+        if ( ! is_numeric( $backward ) || intval( $backward ) > 14 ) {
+            $backward = 1;
+        }
+
+        $forward = UM()->options()->get( $this->slug . '_forward' );
+        if ( ! is_numeric( $forward ) || intval( $forward ) > 14 ) {
+            $forward = 6;
+        }
+
+        $i = -intval( $backward );
+        while( $i <= intval( $forward ) ) {
             $this->current_status_celebrants( $i );
             $i++;
         }
@@ -1082,6 +1202,42 @@ class UM_Happy_Birthday {
         $desc = implode( '<br />', $this->plugin_status );
         $desc .= '<br />';
         $desc .= implode( '', $this->description );
+
+        if ( $modal ) {
+            $desc .= $this->cron_job_restart_button();
+        }
+
+        return $this->custom_wp_kses( $desc );
+    }
+
+    public function cron_job_restart_button() {
+
+        $url_happy_birthday = add_query_arg(
+            array(
+                'um_adm_action' => 'happy_birthday',
+                '_wpnonce'      => wp_create_nonce( 'happy_birthday' ),
+            )
+        );
+
+        $button_text  = __( 'Restart Plugin WP Cronjob', 'happy-birthday' );
+        $button_title = __( 'Press this button if you want to have the Plugin WP Cronjob to be scheduled at 5 minutes past the hour.', 'happy-birthday' );
+
+        ob_start();
+?>
+        <hr>
+        <p>
+            <a href="<?php echo esc_url( $url_happy_birthday ); ?>" class="button" title="<?php echo esc_attr( $button_title ); ?>">
+                <?php esc_attr_e( $button_text ); ?>
+            </a>
+        </p>
+<?php
+        $reset_button = ob_get_contents();
+        ob_end_clean();
+
+        return $reset_button;
+    }
+
+    public function custom_wp_kses( $desc ) {
 
         add_filter( 'um_late_escaping_allowed_tags', array( $this, 'um_happy_birthday_allowed_tags' ), 99, 2 );
         $desc = wp_kses( $desc, UM()->get_allowed_html( 'templates' ) );
@@ -1174,7 +1330,7 @@ class UM_Happy_Birthday {
         return $notifications;
     }
 
-    public function um_happy_birthday_directories( $query_args, $directory_data ) {
+    public function um_happy_birthday_current_directory( $directory_data ) {
 
         global $current_user;
 
@@ -1182,15 +1338,24 @@ class UM_Happy_Birthday {
 
         if ( isset( $directory_data['form_id'] ) && $directory_data['form_id'] == $happy_birthday_form ) {
 
-            $account_status = $this->get_account_status();
+            $this->account_status_user = $this->get_account_status();
 
-            if ( ! empty( $account_status )) {
+            if ( ! empty( $this->account_status_user )) {
 
                 $delta = get_transient( $this->transient_prefix . $current_user->ID );
                 $this->today = date_i18n( 'Y/m/d', current_time( 'timestamp' ) + intval( $delta ) * DAY_IN_SECONDS );
-
-                $query_args['meta_query'] = $this->get_happy_birthday_meta_query( $account_status );
+                return true;
             }
+        }
+
+        return false;
+    }
+
+    public function um_happy_birthday_directories( $query_args, $directory_data ) {
+
+        if ( $this->um_happy_birthday_current_directory( $directory_data )) {
+
+            $query_args['meta_query'] = $this->get_happy_birthday_meta_query( $this->account_status_user );
         }
 
         return $query_args;
@@ -1218,7 +1383,7 @@ class UM_Happy_Birthday {
                 $delta = -intval( $diff->d );
             }
 
-            if ( absint( $delta ) > 7 ) {
+            if ( absint( $delta ) > 14 ) {
                 $delta = 0;
             } 
 
@@ -1229,4 +1394,3 @@ class UM_Happy_Birthday {
     }
 
 }
-
