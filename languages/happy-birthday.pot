@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ultimate Member - Happy Birthday\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-29 12:18+0000\n"
+"POT-Creation-Date: 2024-09-09 15:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,12 +16,12 @@ msgstr ""
 "X-Loco-Version: 2.6.11; wp-6.6.1\n"
 "X-Domain: happy-birthday"
 
-#: includes/admin/happy-birthday-admin.php:1029
+#: includes/admin/happy-birthday-admin.php:1139
 #, php-format
 msgid "%d celebrants %s %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:965
+#: includes/admin/happy-birthday-admin.php:1069
 #, php-format
 msgid "%s greetings failed"
 msgstr ""
@@ -40,47 +40,55 @@ msgstr ""
 msgid "Accept Birthday greetings"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:461
-#: includes/admin/happy-birthday-admin.php:505
-#: includes/admin/happy-birthday-admin.php:729
+#: includes/admin/happy-birthday-admin-settings.php:504
+#: includes/admin/happy-birthday-admin.php:580
+#: includes/admin/happy-birthday-admin.php:833
 msgid "Accoun status"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:447
+#: includes/admin/happy-birthday-admin-settings.php:490
 msgid "Activate Admin info email"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:348
+#: includes/admin/happy-birthday-admin-settings.php:391
 msgid "Activate sending emails"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:425
+#: includes/admin/happy-birthday-admin-settings.php:468
 msgid "Activate sending flash WP SMS"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:418
+#: includes/admin/happy-birthday-admin-settings.php:461
 msgid "Activate sending WP SMS"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:223
+#: includes/admin/happy-birthday-admin-settings.php:248
 #, php-format
 msgid "Activate the Happy Birthday %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:325
+#: includes/admin/happy-birthday-admin-settings.php:350
 msgid "Activate the UM Dashboard modal"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:501
-#: includes/admin/happy-birthday-admin.php:725
+#: includes/admin/happy-birthday-admin.php:576
+#: includes/admin/happy-birthday-admin.php:829
 msgid "Age"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:505
+#: includes/admin/happy-birthday-admin-settings.php:559
 msgid "Allow users to enable/disable greetings"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:299
+#: includes/admin/happy-birthday-admin-settings.php:584
+msgid "As Celebrant:"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:585
+msgid "As Profile Viewer:"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:324
 msgid "Backend Celebrant lists"
 msgstr ""
 
@@ -92,30 +100,38 @@ msgstr ""
 msgid "Bell solid"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:458
-#: includes/admin/happy-birthday-admin.php:502
-#: includes/admin/happy-birthday-admin.php:726
+#: includes/admin/happy-birthday-admin-settings.php:501
+#: includes/admin/happy-birthday-admin.php:577
+#: includes/admin/happy-birthday-admin.php:830
 msgid "Birth date"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:518
+#: includes/admin/happy-birthday-admin-settings.php:572
 msgid "Birthday Celebration icon"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:537
+#: includes/admin/happy-birthday-admin-settings.php:593
 msgid "Birthday Celebration icon color"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:548
+#: includes/admin/happy-birthday-admin-settings.php:605
 msgid "Birthday Celebration icon size"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:512
+#: includes/admin/happy-birthday-admin-settings.php:625
+msgid "Birthday Celebration icon title size and font"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:614
+msgid "Birthday Celebration icon title text and border color"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:566
 msgid "Birthday Celebration icons"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:469
-#: includes/admin/happy-birthday-admin.php:471
+#: includes/admin/happy-birthday-admin.php:546
+#: includes/admin/happy-birthday-admin.php:548
 #, php-format
 msgid "Birthday greetings today %s"
 msgstr ""
@@ -136,7 +152,7 @@ msgstr ""
 msgid "Calendar solid"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:457
+#: includes/admin/happy-birthday-admin-settings.php:500
 msgid "Celebrant age"
 msgstr ""
 
@@ -160,54 +176,54 @@ msgstr ""
 msgid "Circle User solid"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:382
+#: includes/admin/happy-birthday-admin-settings.php:425
 msgid ""
 "Click if you are using WP Mail and not a SMTP transport service for your "
 "emails."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:224
+#: includes/admin/happy-birthday-admin-settings.php:249
 msgid "Click to activate the Plugin's WP Cronjob"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:326
+#: includes/admin/happy-birthday-admin-settings.php:351
 msgid "Click to activate the UM Dashboard modal for Happy Birthday."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:506
+#: includes/admin/happy-birthday-admin-settings.php:560
 msgid ""
 "Click to allow Users to enable/disable greetings at their Account Privacy "
 "page."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:519
+#: includes/admin/happy-birthday-admin-settings.php:573
 msgid ""
 "Click to enable a Birthday Celebration icon at the User Profile page after "
 "the Celebrant's name."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:448
+#: includes/admin/happy-birthday-admin-settings.php:491
 msgid ""
 "Click to enable the Admin info email sent after each batch of greetings "
 "emails."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:349
+#: includes/admin/happy-birthday-admin-settings.php:392
 msgid "Click to enable the WP Cronjob sending Happy Birthday emails."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:426
+#: includes/admin/happy-birthday-admin-settings.php:469
 msgid ""
 "Click to enable the WP Cronjob sending Happy Birthday flash SMS text greeting"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:419
+#: includes/admin/happy-birthday-admin-settings.php:462
 msgid ""
 "Click to enable the WP Cronjob sending Happy Birthday mobile SMS text "
 "greeting instead of an email if User registered with Mobile number"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:306
+#: includes/admin/happy-birthday-admin-settings.php:331
 msgid ""
 "Click to get a list of each Celebrant User name for the Celebrant listing at "
 "this page and UM Dashboard modal if activated."
@@ -229,42 +245,68 @@ msgstr ""
 msgid "Comments solid"
 msgstr ""
 
+#: includes/core/happy-birthday-core.php:91
+msgid ""
+"Congratulations to you {display_name} on your {age_ordinal} birthday. "
+"Greetings from the {site_name} team."
+msgstr ""
+
 #: includes/admin/happy-birthday-admin-settings.php:93
 msgid "cURL extension not loaded by PHP"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:529
-msgid "Current Birthday Celebration icon:"
+#: includes/admin/happy-birthday-admin-settings.php:583
+msgid ""
+"Current Birthday Celebration icons with a simulation of current Title text "
+"settings for your Profile:"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:291
+#: includes/admin/happy-birthday-admin-settings.php:316
 msgid "Current old Users default consent is \"No\""
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:441
+#: includes/admin/happy-birthday-admin-settings.php:484
 msgid "Daily Admin summary email"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:528
+#: includes/admin/happy-birthday-admin-settings.php:582
 msgid "Default Birthday Celebration icon is \"A Cake with three Candles\""
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:539
+#: includes/admin/happy-birthday-admin-settings.php:596
+#: includes/admin/happy-birthday-admin-settings.php:616
 #, php-format
 msgid "Default color is \"%s\"."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:335
+#: includes/admin/happy-birthday-admin-settings.php:360
 msgid "Default color is \"green\"."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:314
+#: includes/admin/happy-birthday-admin-settings.php:627
+#, php-format
+msgid "Default text size and font name \"%s\""
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:636
+msgid ""
+"Default title text: \"Congratulations to you {display_name} on your "
+"{age_ordinal} birthday. Greetings from the {site_name} team.\""
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:645
+msgid ""
+"Default title text: \"{display_name} is celebrating {his_her} {age_ordinal} "
+"birthday today.\""
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:339
 msgid "Display Name"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:460
-#: includes/admin/happy-birthday-admin.php:504
-#: includes/admin/happy-birthday-admin.php:728
+#: includes/admin/happy-birthday-admin-settings.php:503
+#: includes/admin/happy-birthday-admin.php:579
+#: includes/admin/happy-birthday-admin.php:832
 msgid "Display name"
 msgstr ""
 
@@ -272,45 +314,45 @@ msgstr ""
 msgid "Do you want to receive birthday greetings?"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:604
+#: includes/admin/happy-birthday-admin.php:708
 msgid "Email failure = email resend"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:450
+#: includes/admin/happy-birthday-admin.php:527
 msgid "Email failures: %d"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:342
+#: includes/admin/happy-birthday-admin-settings.php:385
 msgid "Email greetings"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:600
+#: includes/admin/happy-birthday-admin.php:704
 msgid "Email resent by Admin"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:123
+#: includes/admin/happy-birthday-admin.php:192
 msgid "email template is active"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:174
+#: includes/admin/happy-birthday-admin.php:243
 msgid "email template is not active and greetings are disabled"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:735
+#: includes/admin/happy-birthday-admin.php:839
 msgid "Email WP status"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:612
+#: includes/admin/happy-birthday-admin.php:716
 #, php-format
 msgid "Email WP status %s to %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:616
+#: includes/admin/happy-birthday-admin.php:720
 #, php-format
 msgid "Email WP status %s to &s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:449
+#: includes/admin/happy-birthday-admin.php:526
 msgid "Emails OK: %d"
 msgstr ""
 
@@ -320,30 +362,64 @@ msgid ""
 "Celebration icon at the Profile page"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:538
+#: includes/admin/happy-birthday-admin-settings.php:594
 msgid ""
 "Enter the color for the Birthday Celebration icon either by the color name "
 "or HEX code."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:334
+#: includes/admin/happy-birthday-admin-settings.php:359
 msgid ""
 "Enter the color for the number of celebrants today text either by the color "
 "name or HEX code."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:549
+#: includes/admin/happy-birthday-admin-settings.php:606
 #, php-format
 msgid ""
 "Enter the size value in pixels for the Birthday Celebration icon, default "
 "value is %s pixels."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:493
+#: includes/admin/happy-birthday-admin-settings.php:615
+msgid ""
+"Enter the text and border color for the Birthday Celebration icon title "
+"either by the color name or HEX code."
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:626
+msgid ""
+"Enter the text size in pixels and font name for the Birthday Celebration "
+"icon title text."
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:644
+msgid ""
+"Enter the title text and placeholders when a Profile visitor hover the "
+"Birthday Celebration icon."
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:635
+msgid ""
+"Enter the title text and placeholders when the Celebrant hover the Birthday "
+"Celebration icon."
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:654
+msgid ""
+"Enter the title text box horizontal position to the left or right as "
+"negative or positiv pixels numbers. Default value is 0."
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:663
+msgid "Enter the title text box width in pixels. Default value is 300."
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:538
 msgid "Enter the URL to the Members Directory page for display of celebrants."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:434
+#: includes/admin/happy-birthday-admin-settings.php:477
 msgid ""
 "Enter your Happy Birthday SMS text greeting and you can use UM email "
 "placeholders and {today}, {age}, {user_id}, {mobile_number}"
@@ -405,16 +481,16 @@ msgstr ""
 msgid "GitHub remote connection cURL error: %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:976
+#: includes/admin/happy-birthday-admin.php:1080
 msgid "Greetings not possible"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:870
+#: includes/admin/happy-birthday-admin.php:974
 #, php-format
 msgid "Greetings to email address %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:864
+#: includes/admin/happy-birthday-admin.php:968
 #, php-format
 msgid "Greetings to mobile number %s"
 msgstr ""
@@ -436,18 +512,18 @@ msgid "Hands solid"
 msgstr ""
 
 #: includes/admin/happy-birthday-admin-settings.php:157
-#: includes/admin/happy-birthday-admin.php:123
-#: includes/admin/happy-birthday-admin.php:174
-#: includes/admin/happy-birthday-admin.php:1155
+#: includes/admin/happy-birthday-admin.php:192
+#: includes/admin/happy-birthday-admin.php:243
+#: includes/admin/happy-birthday-admin.php:1311
 msgid "Happy Birthday"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:87
+#: includes/admin/happy-birthday-admin.php:156
 #, php-format
 msgid "Happy Birthday - %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:1156
+#: includes/admin/happy-birthday-admin.php:1312
 msgid "Happy Birthday from {site_name}"
 msgstr ""
 
@@ -471,18 +547,27 @@ msgstr ""
 msgid "Happy Birthday last greeted status"
 msgstr ""
 
-#: includes/core/happy-birthday-core.php:78
-msgid "Happy Birthday today"
+#: includes/admin/happy-birthday-admin.php:132
+#, php-format
+msgid "Happy Birthday restarted %s WP Cronjob to be scheduled next time at %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:532
+#: includes/admin/happy-birthday-admin.php:607
 msgid ""
 "Happy Birthday {display_name}! Hope you have a fantastic day! Regards "
 "{site_name}"
 msgstr ""
 
-#: includes/core/happy-birthday-core.php:52
+#: includes/core/happy-birthday-core.php:59
 msgid "Happy Birthdays today"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin.php:634
+msgid "he"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin.php:636
+msgid "he/she"
 msgstr ""
 
 #: includes/admin/happy-birthday-predefined.php:34
@@ -493,6 +578,18 @@ msgstr ""
 msgid "Heart solid"
 msgstr ""
 
+#: includes/admin/happy-birthday-admin.php:635
+msgid "her"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin.php:634
+msgid "his"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin.php:636
+msgid "his/her"
+msgstr ""
+
 #. Author URI of the plugin
 msgid "https://github.com/MissVeronica"
 msgstr ""
@@ -501,16 +598,20 @@ msgstr ""
 msgid "https://github.com/MissVeronica/um-happy-birthday"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:818
+#: includes/admin/happy-birthday-admin.php:922
 msgid "Impossible to send Happy Birthday greetings"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:507
-#: includes/admin/happy-birthday-admin.php:731
+#: includes/admin/happy-birthday-admin-settings.php:546
+msgid "is disabled because \"Custom table for usermeta\" is enabled"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin.php:582
+#: includes/admin/happy-birthday-admin.php:835
 msgid "Last login"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:463
+#: includes/admin/happy-birthday-admin-settings.php:506
 msgid "Last login date"
 msgstr ""
 
@@ -518,11 +619,12 @@ msgstr ""
 msgid "Medal solid"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:476
+#: includes/admin/happy-birthday-admin-settings.php:521
+#: includes/admin/happy-birthday-admin-settings.php:545
 msgid "Members Directory for display of Celebrants"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:1023
+#: includes/admin/happy-birthday-admin.php:1132
 msgid "Members Directory page"
 msgstr ""
 
@@ -544,30 +646,34 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:200
+#: includes/admin/happy-birthday-admin.php:277
 msgid "No active Plugin WP Cronjob for Happy Birthday messages"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:1027
+#: includes/admin/happy-birthday-admin.php:1137
 #, php-format
 msgid "No celebrants %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:616
+#: includes/admin/happy-birthday-admin.php:720
 msgid "Not sent"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:472
+#: includes/admin/happy-birthday-admin.php:549
 #, php-format
 msgid "Number of greetings sent in this batch: %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:1028
+#: includes/admin/happy-birthday-admin.php:1138
 #, php-format
 msgid "One celebrant %s %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:970
+#: includes/admin/happy-birthday-admin-settings.php:368
+msgid "Past Celebrants to show"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin.php:1074
 #, php-format
 msgid "Pending %s greetings"
 msgstr ""
@@ -576,11 +682,11 @@ msgstr ""
 msgid "Plugin documentation"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:122
+#: includes/admin/happy-birthday-admin.php:191
 msgid "Plugin is active"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:169
+#: includes/admin/happy-birthday-admin.php:238
 msgid "Plugin is paused and not sending any Happy Birthday greetings"
 msgstr ""
 
@@ -589,7 +695,7 @@ msgstr ""
 msgid "Plugin is updated to the latest version %s."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:1144
+#: includes/admin/happy-birthday-admin.php:1300
 msgid "Plugin settings"
 msgstr ""
 
@@ -605,40 +711,46 @@ msgstr ""
 msgid "Plugin version update verification failed"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:139
+#: includes/admin/happy-birthday-admin.php:208
 msgid "Plugin will NOT send any Happy Birthday email greetings"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:155
+#: includes/admin/happy-birthday-admin.php:224
 #, php-format
 msgid "Plugin will NOT try to send any Happy Birthday \"%s\" text greetings"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:130
+#: includes/admin/happy-birthday-admin.php:199
 msgid ""
 "Plugin will only send Happy Birthday email greetings to users with mobile "
 "numbers if the SMS text sending fails"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:133
+#: includes/admin/happy-birthday-admin.php:202
 msgid "Plugin will send max %d Happy Birthday email greetings per hour"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:152
+#: includes/admin/happy-birthday-admin.php:221
 #, php-format
 msgid "Plugin will try to send Happy Birthday \"%s\" text greetings"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:284
+#: includes/admin/happy-birthday-admin.php:1223
+msgid ""
+"Press this button if you want to have the Plugin WP Cronjob to be scheduled "
+"at 5 minutes past the hour."
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:309
 msgid "Priority User Roles to include"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:510
-#: includes/admin/happy-birthday-admin.php:734
+#: includes/admin/happy-birthday-admin.php:585
+#: includes/admin/happy-birthday-admin.php:838
 msgid "Profile page"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:466
+#: includes/admin/happy-birthday-admin-settings.php:509
 msgid "Profile page link"
 msgstr ""
 
@@ -646,54 +758,68 @@ msgstr ""
 msgid "Receive birthday greetings?"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:462
-#: includes/admin/happy-birthday-admin.php:506
-#: includes/admin/happy-birthday-admin.php:730
+#: includes/admin/happy-birthday-admin-settings.php:505
+#: includes/admin/happy-birthday-admin.php:581
+#: includes/admin/happy-birthday-admin.php:834
 msgid "Registration date"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:927
+#: includes/admin/happy-birthday-admin.php:1031
 msgid "Resend by Admin"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:223
-#: includes/admin/happy-birthday-admin.php:227
+#: includes/admin/happy-birthday-admin.php:300
+#: includes/admin/happy-birthday-admin.php:304
 msgid "Resend Happy Birthday greetings"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:805
+#: includes/admin/happy-birthday-admin.php:136
+msgid "Restart of Happy Birthday WP Cronjob failed"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin.php:1222
+msgid "Restart Plugin WP Cronjob"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin.php:271
+msgid ""
+"Restarted the Plugin WP Cronjob after waiting in the WP Cronjob queue for %d "
+"minutes"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin.php:909
 msgid "Second attempt this hour to send remaining Happy Birthday greetings"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:526
+#: includes/admin/happy-birthday-admin-settings.php:580
 msgid "Select Birthday Celebration icon"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:390
+#: includes/admin/happy-birthday-admin-settings.php:433
 msgid "Select delay in seconds for WP Mail"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:356
+#: includes/admin/happy-birthday-admin-settings.php:399
 msgid "Select email sending speed"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:455
+#: includes/admin/happy-birthday-admin-settings.php:498
 msgid "Select info in Admin email"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:483
+#: includes/admin/happy-birthday-admin-settings.php:528
 msgid "Select Members Directory form"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:312
+#: includes/admin/happy-birthday-admin-settings.php:337
 msgid "Select Name in the Celebrant list"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:275
+#: includes/admin/happy-birthday-admin-settings.php:300
 msgid "Select the Account statuses to receive the Happy Birthday greeting"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:403
+#: includes/admin/happy-birthday-admin-settings.php:446
 msgid ""
 "Select the delay in seconds between each greetings email being sent via WP "
 "Mail."
@@ -705,100 +831,112 @@ msgid ""
 "to send greetings to the User."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:469
+#: includes/admin/happy-birthday-admin-settings.php:512
 msgid ""
 "Select the information fields about the celebrant to include in the Admin "
 "info email."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:485
+#: includes/admin/happy-birthday-admin-settings.php:530
 msgid "Select the Members Directory form for display of celebrants."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:285
+#: includes/admin/happy-birthday-admin-settings.php:370
+msgid "Select the number of past birthdays to show. Default is one day."
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:379
+msgid "Select the number of upcoming birthdays to show. Default is 6 days."
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:310
 msgid "Select the Priority User Roles to receive the Happy Birthday greeting"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:333
+#: includes/admin/happy-birthday-admin-settings.php:358
 #, php-format
 msgid "Select the text color for \"%s\""
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:318
+#: includes/admin/happy-birthday-admin-settings.php:343
 msgid ""
 "Select the User name for the Celebrant listing at this page and UM Dashboard "
 "modal if activated."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:292
+#: includes/admin/happy-birthday-admin-settings.php:317
 msgid ""
 "Select to include current old users without having selected \"Yes\" in "
 "Account page as accepting birthday greetings."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:305
+#: includes/admin/happy-birthday-admin-settings.php:330
 msgid "Select to show the User Celebrant list"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:374
+#: includes/admin/happy-birthday-admin-settings.php:417
 msgid ""
 "Select which speed to send the greetings emails in number of emails sent per "
 "hour."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:258
+#: includes/admin/happy-birthday-admin-settings.php:283
 msgid "Send Happy Birthday greetings during this hour or later"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:467
+#: includes/admin/happy-birthday-admin-settings.php:510
 msgid "Sent greeting status"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:612
+#: includes/admin/happy-birthday-admin.php:716
 msgid "Sent OK"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:119
+#: includes/admin/happy-birthday-admin.php:188
 msgid "settings"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:1023
+#: includes/admin/happy-birthday-admin.php:635
+msgid "she"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin.php:1132
 msgid "Show"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:605
+#: includes/admin/happy-birthday-admin.php:709
 msgid "SMS failure = email resend"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:577
+#: includes/admin/happy-birthday-admin.php:681
 #, php-format
 msgid "SMS Gateway error: %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:586
+#: includes/admin/happy-birthday-admin.php:690
 #, php-format
 msgid "SMS Gateway return message: %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:213
+#: includes/admin/happy-birthday-admin.php:290
 #, php-format
 msgid "SMS Gateway status: %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:866
+#: includes/admin/happy-birthday-admin.php:970
 msgid ""
 "SMS not possible and email greetings are disabled: No greetings will be sent"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:566
+#: includes/admin/happy-birthday-admin.php:670
 msgid "SMS resend by Admin"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:455
+#: includes/admin/happy-birthday-admin.php:532
 msgid "SMS text failures: %d"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:454
+#: includes/admin/happy-birthday-admin.php:531
 msgid "SMS text OK: %d"
 msgstr ""
 
@@ -818,7 +956,7 @@ msgstr ""
 msgid "Star solid"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:1059
+#: includes/admin/happy-birthday-admin.php:1169
 #, php-format
 msgid ""
 "Status: %d Users accepts and %d Users rejects birthday greetings. Default %s:"
@@ -833,29 +971,30 @@ msgstr ""
 msgid "Sun solid"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:161
+#: includes/admin/happy-birthday-admin.php:230
 #, php-format
 msgid "The \"%s\" plugin is deactivated"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:164
+#: includes/admin/happy-birthday-admin.php:233
 #, php-format
 msgid "The \"%s\" plugin is not installed"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:195
-msgid "The Plugin WP Cronjob is waiting in the WP job queue"
+#: includes/admin/happy-birthday-admin.php:266
+msgid "The Plugin WP Cronjob has been waiting %d minutes in the WP job queue"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:187
-msgid "The Plugin WP Cronjob will execute next in about %d minutes"
+#: includes/admin/happy-birthday-admin.php:256
+#, php-format
+msgid "The Plugin WP Cronjob will execute next in about %d minutes at %s"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:192
+#: includes/admin/happy-birthday-admin.php:261
 msgid "The Plugin WP Cronjob will execute next in about %d seconds"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:293
+#: includes/admin/happy-birthday-admin-settings.php:318
 msgid ""
 "These old Users are displayed as \"Default\" and accept or reject in the "
 "Status count."
@@ -869,15 +1008,31 @@ msgstr ""
 msgid "Thumbs up solid"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:946
+#: includes/admin/happy-birthday-admin.php:1050
 msgid "Time for birthday greeting attempt"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:934
+#: includes/admin/happy-birthday-admin.php:1038
 msgid "Time when birthday greeting was sent"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:1034
+#: includes/admin/happy-birthday-admin-settings.php:653
+msgid "Title text Birthday Celebration box horizontal position"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:662
+msgid "Title text Birthday Celebration box width"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:643
+msgid "Title text Birthday Celebration icon for a Profile Viewer"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:634
+msgid "Title text Birthday Celebration icon for the Celebrant"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin.php:1144
 msgid "today"
 msgstr ""
 
@@ -889,8 +1044,17 @@ msgstr ""
 msgid "Ultimate Member - Happy Birthday"
 msgstr ""
 
+#: includes/admin/happy-birthday-admin-settings.php:595
+msgid ""
+"Ultimate Member default blue color is #3ba1da and hover color is #44b0ec"
+msgstr ""
+
 #: includes/admin/happy-birthday-admin-settings.php:61
 msgid "Unknown encoding format returned from GitHub"
+msgstr ""
+
+#: includes/admin/happy-birthday-admin-settings.php:377
+msgid "Upcoming Celebrants to show"
 msgstr ""
 
 #: includes/admin/happy-birthday-admin-settings.php:57
@@ -903,31 +1067,31 @@ msgstr ""
 msgid "Update to plugin version %s is now available for download from GitHub."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:492
+#: includes/admin/happy-birthday-admin-settings.php:537
 msgid "URL to Members Directory page"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:499
+#: includes/admin/happy-birthday-admin-settings.php:553
 msgid "User Accoun Privacy setting"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:274
+#: includes/admin/happy-birthday-admin-settings.php:299
 msgid "User Account statuses to include"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:465
-#: includes/admin/happy-birthday-admin.php:509
-#: includes/admin/happy-birthday-admin.php:733
+#: includes/admin/happy-birthday-admin-settings.php:508
+#: includes/admin/happy-birthday-admin.php:584
+#: includes/admin/happy-birthday-admin.php:837
 msgid "User ID"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:313
+#: includes/admin/happy-birthday-admin-settings.php:338
 msgid "User Login"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:464
-#: includes/admin/happy-birthday-admin.php:508
-#: includes/admin/happy-birthday-admin.php:732
+#: includes/admin/happy-birthday-admin-settings.php:507
+#: includes/admin/happy-birthday-admin.php:583
+#: includes/admin/happy-birthday-admin.php:836
 msgid "User priority role"
 msgstr ""
 
@@ -935,7 +1099,7 @@ msgstr ""
 msgid "User regular"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:265
+#: includes/admin/happy-birthday-admin-settings.php:290
 msgid "User selections"
 msgstr ""
 
@@ -943,9 +1107,9 @@ msgstr ""
 msgid "User solid"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:459
-#: includes/admin/happy-birthday-admin.php:503
-#: includes/admin/happy-birthday-admin.php:727
+#: includes/admin/happy-birthday-admin-settings.php:502
+#: includes/admin/happy-birthday-admin.php:578
+#: includes/admin/happy-birthday-admin.php:831
 msgid "Username"
 msgstr ""
 
@@ -961,35 +1125,40 @@ msgstr ""
 msgid "What is WP-Cron?"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:1158
+#: includes/admin/happy-birthday-admin.php:1314
 msgid "Whether to send the user an email when someone is today's birthday."
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:1068
+#: includes/admin/happy-birthday-admin.php:1178
 #, php-format
 msgid "With current %s of User Roles and Account statuses:"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin.php:1071
+#: includes/admin/happy-birthday-admin.php:1181
 msgid "With current plugin settings of User Roles and Account statuses:"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:217
+#: includes/admin/happy-birthday-admin-settings.php:242
 msgid "WP Cronjob"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:381
+#: includes/admin/happy-birthday-admin-settings.php:424
 msgid "WP Mail or SMTP"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:433
+#: includes/admin/happy-birthday-admin-settings.php:476
 msgid "WP SMS text greeting"
 msgstr ""
 
-#: includes/admin/happy-birthday-admin-settings.php:412
+#: includes/admin/happy-birthday-admin-settings.php:455
 msgid "WP SMS text greetings - Optional"
 msgstr ""
 
 #: includes/admin/happy-birthday-predefined.php:23
 msgid "Yes"
 msgstr ""
+
+#: includes/core/happy-birthday-core.php:93
+msgid "{display_name} is celebrating {his_her} {age_ordinal} birthday today."
+msgstr ""
+
