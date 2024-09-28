@@ -1,4 +1,5 @@
 # UM Happy Birthday version 2.6.0
+### Happy Birthday plugin version 2.7.0 will support UM 2.8.7
 Extension to Ultimate Member for Birthday greeting emails and optional mobile SMS texts.
 
 ## UM Settings -> Email -> Happy Birthday
