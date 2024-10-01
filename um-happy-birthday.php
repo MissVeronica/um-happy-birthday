@@ -2,7 +2,7 @@
 /**
  * Plugin Name:         Ultimate Member - Happy Birthday
  * Description:         Extension to Ultimate Member for Birthday greeting emails and optional mobile SMS texts.
- * Version:             2.6.0
+ * Version:             2.7.0
  * Requires PHP:        7.4
  * Author:              Miss Veronica
  * License:             GPL v3 or later
@@ -12,7 +12,7 @@
  * Update URI:          https://github.com/MissVeronica/um-happy-birthday
  * Text Domain:         happy-birthday
  * Domain Path:         /languages
- * UM version:          2.8.6
+ * UM version:          2.8.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -43,8 +43,13 @@ function um_happy_birthday_plugin_loaded() {
     $load = load_textdomain( Plugin_Textdomain_HB, WP_LANG_DIR . '/plugins/' . Plugin_Textdomain_HB . '-' . $locale . '.mo' );
     $text = load_plugin_textdomain( Plugin_Textdomain_HB, false, dirname( Plugin_Basename_HB ) . '/languages/' );
 
-    require_once( Plugin_Path_HB . 'includes/admin/happy-birthday-admin.php' );
-    UM()->classes['um_happy_birthday'] = new UM_Happy_Birthday();
+    if ( version_compare( ultimatemember_version, '2.8.7' ) == -1 ) {
+        require_once( Plugin_Path_HB . 'includes/admin/happy-birthday-admin-260.php' );
+        UM()->classes['um_happy_birthday'] = new UM_Happy_Birthday();
+    } else {
+        require_once( Plugin_Path_HB . 'includes/admin/happy-birthday-admin-270.php' );
+        UM()->classes['um_happy_birthday'] = new UM_Happy_Birthday(); 
+    }
 
     require_once( Plugin_Path_HB . 'includes/admin/happy-birthday-transients.php' );
     UM()->classes['um_happy_birthday_transients'] = new UM_Happy_Birthday_Transients();
