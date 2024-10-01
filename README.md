@@ -1,5 +1,5 @@
-# UM Happy Birthday version 2.6.0
-### Happy Birthday plugin version 2.7.0 will support UM 2.8.7
+# UM Happy Birthday version 2.7.0
+
 Extension to Ultimate Member for Birthday greeting emails and optional mobile SMS texts.
 
 ## UM Settings -> Email -> Happy Birthday
@@ -59,8 +59,10 @@ Plugin version update check each 24 hours and the documentation link.
 1. Button: Restart Plugin WP Cronjob - Press this button if you want to have the Plugin WP Cronjob to be scheduled at 5 minutes past the hour.
 
 ## WP All Users
-1. UM Action: Resend Happy Birthday greetings
-2. For additional User columns use this plugin https://github.com/MissVeronica/um-additional-user-columns
+1. WP All Users list page with todays celebrants and their birthdates in a sortable column.
+2. "Resend" function in "Bulk actions" with support for multiple User "Resend". 
+3. Todays celebrants page link from "Ultimate Member" in WP backend left column.
+4. For additional User columns use this plugin https://github.com/MissVeronica/um-additional-user-columns
 
 ## User Account Page - Privacy
 1. Do you want to receive birthday greetings? - Enable/Disable birthday greetings via email or SMS text message inclusive a Celebration icon at the Profile page
@@ -157,6 +159,13 @@ $he_she  = apply_filters( 'happy_birthday_he_she',  $he_she,  $gender, $user_id 
 10. Delta interval +14/-14 days with the URL <code>.../um-happy-birthday/?delta=-1</code>
 11. UM Dashboard button: Restart Plugin WP Cronjob
 12. Code improvements
+### Version 2.7.0  
+1. Support for UM 2.8.7 with new functions. 
+2. Plugin will execute version 2.6.0 for pre versions of UM 2.8.7
+3. WP All Users list page with todays celebrants and their birthdates in a sortable column.
+4. "Resend" function moved to "Bulk actions" with support for multiple User "Resend". 
+5. Todays celebrants page link from "Ultimate Member" in WP backend left column.
+6. Happy Birthday link in backend page header removed.
 
 ## References
 1. WP Cron:  https://developer.wordpress.org/plugins/cron/
@@ -164,6 +173,7 @@ $he_she  = apply_filters( 'happy_birthday_he_she',  $he_she,  $gender, $user_id 
 3. "Code Snippets" Plugin: https://wordpress.org/plugins/code-snippets/
 
 ## Installation & Updates
-1. Install or Update by downloading the plugin ZIP file at the green Code button
+1. Install or Update by downloading the plugin ZIP file at the green Code button.
 2. Install as a new WP Plugin Upload in WordPress -> Plugins -> Add New -> Upload Plugin.
-3. Activate the Plugin: Ultimate Member - Happy Birthday
+3. Activate the Plugin: Ultimate Member - Happy Birthday.
+4. 
