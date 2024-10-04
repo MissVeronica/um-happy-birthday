@@ -68,8 +68,18 @@ class UM_Happy_Birthday {
         add_filter( 'manage_users_columns',                          array( $this, 'manage_users_columns_happy_birthday' ) );
         add_filter( 'manage_users_custom_column',                    array( $this, 'manage_users_custom_column_happy_birthday' ), 10, 3 );
 
-        add_filter( 'bulk_actions-users',                            array( $this, 'um_admin_bulk_user_actions_resend_happy_birthday' ), 10, 1 );  // UM2.8.7 function changes
-        add_action( 'handle_bulk_actions-users',                     array( $this, 'um_admin_custom_hook_happy_birthday_greetings_resend' ), 10, 3 ); // UM2.8.7
+        add_filter( 'bulk_actions-users',                            array( $this, 'um_admin_bulk_user_actions_resend_happy_birthday' ), 10, 1 );
+
+        if ( isset( $_REQUEST['action'] )) {
+
+            if ( $_REQUEST['action'] == 'happy_birthday_greetings' ) {
+                add_action( 'handle_bulk_actions-users',               array( $this, 'um_admin_custom_hook_happy_birthday_greetings_resend' ), 10, 3 );
+            }
+
+            if ( $_REQUEST['action'] == 'happy_birthday_reset' ) {
+                add_action( 'um_admin_do_action__happy_birthday_cron', array( $this, 'happy_birthday_reset_cron_job' ) );
+            }
+        }
 
         add_filter( 'um_prepare_user_query_args',                    array( $this, 'um_happy_birthday_directories' ), 10, 2 );
         add_filter( 'um_pre_args_setup',                             array( $this, 'um_pre_args_setup_happy_birthday' ), 10, 1 );
@@ -77,8 +87,7 @@ class UM_Happy_Birthday {
         add_action( 'um_registration_set_extra_data',                array( $this, 'um_registration_set_happy_birthday_account_consent' ), 10, 3 );
         add_action( 'um_account_pre_update_profile',                 array( $this, 'um_account_pre_update_profile_happy_birthday_account_consent' ), 10, 2 );
 
-        add_action( 'um_admin_do_action__happy_birthday_cron',       array( $this, 'happy_birthday_reset_cron_job' ) );
-        add_filter( 'um_adm_action_custom_update_notice',            array( $this, 'happy_birthday_admin_notice' ), 10, 2 );
+        add_filter( 'um_adm_action_custom_update_notice',            array( $this, 'happy_birthday_admin_notice' ), 99, 2 );
 
 
 
@@ -124,7 +133,7 @@ class UM_Happy_Birthday {
         $url = add_query_arg(
                                 array(
                                     'page'     => 'ultimatemember',
-                                    'update'   => 'happy_birthday_reset',
+                                    'action'   => 'happy_birthday_reset',
                                     'result'   =>  $status,
                                     '_wpnonce' =>  wp_create_nonce( 'happy_birthday_reset' ),
                                 ),
@@ -143,12 +152,12 @@ class UM_Happy_Birthday {
 
             if ( $cron_job > 0 ) {
 
-                $message[0]['content'] = sprintf( esc_html__( 'Happy Birthday restarted %s WP Cronjob to be scheduled next time at %s', 'happy-birthday' ),
+                $message[]['content'] = sprintf( esc_html__( 'Happy Birthday restarted %s WP Cronjob to be scheduled next time at %s', 'happy-birthday' ),
                                                                sanitize_text_field( $_REQUEST['result'] ), esc_attr( $this->get_local_time( $cron_job ) ));
 
             } else {
 
-                $message[0]['content'] = esc_html__( 'Restart of Happy Birthday WP Cronjob failed', 'happy-birthday' );
+                $message[]['content'] = esc_html__( 'Restart of Happy Birthday WP Cronjob failed', 'happy-birthday' );
             }
         }
 
@@ -156,20 +165,21 @@ class UM_Happy_Birthday {
 
             switch( sanitize_text_field( $_REQUEST['result'] ) ) {
 
-                case 'A':   $result = esc_html__( 'Invalid', 'happy-birthday' );
+                case 'a':   $result = esc_html__( 'Invalid', 'happy-birthday' );
                             break;
 
-                case 'B':   $result = esc_html__( 'Too late for resending any more Birthday greetings today.', 'happy-birthday' );
+                case 'b':   $result = esc_html__( 'Too late for resending any more Birthday greetings today.', 'happy-birthday' );
                             break;
 
-                case 'C':   $result = esc_html__( 'No users selected for resending Birthday greetings.', 'happy-birthday' );
+                case 'c':   $result = esc_html__( 'No users selected for resending Birthday greetings.', 'happy-birthday' );
                             break;
 
-                default:    $result = sprintf( esc_html__( '%d users selected for resending Birthday greetings. Users with pending greetings are not included in this Users list.', 'happy-birthday' ), intval( $_REQUEST['result'] ) );
+                default:    $result = sprintf( esc_html__( '%d users selected for resending Birthday greetings. 
+                                                            Users with pending greetings are not included in this Users list until greetings being resent.', 'happy-birthday' ), intval( $_REQUEST['result'] ) );
                             break;
             }
 
-            $message[0]['content'] = esc_html( $result );
+            $message[]['content'] = $result;
         }
 
         return $message;
@@ -442,9 +452,9 @@ class UM_Happy_Birthday {
 
     public function um_admin_custom_hook_happy_birthday_greetings_resend( $redirect, $doaction, $user_ids ) {
 
-        $result = 'A';
-
         if ( $doaction == 'happy_birthday_greetings' ) {
+
+            $result = 'a';
             if ( is_array( $user_ids ) && ! empty( $user_ids )) {                
 
                 $cron = new DateTime( date_i18n( 'Y-m-d H:i:s', wp_next_scheduled( $this->wp_cron_event ) + 1200 ), new DateTimeZone( 'UTC' ));
@@ -471,26 +481,26 @@ class UM_Happy_Birthday {
                     $result = $count;
 
                 } else {
-                    $result = 'B';
+                    $result = 'b';
                 }
 
             } else {
-                $result = 'C';
+                $result = 'c';
             }
+
+            $url = add_query_arg(
+                                    array(
+                                            'update'         => 'happy_birthday_greetings',
+                                            'happy_birthday' => 'happy_birthday_greetings',
+                                            'result'         =>  $result,
+                                            '_wpnonce'       =>  wp_create_nonce( 'happy_birthday_greetings' ),
+                                    ),
+                                    admin_url( 'users.php' )
+                                );
+
+            wp_safe_redirect( $url );
+            exit;
         }
-
-        $url = add_query_arg(
-                                array(
-                                        'update'         => 'happy_birthday_greetings',
-                                        'happy_birthday' => 'happy_birthday_greetings',
-                                        'result'         =>  $result,
-                                        '_wpnonce'       =>  wp_create_nonce( 'happy_birthday_greetings' ),
-                                ),
-                                admin_url( 'users.php' )
-                            );
-
-        wp_safe_redirect( $url );
-        exit;
     }
 
     public function get_happy_birthday_meta_query( $account_status ) {
@@ -1156,7 +1166,7 @@ class UM_Happy_Birthday {
         if ( ! $this->cronjob && UM()->options()->get( $this->slug . '_modal_list' ) == 1 ) {
 
             if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'ultimatemember' ) {
-                if ( isset( $_REQUEST['update'] ) && $_REQUEST['update'] == 'um_cleared_cache' ) {
+                if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'um_cleared_cache' ) {
 
                     UM()->user()->remove_cache( $user_id );
                 }
@@ -1567,3 +1577,4 @@ class UM_Happy_Birthday {
     }
 
 }
+
