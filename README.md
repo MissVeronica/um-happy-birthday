@@ -1,4 +1,4 @@
-# UM Happy Birthday version 2.7.1
+# UM Happy Birthday version 2.7.2
 
 Extension to Ultimate Member for Birthday greeting emails and optional mobile SMS texts.
 
@@ -167,7 +167,9 @@ $he_she  = apply_filters( 'happy_birthday_he_she',  $he_she,  $gender, $user_id 
 5. Todays celebrants page link from "Ultimate Member" in WP backend left column.
 6. Happy Birthday link in backend page header removed.
 ### Version 2.7.1                
-1. Update for conflict in UM Bulk User Actions and Admin notices. 
+1. Update for conflict in UM Bulk User Actions and Admin notices.
+### Version 2.7.2                
+1. Code improvements for WP 6.7.
 
 ## References
 1. WP Cron:  https://developer.wordpress.org/plugins/cron/
