@@ -169,7 +169,7 @@ $he_she  = apply_filters( 'happy_birthday_he_she',  $he_she,  $gender, $user_id 
 ### Version 2.7.1                
 1. Update for conflict in UM Bulk User Actions and Admin notices.
 ### Version 2.7.2                
-1. Code improvements for WP 6.7.
+1. Code improvements for WP 6.7.1
 
 ## References
 1. WP Cron:  https://developer.wordpress.org/plugins/cron/
