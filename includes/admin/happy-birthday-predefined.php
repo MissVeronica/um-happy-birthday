@@ -17,18 +17,14 @@ class UM_Happy_Birthday_Predefined {
     function __construct() {
 
         add_filter( 'um_predefined_fields_hook', array( $this, 'custom_predefined_fields_happy_birthday' ), 10, 1 );
-        add_action( 'init',                      array( $this, 'plugin_load_translations' ), 10 );
     }
 
-    public function plugin_load_translations() {
+    public function custom_predefined_fields_happy_birthday( $predefined_fields ) {
 
         $this->privacy_options = array(
                                         'no'  => __( 'No',  'happy-birthday' ),
                                         'yes' => __( 'Yes', 'happy-birthday' ),
                                     );
-    }
-
-    public function custom_predefined_fields_happy_birthday( $predefined_fields ) {
 
         UM()->classes['um_happy_birthday_core']->icon_options = apply_filters( 'happy_birthday_icons', array(
 
