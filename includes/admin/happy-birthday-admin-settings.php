@@ -38,7 +38,7 @@ class UM_Happy_Birthday_Admin_Settings {
 
                         $curl = curl_init();
                         curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-                        curl_setopt( $curl, CURLOPT_BINARYTRANSFER, 1 );
+                        //curl_setopt( $curl, CURLOPT_BINARYTRANSFER, 1 );
                         curl_setopt( $curl, CURLOPT_FOLLOWLOCATION, 1 );
                         curl_setopt( $curl, CURLOPT_URL, $url );
                         curl_setopt( $curl, CURLOPT_USERAGENT, $github_user );
