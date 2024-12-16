@@ -1,4 +1,4 @@
-# UM Happy Birthday version 2.7.3
+# UM Happy Birthday version 2.7.4
 
 Extension to Ultimate Member for Birthday greeting emails and optional mobile SMS texts.
 
@@ -172,6 +172,8 @@ $he_she  = apply_filters( 'happy_birthday_he_she',  $he_she,  $gender, $user_id 
 1. Code improvements for WP 6.7.1
 ### Version 2.7.3                
 1. Fix for yes/no missing in Account consent
+### Version 2.7.4                
+1. Fix for sites using PHP 8.4 to avoid a deprecated message. No changes in Plugin functions.
 
 ## References
 1. WP Cron:  https://developer.wordpress.org/plugins/cron/
