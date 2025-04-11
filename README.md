@@ -180,6 +180,9 @@ $he_she  = apply_filters( 'happy_birthday_he_she',  $he_she,  $gender, $user_id 
 2. Font Awesome: https://docs.fontawesome.com/web/add-icons/how-to
 3. "Code Snippets" Plugin: https://wordpress.org/plugins/code-snippets/
 
+## Other plugins
+1. "Date Difference in Days". A shortcode which can be used for countdown to birthdays. https://github.com/MissVeronica/um-date-diff-days
+
 ## Installation & Updates
 1. Install or Update by downloading the plugin ZIP file at the green Code button.
 2. Install as a new WP Plugin Upload in WordPress -> Plugins -> Add New -> Upload Plugin.
