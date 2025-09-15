@@ -2,6 +2,8 @@
 
 Extension to Ultimate Member for Birthday greeting emails and optional mobile SMS texts.
 
+NEW September 15 2025: "Profile Photo Placeholders" plugin https://github.com/MissVeronica/um-profile-photo-placeholders
+
 ## UM Settings -> Email -> Happy Birthday
 1. Enable/Disable - Enable this email notification
 2. Subject
@@ -179,6 +181,7 @@ $he_she  = apply_filters( 'happy_birthday_he_she',  $he_she,  $gender, $user_id 
 1. WP Cron:  https://developer.wordpress.org/plugins/cron/
 2. Font Awesome: https://docs.fontawesome.com/web/add-icons/how-to
 3. "Code Snippets" Plugin: https://wordpress.org/plugins/code-snippets/
+4. "Profile Photo Placeholders" plugin https://github.com/MissVeronica/um-profile-photo-placeholders
 
 ## Other plugins
 1. "Date Difference in Days". A shortcode which can be used for countdown to birthdays. https://github.com/MissVeronica/um-date-diff-days
